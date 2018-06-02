@@ -1,6 +1,7 @@
 $(() => {
 
 
+
   $('.register-submit').click(function(e){
     const email = $('#register-email').val();
     const password = $('#password1').val();
@@ -37,6 +38,19 @@ $(() => {
     });
 
   });
+
+
+  $("#logout-button").on('click', function (event) {
+    event.preventDefault();
+    console.log('attempting post');
+    $.ajax({
+      type: "POST",
+      url: "/users/logout",
+      success: function (result) {
+          location.href="/";
+      }
+    })
+  })
 
 
   // Get the modal

@@ -39,6 +39,7 @@ module.exports = (knex, bcrypt, cookieSession) => {
             .then((results) => {
               req.session.userID = results[0];
               req.session.email = email;
+              console.log("Session email: ", req.session.email);
               res.send(results);
             });
         } else {
@@ -47,6 +48,10 @@ module.exports = (knex, bcrypt, cookieSession) => {
       });
   });
 
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.sendStatus(200);
+  });
 
   return router;
 }

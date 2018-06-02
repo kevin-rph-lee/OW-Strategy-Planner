@@ -49,6 +49,7 @@ app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 
 // Home page
 app.get("/", (req, res) => {
+  console.log('Email passed down to EJS: ', req.session.email)
   res.render('index', {
     email: req.session.email,
     userID: req.session.userID
