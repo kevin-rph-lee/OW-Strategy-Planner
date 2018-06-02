@@ -18,16 +18,25 @@ $(() => {
       $(".alert").delay(3000).fadeOut("slow");
     }
 
+
+    $.ajax({
+      url: '/users/new',
+      data: {email: email, password: password},
+      method: 'POST'
+    }).done((id) => {
+      console.log('ID: ', id);
+    }).catch((err) => {
+      // $('.register-alert').append(`
+      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      // <strong>OOPS!</strong> ${err.responseText}
+      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      //   <span aria-hidden="true">&times;</span>
+      // </button>
+      // </div>
+      // `)
+    });
+
   });
-
-
-
-
-
-
-
-
-
 
 
   // Get the modal
