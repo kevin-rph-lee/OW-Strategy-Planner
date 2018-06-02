@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (knex, bcrypt, cookieSession) => {
 
   //Checks for valid email
   function validateEmail(mail) {
