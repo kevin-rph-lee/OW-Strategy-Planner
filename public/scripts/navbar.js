@@ -40,6 +40,30 @@ $(() => {
   });
 
 
+  $('.login-submit').click(function(e){
+    const email = $('#login-email').val();
+    const password = $('#login-password').val();
+
+    $.ajax({
+      url: '/users/login',
+      data: {email: email, password: password},
+      method: 'POST'
+    }).done((id) => {
+      window.location.replace(`/`);
+    }).catch((err) => {
+      // $('.register-alert').append(`
+      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      // <strong>OOPS!</strong> ${err.responseText}
+      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      //   <span aria-hidden="true">&times;</span>
+      // </button>
+      // </div>
+      // `)
+    });
+
+  });
+
+
   $("#logout-button").on('click', function (event) {
     event.preventDefault();
     console.log('attempting post');

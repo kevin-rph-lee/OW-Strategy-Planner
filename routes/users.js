@@ -53,6 +53,8 @@ module.exports = (knex, bcrypt, cookieSession) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    console.log('Logging in ', email + ' Pass ' + password)
+
     if (!email || !password) {
       res.sendStatus(400);
       return;
