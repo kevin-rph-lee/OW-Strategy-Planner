@@ -32,8 +32,15 @@ module.exports = (knex, bcrypt, cookieSession) => {
       .where({email:email})
       .then((results) => {
         if (results.length === 0) {
-          console.log('Ready to insert');
-          //stuff tha relies on it
+          knex
+            .insert({email: email, password: bcrypt.hashSync(password, 10)})
+            .into('users')
+            .returning('id')
+            .then((results) => {
+              req.session.userID = results[0];
+              req.session.email = email;
+              res.send(results);
+            });
         } else {
           res.status(400).send("Looks like you're already enrolled! Please check your email...");
         }

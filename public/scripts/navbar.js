@@ -24,7 +24,7 @@ $(() => {
       data: {email: email, password: password},
       method: 'POST'
     }).done((id) => {
-      console.log('ID: ', id);
+      window.location.replace(`/`);
     }).catch((err) => {
       // $('.register-alert').append(`
       // <div class="alert alert-warning alert-dismissible fade show" role="alert">
