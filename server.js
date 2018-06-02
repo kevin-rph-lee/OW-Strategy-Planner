@@ -49,7 +49,10 @@ app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render('index', {
+    email: req.session.email,
+    userID: req.session.userID
+  });
 });
 
 app.listen(PORT, () => {
