@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>Navvbar?</title>
+  <title>Navbar?</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -16,6 +16,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js" integrity="sha384-3ziFidFTgxJXHMDttyPJKDuTlmxJlwbSkojudK/CkRqKDOmeSbN6KLrGdrBQnT2n" crossorigin="anonymous"></script>
   <script type="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="/scripts/app.js"></script>
+  <script src="/scripts/navbar.js"></script>
+
+
+  <!-- Custom CSS -->
+  <link href="/styles/main.css" rel="stylesheet" type="text/css">
+  <link href="/styles/navbar.css" rel="stylesheet" type="text/css">
 
   <!-- Bootstrap Style Sheets -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -31,11 +37,23 @@
 
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Login</a>
-          <a class="dropdown-item" href="#">Register</a>
+          <a class="dropdown-item" id="login-button" href="#">Login</a>
+          <a class="dropdown-item" id="register-button" href="#">Register</a>
         </div>
       </div>
     </ul>
   </div>
+
+<!-- The Modal -->
+<div id="register-modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
 </nav>
 
