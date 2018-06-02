@@ -48,6 +48,34 @@ module.exports = (knex, bcrypt, cookieSession) => {
       });
   });
 
+  // logs a user in
+  router.post("/login", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (!email || !password) {
+      res.sendStatus(400);
+      return;
+    }
+
+    // Checking if user already exists, if user does not exist, throw back a 404
+    knex
+      .select("password", "id")
+      .from("users")
+      .where({ email: email })
+      .then((results) => {
+        if (results.length === 0) {
+          res.sendStatus(404);
+        } else if (bcrypt.compareSync(password, results[0].password)) {
+          req.session.email = email;
+          req.session.userID = results[0].id;
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(403);
+        }
+      });
+  });
+
   router.post("/logout", (req, res) => {
     req.session = null;
     res.sendStatus(200);
