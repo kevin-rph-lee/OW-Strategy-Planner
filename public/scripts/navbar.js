@@ -55,31 +55,37 @@ $(() => {
 
   // Get the modal
   const registerModal = document.getElementById('register-modal');
+  const loginModal = document.getElementById('login-modal');
+
 
   // Get the button that opens the modal
   const registerButton = document.getElementById("register-button");
-
-  // Get the <span> element that closes the modal
-  const span = document.getElementsByClassName("close-button")[0];
+  const loginButton = document.getElementById("login-button");
 
   // When the user clicks on the button, open the modal
   registerButton.onclick = function() {
       registerModal.style.display = "block";
   }
 
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-      console.log('Close')
-      registerModal.style.display = "none";
+  // When the user clicks on the button, open the modal
+  loginButton.onclick = function() {
+      loginModal.style.display = "block";
   }
+
+  $( ".close-button" ).click(function() {
+    registerModal.style.display = "none";
+    loginModal.style.display = "none";
+  });
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
       if (event.target == registerModal) {
           registerModal.style.display = "none";
       }
+      if (event.target == loginModal) {
+          loginModal.style.display = "none";
+      }
   }
-
 
 
 });
