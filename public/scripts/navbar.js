@@ -1,5 +1,35 @@
 $(() => {
 
+
+  $('.register-submit').click(function(e){
+    const email = $('#register-email').val();
+    const password = $('#password1').val();
+    const passwordConfirm = $('#password2').val();
+
+    if(password !== passwordConfirm){
+      $('.register-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> Your passwords don't match, please try again.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+    }
+
+  });
+
+
+
+
+
+
+
+
+
+
+
   // Get the modal
   const registerModal = document.getElementById('register-modal');
 
