@@ -34,8 +34,6 @@ $(() => {
     var bounds = new google.maps.LatLngBounds();
 
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 1,
-      center: {lat: 37.969, lng: -122.246},
       mapTypeId: 'terrain'
     });
 
@@ -65,8 +63,9 @@ $(() => {
       snippet: 'test'
     });
     marker.addListener('click', function() {
+      var infowindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
       // infowindow.open(map, marker);
-      console.log(marker.desc);
+      infowindow.open(map, marker);
     });
     //adding pointer id
     marker.desc = desc;
