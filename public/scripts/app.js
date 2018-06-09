@@ -2,13 +2,27 @@ $(() => {
 
 
   const locations = [
-    {pos:{lat: 37.969, lng: -122.246}, title: 'test1'},
-    {pos:{lat: 37.769, lng: -122.446}, title: 'test2'},
-    {pos:{lat: 37.469, lng: -122.646}, title: 'test3'}
+    {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking'},
+    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking'},
+    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking'}
   ];
 
   const markers = [];
+  var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+  var icons = {
+    parking: {
+      icon: iconBase + 'parking_lot_maps.png'
+    },
+    library: {
+      icon: iconBase + 'library_maps.png'
+    },
+    info: {
+      icon: iconBase + 'info-i_maps.png'
+    }
+  };
+
   var markerClick;
+
 
   /**
    * Initializes the map
@@ -25,7 +39,7 @@ $(() => {
     console.log(locations)
     for(var i = 0; i < locations.length; i ++){
       console.log('loop 1')
-      addMarker(locations[i].pos, locations[i].title);
+      addMarker(locations[i].pos, locations[i].title, locations[i].type);
     }
 
 
@@ -44,11 +58,12 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title) => {
+  addMarker = (location, title, type) => {
     var marker = new google.maps.Marker({
       position: location,
       map: map,
-      title: title
+      title: title,
+      icon: icons[type].icon
     });
 
     markers.push(marker);
