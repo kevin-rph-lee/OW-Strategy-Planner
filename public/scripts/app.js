@@ -3,8 +3,8 @@ $(() => {
 
   const locations = [
     {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking', id: 1, desc: 'Good parking1'},
-    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking', id: 2, desc: 'Good parking1'},
-    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking', id: 3, desc: 'Good parking1'}
+    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking', id: 2, desc: 'Good parking2'},
+    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking', id: 3, desc: 'Good parking3'}
   ];
 
 
@@ -40,7 +40,7 @@ $(() => {
     });
 
     for(var i = 0; i < locations.length; i ++){
-      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].id);
+      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc);
     }
 
     for(var x = 0; x < markers.length; x ++){
@@ -56,7 +56,7 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title, type, id) => {
+  addMarker = (location, title, type, desc) => {
     var marker = new google.maps.Marker({
       position: location,
       map: map,
@@ -66,10 +66,10 @@ $(() => {
     });
     marker.addListener('click', function() {
       // infowindow.open(map, marker);
-      console.log(marker.getSnippet())
+      console.log(marker.desc);
     });
     //adding pointer id
-    marker.id = id;
+    marker.desc = desc;
     markers.push(marker);
   }
 
