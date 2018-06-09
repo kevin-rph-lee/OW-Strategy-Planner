@@ -38,7 +38,7 @@ $(() => {
     });
 
     for(var i = 0; i < locations.length; i ++){
-      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc);
+      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc, locations[i].id);
     }
 
     for(var x = 0; x < markers.length; x ++){
@@ -54,7 +54,7 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title, type, desc) => {
+  addMarker = (location, title, type, desc, id) => {
     var marker = new google.maps.Marker({
       position: location,
       map: map,
@@ -64,11 +64,11 @@ $(() => {
     });
     marker.addListener('click', function() {
       if(infoWindow === undefined){
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
         infoWindow.open(map, marker);
-      } else{
+      } else {
         infoWindow.close();
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
         infoWindow.open(map, marker);
       }
     });
