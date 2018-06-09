@@ -2,10 +2,12 @@ $(() => {
 
 
   const locations = [
-    {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking'},
-    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking'},
-    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking'}
+    {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking', id: 1, desc: 'Good parking1'},
+    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking', id: 2, desc: 'Good parking1'},
+    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking', id: 3, desc: 'Good parking1'}
   ];
+
+
 
   const markers = [];
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -36,16 +38,12 @@ $(() => {
       center: {lat: 37.969, lng: -122.246},
       mapTypeId: 'terrain'
     });
-    console.log(locations)
+
     for(var i = 0; i < locations.length; i ++){
-      console.log('loop 1')
-      addMarker(locations[i].pos, locations[i].title, locations[i].type);
+      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].id);
     }
 
-
     for(var x = 0; x < markers.length; x ++){
-      console.log('Loop 2')
-      console.log(markers[x].getPosition());
       bounds.extend(markers[x].getPosition())
     }
 
@@ -58,14 +56,20 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title, type) => {
+  addMarker = (location, title, type, id) => {
     var marker = new google.maps.Marker({
       position: location,
       map: map,
       title: title,
-      icon: icons[type].icon
+      icon: icons[type].icon,
+      snippet: 'test'
     });
-
+    marker.addListener('click', function() {
+      // infowindow.open(map, marker);
+      console.log(marker.getSnippet())
+    });
+    //adding pointer id
+    marker.id = id;
     markers.push(marker);
   }
 
@@ -83,7 +87,5 @@ $(() => {
       markerClick.setPosition(event.latLng);
     }
   });
-
-
 
 });
