@@ -24,7 +24,7 @@ $(() => {
   };
 
   var markerClick;
-
+  var infoWindow;
 
   /**
    * Initializes the map
@@ -63,9 +63,14 @@ $(() => {
       snippet: 'test'
     });
     marker.addListener('click', function() {
-      var infowindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
-      // infowindow.open(map, marker);
-      infowindow.open(map, marker);
+      if(infoWindow === undefined){
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
+        infoWindow.open(map, marker);
+      } else{
+        infoWindow.close();
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.desc + "</p>"});
+        infoWindow.open(map, marker);
+      }
     });
     //adding pointer id
     marker.desc = desc;
