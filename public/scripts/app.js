@@ -7,13 +7,14 @@ $(() => {
   {pos:{lat: 37.469, lng: -122.646}, title: 'test3'}
   ]
 
-  markers = [];
+  const markers = [];
+  var markerClick;
 
   initMap = () => {
     var bounds = new google.maps.LatLngBounds();
 
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
+      zoom: 1,
       center: {lat: 37.969, lng: -122.246},
       mapTypeId: 'terrain'
     });
@@ -45,6 +46,18 @@ $(() => {
   }
 
   initMap();
+
+
+  map.addListener('click', function(event) {
+    if(markerClick === undefined){
+      markerClick = new google.maps.Marker({
+        position: event.latLng,
+        map: map
+      });
+    } else {
+      markerClick.setPosition(event.latLng);
+    }
+  });
     // // This event listener will call addMarker() when the map is clicked.
     // map.addListener('click', function(event) {
     //   addMarker(event.latLng);
