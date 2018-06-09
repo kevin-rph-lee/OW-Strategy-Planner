@@ -10,7 +10,11 @@ $(() => {
   const markers = [];
   var markerClick;
 
-  initMap = () => {
+  /**
+   * Initializes the map
+   * @param  {array} locations An array of locations to have markers added to the map
+   */
+  initMap = (locations) => {
     var bounds = new google.maps.LatLngBounds();
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -35,6 +39,11 @@ $(() => {
 
   }
 
+  /**
+   * Adds a marker to the map
+   * @param  {google maps loc obj} location A google maps lat/long obj
+   * @param  {string} title    Title of the marker
+   */
   addMarker = (location, title) => {
     var marker = new google.maps.Marker({
       position: location,
@@ -45,9 +54,7 @@ $(() => {
     markers.push(marker);
   }
 
-  initMap();
-
-
+  //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
   map.addListener('click', function(event) {
     if(markerClick === undefined){
       markerClick = new google.maps.Marker({
@@ -58,13 +65,7 @@ $(() => {
       markerClick.setPosition(event.latLng);
     }
   });
-    // // This event listener will call addMarker() when the map is clicked.
-    // map.addListener('click', function(event) {
-    //   addMarker(event.latLng);
-    // });
 
-    // // Adds a marker at the center of the map.
-    // addMarker(haightAshbury);
-
+  initMap();
 
 });
