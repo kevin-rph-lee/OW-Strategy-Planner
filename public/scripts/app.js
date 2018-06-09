@@ -76,7 +76,8 @@ $(() => {
     if(markerClick === undefined){
       markerClick = new google.maps.Marker({
         position: event.latLng,
-        map: map
+        map: map,
+        icon:  'https://www.google.com/mapfiles/arrow.png'
       });
     } else {
       markerClick.setPosition(event.latLng);
