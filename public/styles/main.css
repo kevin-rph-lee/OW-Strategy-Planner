@@ -1,1 +1,8 @@
 /* The Modal (background) */
+.tool-tip-image{
+  display: block;
+  max-width:200;
+  max-height:200px;
+  width: auto;
+  height: auto;
+}
