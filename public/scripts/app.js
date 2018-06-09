@@ -1,11 +1,11 @@
 $(() => {
 
 
-  locations = [
-  {pos:{lat: 37.969, lng: -122.246}, title: 'test1'},
-  {pos:{lat: 37.769, lng: -122.446}, title: 'test2'},
-  {pos:{lat: 37.469, lng: -122.646}, title: 'test3'}
-  ]
+  const locations = [
+    {pos:{lat: 37.969, lng: -122.246}, title: 'test1'},
+    {pos:{lat: 37.769, lng: -122.446}, title: 'test2'},
+    {pos:{lat: 37.469, lng: -122.646}, title: 'test3'}
+  ];
 
   const markers = [];
   var markerClick;
@@ -22,7 +22,7 @@ $(() => {
       center: {lat: 37.969, lng: -122.246},
       mapTypeId: 'terrain'
     });
-
+    console.log(locations)
     for(var i = 0; i < locations.length; i ++){
       console.log('loop 1')
       addMarker(locations[i].pos, locations[i].title);
@@ -54,6 +54,8 @@ $(() => {
     markers.push(marker);
   }
 
+  initMap(locations);
+
   //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
   map.addListener('click', function(event) {
     if(markerClick === undefined){
@@ -66,6 +68,6 @@ $(() => {
     }
   });
 
-  initMap();
+
 
 });
