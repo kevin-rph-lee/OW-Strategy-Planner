@@ -1,15 +1,8 @@
 $(() => {
 
+  console.log('Markers ', markers);
 
-  const locations = [
-    {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking', id: 1, desc: 'Good parking1'},
-    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking', id: 2, desc: 'Good parking2'},
-    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking', id: 3, desc: 'Good parking3'}
-  ];
-
-
-
-  const markers = [];
+  const markersArray = [];
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
   var icons = {
     parking: {
@@ -30,19 +23,19 @@ $(() => {
    * Initializes the map
    * @param  {array} locations An array of locations to have markers added to the map
    */
-  initMap = (locations) => {
+  initMap = (markers) => {
     var bounds = new google.maps.LatLngBounds();
 
     map = new google.maps.Map(document.getElementById('map'), {
       mapTypeId: 'terrain'
     });
 
-    for(var i = 0; i < locations.length; i ++){
-      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc, locations[i].id);
+    for(var i = 0; i < markers.length; i ++){
+      addMarker(markers[i].position, markers[i].title, markers[i].type, markers[i].description, markers[i].id, markers[i].email);
     }
 
-    for(var x = 0; x < markers.length; x ++){
-      bounds.extend(markers[x].getPosition())
+    for(var x = 0; x < markersArray.length; x ++){
+      bounds.extend(markersArray[x].getPosition())
     }
 
     map.fitBounds(bounds);
@@ -54,30 +47,29 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title, type, desc, id) => {
+  addMarker = (position, title, type, description, id, email) => {
     var marker = new google.maps.Marker({
-      position: location,
+      position: position,
       map: map,
       title: title,
-      icon: icons[type].icon,
-      snippet: 'test'
+      icon: icons[type].icon
     });
     marker.addListener('click', function() {
       if(infoWindow === undefined){
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
         infoWindow.open(map, marker);
       } else {
         infoWindow.close();
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
         infoWindow.open(map, marker);
       }
     });
     //adding pointer id
-    marker.desc = desc;
-    markers.push(marker);
+    marker.description = description;
+    markersArray.push(marker);
   }
 
-  initMap(locations);
+  initMap(markers);
 
   //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
   map.addListener('click', function(event) {
