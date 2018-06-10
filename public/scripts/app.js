@@ -1,5 +1,6 @@
 $(() => {
 
+  console.log('Markers ', markers);
 
   const markersArray = [];
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -22,15 +23,15 @@ $(() => {
    * Initializes the map
    * @param  {array} locations An array of locations to have markers added to the map
    */
-  initMap = (locations) => {
+  initMap = (markers) => {
     var bounds = new google.maps.LatLngBounds();
 
     map = new google.maps.Map(document.getElementById('map'), {
       mapTypeId: 'terrain'
     });
 
-    for(var i = 0; i < locations.length; i ++){
-      addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc, locations[i].id);
+    for(var i = 0; i < markers.length; i ++){
+      addMarker(markers[i].position, markers[i].title, markers[i].type, markers[i].description, markers[i].id);
     }
 
     for(var x = 0; x < markersArray.length; x ++){
@@ -46,30 +47,29 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (location, title, type, desc, id) => {
+  addMarker = (position, title, type, description, id) => {
     var marker = new google.maps.Marker({
-      position: location,
+      position: position,
       map: map,
       title: title,
-      icon: icons[type].icon,
-      snippet: 'test'
+      icon: icons[type].icon
     });
     marker.addListener('click', function() {
       if(infoWindow === undefined){
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.description + "</p>"});
         infoWindow.open(map, marker);
       } else {
         infoWindow.close();
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.desc + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.description + "</p>"});
         infoWindow.open(map, marker);
       }
     });
     //adding pointer id
-    marker.desc = desc;
+    marker.description = description;
     markersArray.push(marker);
   }
 
-  initMap(locations);
+  initMap(markers);
 
   //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
   map.addListener('click', function(event) {
