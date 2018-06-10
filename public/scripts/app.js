@@ -56,11 +56,11 @@ $(() => {
     });
     marker.addListener('click', function() {
       if(infoWindow === undefined){
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.description + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + "</p>"});
         infoWindow.open(map, marker);
       } else {
         infoWindow.close();
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./images/${id}.jpg'><p>` + marker.description + "</p>"});
+        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + "</p>"});
         infoWindow.open(map, marker);
       }
     });
