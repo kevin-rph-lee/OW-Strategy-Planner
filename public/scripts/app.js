@@ -1,15 +1,7 @@
 $(() => {
 
 
-  const locations = [
-    {pos:{lat: 37.969, lng: -122.246}, title: 'test1', type: 'parking', id: 1, desc: 'Good parking1'},
-    {pos:{lat: 37.769, lng: -122.446}, title: 'test2', type: 'parking', id: 2, desc: 'Good parking2'},
-    {pos:{lat: 37.469, lng: -122.646}, title: 'test3', type: 'parking', id: 3, desc: 'Good parking3'}
-  ];
-
-
-
-  const markers = [];
+  const markersArray = [];
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
   var icons = {
     parking: {
@@ -41,8 +33,8 @@ $(() => {
       addMarker(locations[i].pos, locations[i].title, locations[i].type, locations[i].desc, locations[i].id);
     }
 
-    for(var x = 0; x < markers.length; x ++){
-      bounds.extend(markers[x].getPosition())
+    for(var x = 0; x < markersArray.length; x ++){
+      bounds.extend(markersArray[x].getPosition())
     }
 
     map.fitBounds(bounds);
@@ -74,7 +66,7 @@ $(() => {
     });
     //adding pointer id
     marker.desc = desc;
-    markers.push(marker);
+    markersArray.push(marker);
   }
 
   initMap(locations);

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <title>Home Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -9,15 +10,27 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <script>window.markers = <%- JSON.stringify(markers); %></script>
+
+
+
+
   </head>
 
   <body>
+
+
+
     <% include partials/navbar %>
     <% include partials/register %>
 
     <div id="map" style="width:100%;height:600px;"></div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrLSXiD3Llx4PIBESHzU99vuLeXh_Dfig"></script>
+    <h1><%= markers %></h1>
+
+
 
   </body>
 </html>
