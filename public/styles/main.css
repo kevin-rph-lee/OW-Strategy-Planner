@@ -6,3 +6,11 @@
   width: auto;
   height: auto;
 }
+
+#toggle-off{
+  display:none;
+}
+
+#save{
+  display:none;
+}
