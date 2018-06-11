@@ -3,6 +3,7 @@ $(() => {
   console.log('Markers ', markers);
 
   const markersArray = [];
+  var clickListener;
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
   var icons = {
     parking: {
@@ -69,12 +70,8 @@ $(() => {
     markersArray.push(marker);
   }
 
-  initMap(markers);
 
-
-
-  //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-  map.addListener('click', function(event) {
+  var toggleAddMarker = (event) => {
     if(markerClick === undefined){
       markerClick = new google.maps.Marker({
         position: event.latLng,
@@ -84,6 +81,28 @@ $(() => {
     } else {
       markerClick.setPosition(event.latLng);
     }
+  }
+
+  var unToggleAddMarker = (event) => {
+    console.log('Untoggle')
+  }
+
+
+
+
+  initMap(markers);
+
+
+  document.getElementById("toggle-on").addEventListener('click', () => {
+    //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
+      clickListener = map.addListener('click', toggleAddMarker);
+  });
+
+
+  document.getElementById("toggle-off").addEventListener('click', () => {
+    //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
+      google.maps.event.removeListener(clickListener);
+
   });
 
 });
