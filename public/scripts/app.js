@@ -95,14 +95,19 @@ $(() => {
 
   document.getElementById("toggle-on").addEventListener('click', () => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-      clickListener = map.addListener('click', toggleAddMarker);
+    console.log('click')
+    $('.button-container').append('<button type="button" class="btn btn-warning" id="toggle-off">Toggle Off</button>');
+    $('.button-container').append('<button type="button" class="btn btn-success" id="save">Save</button>');
+    $('#toggle-on').remove();
+
+    clickListener = map.addListener('click', toggleAddMarker);
   });
 
 
-  document.getElementById("toggle-off").addEventListener('click', () => {
-    //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-      google.maps.event.removeListener(clickListener);
+  // document.getElementById("toggle-off").addEventListener('click', () => {
 
-  });
+  //     google.maps.event.removeListener(clickListener);
+
+  // });
 
 });
