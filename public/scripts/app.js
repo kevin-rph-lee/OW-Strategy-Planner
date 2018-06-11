@@ -72,7 +72,7 @@ $(() => {
 
 
   var toggleAddMarker = (event) => {
-    if(markerClick === undefined){
+    if(markerClick === undefined || markerClick.getMap() === null){
       markerClick = new google.maps.Marker({
         position: event.latLng,
         map: map,
@@ -107,7 +107,7 @@ $(() => {
     $('#save').css('display', 'none');
     $('#toggle-on').css('display', 'inline');
     google.maps.event.removeListener(clickListener);
-
+    markerClick.setMap(null);
   });
 
 });
