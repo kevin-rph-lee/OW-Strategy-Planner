@@ -71,6 +71,8 @@ $(() => {
 
   initMap(markers);
 
+
+
   //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
   map.addListener('click', function(event) {
     if(markerClick === undefined){
