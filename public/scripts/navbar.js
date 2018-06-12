@@ -41,8 +41,8 @@ $(() => {
 
 
   $('.login-submit').click(function(e){
-    const email = $('#register-email').val();
-    const password = $('#password1').val();
+    const email = $('#login-email').val();
+    const password = $('#login-password').val();
 
     $.ajax({
       url: '/users/login',
