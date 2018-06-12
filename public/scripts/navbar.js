@@ -22,7 +22,7 @@ $(() => {
 
     $.ajax({
       url: '/users/new',
-      data: {email: email, password: password},
+      data: {email: email.toLowerCase(), password: password},
       method: 'POST'
     }).done((id) => {
       window.location.replace(`/`);
@@ -39,6 +39,30 @@ $(() => {
 
   });
 
+
+  $('.login-submit').click(function(e){
+    const email = $('#register-email').val();
+    const password = $('#password1').val();
+
+    $.ajax({
+      url: '/users/login',
+      data: {email: email.toLowerCase(), password: password},
+      method: 'POST'
+    }).done((id) => {
+      window.location.replace(`/`);
+    }).catch((err) => {
+      $('.login-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> Your password or username is incorrect
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+    });
+
+  });
 
   $("#logout-button").on('click', function (event) {
     event.preventDefault();
