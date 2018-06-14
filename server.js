@@ -56,10 +56,22 @@ app.use("/markers", markersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   console.log('Email passed down to EJS: ', req.session.email)
-  res.render('index', {
-    email: req.session.email,
-    userID: req.session.userID
-  });
+
+  knex
+    .select("*")
+    .from("maps")
+    .then((results) => {
+      console.log(results)
+      res.render('index', {
+        email: req.session.email,
+        userID: req.session.userID,
+        maps: results
+      });
+    });
+
+
+
+
 });
 
 app.listen(PORT, () => {
