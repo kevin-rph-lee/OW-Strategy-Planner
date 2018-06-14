@@ -14,9 +14,17 @@
   <body>
     <% include partials/navbar %>
     <% include partials/register %>
-    <h1>Hello World</h1>
+    <h1>Maps</h1>
 
-
+    <% for(var i in maps) { %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= maps[i].name %></h5>
+          <p class="card-text"><%= maps[i].description  %></p>
+          <a href="#" class="btn btn-primary">View Map</a>
+        </div>
+      </div>
+    <% } %>
 
   </body>
 </html>
