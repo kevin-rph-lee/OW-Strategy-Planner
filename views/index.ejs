@@ -9,6 +9,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script>window.maps = <%- JSON.stringify(maps); %></script>
   </head>
 
   <body>
@@ -21,10 +22,12 @@
         <div class="card-body">
           <h5 class="card-title"><%= maps[i].name %></h5>
           <p class="card-text"><%= maps[i].description  %></p>
-          <a href="#" class="btn btn-primary">View Map</a>
+          <a href="http://localhost:8080/maps/<%= maps[i].id %>"   class="btn btn-primary">View Map</a>
+
+
+
         </div>
       </div>
     <% } %>
-
   </body>
 </html>
