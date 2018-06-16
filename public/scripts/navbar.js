@@ -90,7 +90,7 @@ $(() => {
   const loginButton = document.getElementById("login-button");
 
   // Get the <span> element that closes the modal
-  const span = document.getElementsByClassName("close-button")[0];
+  const closeButton = document.getElementsByClassName("close-button");
 
   // When the user clicks on the button, open the modal
   registerButton.onclick = function() {
@@ -105,7 +105,7 @@ $(() => {
 
 
   // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
+  closeButton.onclick = function() {
       console.log('Close')
       registerModal.style.display = "none";
       loginModal.style.display = "none";
