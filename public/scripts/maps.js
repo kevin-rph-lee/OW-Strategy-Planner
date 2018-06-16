@@ -32,7 +32,7 @@ $(() => {
     });
 
     for(var i = 0; i < markers.length; i ++){
-      addMarker(markers[i].position, markers[i].title, markers[i].type, markers[i].description, markers[i].id, markers[i].email);
+      addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email);
     }
 
     for(var x = 0; x < markersArray.length; x ++){
@@ -48,12 +48,12 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (position, title, type, description, id, email) => {
+  addMarker = (position, title, icon_file_location, description, id, email) => {
     var marker = new google.maps.Marker({
       position: position,
       map: map,
       title: title,
-      icon: icons[type].icon
+      icon:icon_file_location
     });
     marker.addListener('click', function() {
       if(infoWindow === undefined){
