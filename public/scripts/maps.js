@@ -97,14 +97,14 @@ $(() => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
     $('#toggle-on').css('display', 'none');
     $('#toggle-off').css('display', 'inline');
-    $('#save').css('display', 'inline');
+    $('#new-marker-button').css('display', 'inline');
     clickListener = map.addListener('click', toggleAddMarker);
   });
 
 
   document.getElementById("toggle-off").addEventListener('click', () => {
     $('#toggle-off').css('display', 'none');
-    $('#save').css('display', 'none');
+    $('#new-marker-button').css('display', 'none');
     $('#toggle-on').css('display', 'inline');
     google.maps.event.removeListener(clickListener);
     markerClick.setMap(null);

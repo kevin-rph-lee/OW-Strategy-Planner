@@ -23,3 +23,7 @@
 .email {
   margin-right: 20px;
 }
+
+#new-marker-button {
+    display:none;
+}
