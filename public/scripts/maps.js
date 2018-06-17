@@ -86,7 +86,9 @@ $(() => {
   }
 
 
-  document.getElementById("submit-button").addEventListener('click', () => {
+
+  $('form').submit(function (e) {
+    e.preventDefault();
     console.log($('#marker-name').val() + ' ' + $('#marker-description').val() + ' ' + $('#marker-type-select').val())
     console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
 
