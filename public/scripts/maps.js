@@ -110,11 +110,6 @@ $(() => {
     markerClick.setMap(null);
   });
 
-
-
-
-
-
   // Get the modal
   const newMarkerModal = document.getElementById('new-marker-modal');
 
@@ -130,23 +125,17 @@ $(() => {
   }
 
 
-  // When the user clicks on the button, open the modal
-  loginButton.onclick = function() {
-      loginModal.style.display = "block";
-  }
+  document.getElementById("close-button").addEventListener('click', () => {
+    console.log('click')
+    newMarkerModal.style.display = 'none';
+  });
 
 
-  closeButton.onclick = function() {
-
-      newMarkerModal.style.display = "none";
-  }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
-    console.log(event.target)
-      if (event.target == newMarkerModal) {
-          newMarkerModal.style.display = "none";
-      }
+    console.log('Click@')
+
   }
 
 
