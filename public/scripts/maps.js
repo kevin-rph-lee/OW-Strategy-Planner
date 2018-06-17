@@ -4,19 +4,6 @@ $(() => {
 
   const markersArray = [];
   var clickListener;
-  var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-  var icons = {
-    parking: {
-      icon: iconBase + 'parking_lot_maps.png'
-    },
-    library: {
-      icon: iconBase + 'library_maps.png'
-    },
-    info: {
-      icon: iconBase + 'info-i_maps.png'
-    }
-  };
-
   var markerClick;
   var infoWindow;
 
@@ -92,6 +79,18 @@ $(() => {
 
   initMap(markers);
 
+
+
+  for(var i = 0; i < markerTypes.length; i ++){
+    $('#marker-type-select').append(`<option>${markerTypes[i].title}</option>`)
+  }
+
+
+  document.getElementById("submit-button").addEventListener('click', () => {
+    console.log($('#marker-name').val() + ' ' + $('#marker-description').val() + ' ' + $('#marker-type-select').val())
+    console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
+
+  });
 
   document.getElementById("toggle-on").addEventListener('click', () => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
