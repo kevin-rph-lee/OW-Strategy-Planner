@@ -110,4 +110,50 @@ $(() => {
     markerClick.setMap(null);
   });
 
+
+
+
+
+
+  // Get the modal
+  const newMarkerModal = document.getElementById('new-marker-modal');
+
+  // Get the button that opens the modal
+  const newMarkerButton = document.getElementById("new-marker-button");
+
+  // Get the <span> element that closes the modal
+  const closeButton = document.getElementsByClassName("close-button");
+
+  // When the user clicks on the button, open the modal
+  newMarkerButton.onclick = function() {
+      newMarkerModal.style.display = "block";
+  }
+
+
+  // When the user clicks on the button, open the modal
+  loginButton.onclick = function() {
+      loginModal.style.display = "block";
+  }
+
+
+  closeButton.onclick = function() {
+
+      newMarkerModal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    console.log(event.target)
+      if (event.target == newMarkerModal) {
+          newMarkerModal.style.display = "none";
+      }
+  }
+
+
+
+
+
+
+
+
 });

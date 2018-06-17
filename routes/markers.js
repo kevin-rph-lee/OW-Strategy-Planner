@@ -15,10 +15,15 @@ module.exports = (knex) => {
         //WILL ALWAYS RETURN AN ARRAY
         res.json(results[0]);
       });
-
-
   });
 
+
+  router.post("/map/:id/new", (req, res) => {
+    if(req.session.email === undefined){
+      res.sendStatus(400);
+    }
+    console.log(req.body);
+  });
 
   return router;
 }

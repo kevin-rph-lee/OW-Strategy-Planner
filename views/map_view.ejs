@@ -14,7 +14,7 @@
     <script>window.markers = <%- JSON.stringify(markers); %></script>
 
 
-
+    <link href="/styles/map_view.css" rel="stylesheet" type="text/css">
 
   </head>
 
@@ -33,10 +33,27 @@
       <div class="button-container">
         <button type="button" class="btn btn-primary" id="toggle-on">Toggle On</button>
         <button type="button" class="btn btn-warning" id="toggle-off">Toggle Off</button>
-        <button type="button" class="btn btn-success" id="save">Save</button>
+        <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
       </div>
     <% } %>
   <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
+
+
+
+  <!-- The Modal -->
+  <div id="new-marker-modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h1>New maker</h1>
+      <form>
+
+      </form>
+
+    </div>
+  </div>
+
+
 
   </body>
 </html>
