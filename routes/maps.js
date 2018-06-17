@@ -12,15 +12,33 @@ module.exports = (knex) => {
       .where({map_id:req.params.id})
       .innerJoin("users", "users.id", "markers.owner_id")
       .innerJoin("marker_types", "marker_types.id", "markers.marker_type_id")
-      .then((results) => {
-        console.log('markers: ', results);
-        res.render('map_view', {
-          email: req.session.email,
-          userID: req.session.userID,
-          markers:results
-        });
+      .then((markers) => {
+        knex
+          .select('*')
+          .from('marker_types')
+          .then((markerTypes) => {
+            console.log('Markers ', markers)
+            console.log('Marker Types ', markerTypes)
+            res.render('map_view', {
+              email: req.session.email,
+              userID: req.session.userID,
+              markers:markers,
+              markerTypes: markerTypes
+            });
+          });
       });
   });
 
   return router;
 }
+
+
+
+
+
+
+
+
+
+
+
