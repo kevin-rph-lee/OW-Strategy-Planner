@@ -22,6 +22,7 @@ module.exports = (knex) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
+    console.log("mapID ", req.params.id)
     console.log(req.body);
   });
 

@@ -20,6 +20,7 @@ module.exports = (knex) => {
             console.log('Markers ', markers)
             console.log('Marker Types ', markerTypes)
             res.render('map_view', {
+              mapID: req.params.id,
               email: req.session.email,
               userID: req.session.userID,
               markers:markers,

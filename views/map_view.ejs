@@ -13,7 +13,7 @@
 
     <script>window.markers = <%- JSON.stringify(markers); %></script>
     <script>window.markerTypes = <%- JSON.stringify(markerTypes); %></script>
-
+    <script>window.mapID = <%= mapID %></script>
 
     <link href="/styles/map_view.css" rel="stylesheet" type="text/css">
 
@@ -54,6 +54,10 @@
             <input type="text" class="form-control" id="marker-name">
             <label for="marker-description">Description</label>
             <input type="text" class="form-control" id="marker-description">
+            <label for="marker-image">Upload Image (optional)</label>
+            <input type="file" class="form-control" id="marker-image">
+
+
           </div>
 
 

@@ -90,6 +90,28 @@ $(() => {
     console.log($('#marker-name').val() + ' ' + $('#marker-description').val() + ' ' + $('#marker-type-select').val())
     console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
 
+
+    $.ajax({
+      url: '/markers/map/' + mapID + '/new',
+      data: {
+        markerName: $('#marker-name').val(),
+        markerDescription: $('#marker-description').val(),
+        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()}
+      },
+      method: 'POST'
+    }).done((id) => {
+
+    }).catch((err) => {
+      // $('.register-alert').append(`
+      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      // <strong>OOPS!</strong> ${err.responseText}
+      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      //   <span aria-hidden="true">&times;</span>
+      // </button>
+      // </div>
+      // `)
+    });
+
   });
 
   document.getElementById("toggle-on").addEventListener('click', () => {
