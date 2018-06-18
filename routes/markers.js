@@ -24,6 +24,7 @@ module.exports = (knex, multer, _, path) => {
     }
     console.log("mapID ", req.params.id)
     console.log(req.body);
+    res.sendStatus(200);
   });
 
 

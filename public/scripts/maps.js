@@ -91,7 +91,7 @@ $(() => {
     e.preventDefault();
     console.log($('#marker-name').val() + ' ' + $('#marker-description').val() + ' ' + $('#marker-type-select').val())
     console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
-
+    var formData = new FormData(this);
 
     $.ajax({
       url: '/markers/map/' + mapID + '/new',
@@ -102,7 +102,19 @@ $(() => {
       },
       method: 'POST'
     }).done((id) => {
-
+      console.log('Trying post request')
+      if(document.getElementById('marker-image-upload').files.length !== 0){
+        console.log('Attempting to upload');
+        $.ajax({
+            type: "POST",
+            url: "/markers/4/image",
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(() => {
+          console.log('File upload Success!')
+        })
+      }
     }).catch((err) => {
       // $('.register-alert').append(`
       // <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -113,6 +125,8 @@ $(() => {
       // </div>
       // `)
     });
+
+
 
   });
 
