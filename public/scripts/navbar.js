@@ -92,6 +92,8 @@ $(() => {
   // Get the <span> element that closes the modal
   const closeButton = document.getElementsByClassName("close-button");
 
+  const newMarkerModal = document.getElementById('new-marker-modal');
+
   // When the user clicks on the button, open the modal
   registerButton.onclick = function() {
       registerModal.style.display = "block";
@@ -118,6 +120,9 @@ $(() => {
       }
       if (event.target == loginModal) {
           loginModal.style.display = "none";
+      }
+      if (event.target == newMarkerModal) {
+          newMarkerModal.style.display = "none";
       }
   }
 

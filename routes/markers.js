@@ -24,7 +24,13 @@ module.exports = (knex, multer, _, path) => {
     }
     console.log("mapID ", req.params.id)
     console.log(req.body);
-    res.sendStatus(200);
+    knex
+    .insert({name: email, password: bcrypt.hashSync(password, 10), battlenet_id: battlenetID, avatar: results.profile.avatar})
+    .into('markers')
+    .returning('id')
+    .then((results) => {
+      res.send(results);
+    });
   });
 
 

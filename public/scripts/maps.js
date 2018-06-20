@@ -167,19 +167,4 @@ $(() => {
     newMarkerModal.style.display = 'none';
   });
 
-
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    console.log('Click@')
-
-  }
-
-
-
-
-
-
-
-
 });
