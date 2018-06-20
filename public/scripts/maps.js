@@ -82,7 +82,7 @@ $(() => {
 
 
   for(var i = 0; i < markerTypes.length; i ++){
-    $('#marker-type-select').append(`<option>${markerTypes[i].title}</option>`)
+    $('#marker-type-select').append(`<option data= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
   }
 
 
@@ -102,7 +102,7 @@ $(() => {
       },
       method: 'POST'
     }).done((id) => {
-      console.log('Trying post request')
+      console.log('New id: ', id);
       if(document.getElementById('marker-image-upload').files.length !== 0){
         console.log('Attempting to upload');
         $.ajax({
