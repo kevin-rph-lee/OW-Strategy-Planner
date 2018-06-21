@@ -135,7 +135,9 @@ $(() => {
     }).done((id) => {
       console.log('New id: ', id);
       //checking if there is a picture to upload
-      if(document.getElementById('marker-image-upload').files.length !== 0){
+      if(document.getElementById('marker-image-upload').files.length === 0){
+        location.reload();
+      } else {
         console.log('Attempting to upload');
         $.ajax({
             type: "POST",
@@ -144,11 +146,11 @@ $(() => {
             processData: false,
             contentType: false
         }).done(() => {
-          console.log('File upload Success!')
+          location.reload();
         })
       }
     }).catch((err) => {
-
+      alert('Some kind of error happened!');
     });
 
   });
