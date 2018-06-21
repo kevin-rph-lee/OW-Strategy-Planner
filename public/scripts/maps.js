@@ -93,6 +93,8 @@ $(() => {
   $('form').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
+
+    //Checking if a new marker has been placed on the map
     if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
       $('#alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -106,6 +108,7 @@ $(() => {
       return;
     }
 
+    //Checking to see if all form inputs have been filed out (except image)
     if( $('#marker-name').val().length === 0 || $('#marker-description').val().length === 0 || $('#marker-type-select').find(':selected').data('id') === undefined){
       $('#alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
