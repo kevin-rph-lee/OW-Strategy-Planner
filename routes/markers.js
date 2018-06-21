@@ -24,13 +24,25 @@ module.exports = (knex, multer, _, path) => {
     }
     console.log("mapID ", req.params.id)
     console.log(req.body);
+
     knex
-    .insert({name: req.session.email, password: bcrypt.hashSync(password, 10), battlenet_id: battlenetID, avatar: results.profile.avatar})
-    .into('markers')
-    .returning('id')
-    .then((results) => {
-      res.send(results);
-    });
+      .select("id")
+      .from("users")
+      .where({email:req.session.email})
+      .then((results) => {
+        console.log(results[0].id)
+
+        knex
+        .insert({map_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID})
+        .into('markers')
+        .returning('id')
+        .then((results) => {
+          res.send(results);
+        });
+
+      });
+
+
   });
 
 

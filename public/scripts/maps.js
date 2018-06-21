@@ -82,14 +82,13 @@ $(() => {
 
 
   for(var i = 0; i < markerTypes.length; i ++){
-    $('#marker-type-select').append(`<option data= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+    $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
   }
-
-
 
   $('form').submit(function (e) {
     e.preventDefault();
-    console.log($('#marker-name').val() + ' ' + $('#marker-description').val() + ' ' + $('#marker-type-select').val())
+    console.log($('#marker-name').val() + ' ' + $('#marker-description').val())
+    console.log($('#marker-type-select').id)
     console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
     var formData = new FormData(this);
 
@@ -98,11 +97,13 @@ $(() => {
       data: {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
-        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()}
+        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
+        markerTypeID: $('#marker-type-select').find(':selected').data('id')
       },
       method: 'POST'
     }).done((id) => {
       console.log('New id: ', id);
+      //checking if there is a picture to upload
       if(document.getElementById('marker-image-upload').files.length !== 0){
         console.log('Attempting to upload');
         $.ajax({
@@ -116,14 +117,7 @@ $(() => {
         })
       }
     }).catch((err) => {
-      // $('.register-alert').append(`
-      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      // <strong>OOPS!</strong> ${err.responseText}
-      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      //   <span aria-hidden="true">&times;</span>
-      // </button>
-      // </div>
-      // `)
+
     });
 
 
