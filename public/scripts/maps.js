@@ -19,7 +19,7 @@ $(() => {
     });
 
     for(var i = 0; i < markers.length; i ++){
-      addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email);
+      addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email, markers[i].image);
     }
 
     for(var x = 0; x < markersArray.length; x ++){
@@ -35,7 +35,7 @@ $(() => {
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (position, title, icon_file_location, description, id, email) => {
+  addMarker = (position, title, icon_file_location, description, id, email, image) => {
     var marker = new google.maps.Marker({
       position: position,
       map: map,
@@ -43,13 +43,24 @@ $(() => {
       icon:icon_file_location
     });
     marker.addListener('click', function() {
-      if(infoWindow === undefined){
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-        infoWindow.open(map, marker);
+      if(image === true){
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+          infoWindow.open(map, marker);
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+          infoWindow.open(map, marker);
+        }
       } else {
-        infoWindow.close();
-        infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-        infoWindow.open(map, marker);
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.description + `</p><p>Created by: ${email}</p>`});
+          infoWindow.open(map, marker);
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+          infoWindow.open(map, marker);
+        }
       }
     });
     //adding pointer id
@@ -69,12 +80,6 @@ $(() => {
       markerClick.setPosition(event.latLng);
     }
   }
-
-  var unToggleAddMarker = (event) => {
-    console.log('Untoggle')
-  }
-
-
 
 
   initMap(markers);
@@ -119,8 +124,6 @@ $(() => {
     }).catch((err) => {
 
     });
-
-
 
   });
 
