@@ -92,10 +92,20 @@ $(() => {
 
   $('form').submit(function (e) {
     e.preventDefault();
-    console.log($('#marker-name').val() + ' ' + $('#marker-description').val())
-    console.log($('#marker-type-select').id)
-    console.log('Click pos ', markerClick.getPosition().lat() + ' ' + markerClick.getPosition().lng())
     var formData = new FormData(this);
+    if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
+      console.log('ERror')
+      $('#alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> No marker to add!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
 
     $.ajax({
       url: '/markers/map/' + mapID + '/new',
