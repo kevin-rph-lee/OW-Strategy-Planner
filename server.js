@@ -20,6 +20,9 @@ const cookieSession = require('cookie-session');
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const markersRoutes = require("./routes/markers");
+const _ = require('lodash');
+const multer = require('multer');
+var path = require('path')
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -49,7 +52,7 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
-app.use("/markers", markersRoutes(knex));
+app.use("/markers", markersRoutes(knex, multer, _, path));
 
 
 
