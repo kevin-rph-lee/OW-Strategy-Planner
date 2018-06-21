@@ -22,16 +22,12 @@ module.exports = (knex, multer, _, path) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
-    console.log("mapID ", req.params.id)
-    console.log(req.body);
 
     knex
       .select("id")
       .from("users")
       .where({email:req.session.email})
       .then((results) => {
-        console.log(results[0].id)
-
         knex
         .insert({map_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
         .into('markers')
@@ -39,10 +35,7 @@ module.exports = (knex, multer, _, path) => {
         .then((results) => {
           res.send(results);
         });
-
       });
-
-
   });
 
 
@@ -74,7 +67,12 @@ module.exports = (knex, multer, _, path) => {
       }
     }).single('userFile');
     upload(req, res, function(err) {
-      res.sendStatus(200);
+      knex('markers')
+        .where({ id:req.params.id })
+        .update({ image:true })
+        .then(()=>{
+          res.sendStatus(200);
+        });
     })
 
   });

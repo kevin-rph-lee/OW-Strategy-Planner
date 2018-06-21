@@ -113,7 +113,7 @@ $(() => {
         console.log('Attempting to upload');
         $.ajax({
             type: "POST",
-            url: "/markers/4/image",
+            url: "/markers/" + id + "/image",
             data: formData,
             processData: false,
             contentType: false
