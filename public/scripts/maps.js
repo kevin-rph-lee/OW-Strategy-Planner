@@ -94,7 +94,6 @@ $(() => {
     e.preventDefault();
     var formData = new FormData(this);
     if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
-      console.log('ERror')
       $('#alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>OOPS!</strong> No marker to add!
@@ -105,6 +104,20 @@ $(() => {
       `)
       $(".alert").delay(3000).fadeOut("slow");
       return;
+    }
+
+    if( $('#marker-name').val().length === 0 || $('#marker-description').val().length === 0 || $('#marker-type-select').find(':selected').data('id') === undefined){
+      $('#alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> Missing new marker title, descrition, or marker type
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+
     }
 
     $.ajax({
