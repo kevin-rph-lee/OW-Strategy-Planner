@@ -43,25 +43,55 @@ $(() => {
       icon:icon_file_location
     });
     marker.addListener('click', function() {
-      if(image === true){
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+      if(isOwner === true){
+
+        if(image === true){
+          if(infoWindow === undefined){
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" data-id=${id}>Delete</button>
+`});
+            infoWindow.open(map, marker);
+          } else {
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" data-id=${id}>Delete</button>
+`});
+            infoWindow.open(map, marker);
+          }
         } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          if(infoWindow === undefined){
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          } else {
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          }
         }
+
       } else {
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+
+        if(image === true){
+          if(infoWindow === undefined){
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          } else {
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          }
         } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          if(infoWindow === undefined){
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          } else {
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+            infoWindow.open(map, marker);
+          }
         }
       }
+
+
+
     });
     //adding pointer id
     marker.description = description;
