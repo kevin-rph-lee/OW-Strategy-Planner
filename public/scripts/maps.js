@@ -81,7 +81,7 @@ $(() => {
     }
   }
 
-
+  console.log(isOwner);
   initMap(markers);
 
 
