@@ -44,8 +44,19 @@ module.exports = (knex, multer, _, path) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
-    console.log(req.body);
-    res.sendStatus(200);
+
+    knex
+      .select('owner_id')
+      .from('maps')
+      .where({id:req.body.mapID})
+      .then((results) => {
+        if(results[0].owner_id === req.session.userID){
+          console.log('Owner')
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(403);
+        }
+      });
   });
 
 
