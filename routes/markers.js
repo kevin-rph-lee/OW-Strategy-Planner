@@ -18,14 +18,14 @@ module.exports = (knex, multer, _, path) => {
   });
 
 
-  router.post("/map/:id/new", (req, res) => {
+  router.post('/map/:id/new', (req, res) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
 
     knex
-      .select("id")
-      .from("users")
+      .select('id')
+      .from('users')
       .where({email:req.session.email})
       .then((results) => {
         knex
@@ -37,6 +37,34 @@ module.exports = (knex, multer, _, path) => {
         });
       });
   });
+
+
+  //Deleting a marker
+  router.post('/delete/:id', (req, res) => {
+    if(req.session.email === undefined){
+      res.sendStatus(400);
+    }
+
+    //Check if the user who is logged in is the actual owner
+    knex
+      .select('owner_id')
+      .from('maps')
+      .where({id:req.body.mapID})
+      .then((results) => {
+        if(results[0].owner_id === req.session.userID){
+          //Delete the marker
+          knex('markers')
+          .where({ id: req.params.id })
+          .del()
+          .then(() => {
+            res.sendStatus(200);
+          })
+        } else {
+          res.sendStatus(403);
+        }
+      });
+  });
+
 
 
   router.post("/:id/image", (req, res) => {
@@ -59,7 +87,7 @@ module.exports = (knex, multer, _, path) => {
       fileFilter: function(req, file, callback) {
         //Only allowing png, jpg, gif, jpeg
         const ext = path.extname(file.originalname)
-        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+        if (ext !== '.jpg') {
           res.sendStatus(400);
           return;
         }

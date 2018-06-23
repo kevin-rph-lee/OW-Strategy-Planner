@@ -3,6 +3,7 @@ $(() => {
   console.log('Markers ', markers);
 
   const markersArray = [];
+  const infoWindowArray = [];
   var clickListener;
   var markerClick;
   var infoWindow;
@@ -28,6 +29,39 @@ $(() => {
 
     map.fitBounds(bounds);
 
+
+    //TO DO WHY DOES THIS NOT WORK
+    // for(var v = 0; v < markersArray.length; v ++){
+    //   console.log('looping1, ', v);
+    //   markersArray[v].addListener('click', () =>{
+    //     infoWindowArray[v].open(map, markersArray[v]);
+    //   })
+    // }
+
+    // markersArray[0].addListener('click', () => {
+    //   infoWindowArray[0].open(map, markersArray[0]);
+    // })
+
+    // markersArray[1].addListener('click', () => {
+    //   infoWindowArray[1].open(map, markersArray[1]);
+    // })
+
+    // markersArray[2].addListener('click', () => {
+    //   infoWindowArray[2].open(map, markersArray[2]);
+    // })
+
+    //TO DO = FIGURE OUT WTF THIS MEANS
+    for (var f = 0; f < markersArray.length; f++) {
+        // Keep value of 'i' in event creation
+        (function(f) {
+            google.maps.event.addListener(markersArray[f], 'click', function() {
+                closeInfoWindows();
+                infoWindowArray[f].open(map, markersArray[f]);
+            });
+        }(f));
+    }
+
+
   }
 
   /**
@@ -42,29 +76,61 @@ $(() => {
       title: title,
       icon:icon_file_location
     });
-    marker.addListener('click', function() {
+
+    var infoWindow ;
+    console.log('owner ', isOwner)
+    console.log('description: ', description)
+    if(isOwner === true){
+
       if(image === true){
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+<div id="info-window-alert"></div>`});
+
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+<div id="info-window-alert"></div>`});
+
+        }
+
+
+      } else {
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+<div id="info-window-alert"></div>`});
+
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+<div id="info-window-alert"></div>`});
+
+        }
+      }
+
+    } else {
+
+      if(image === true){
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+
         }
       } else {
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + "</h3><p>" + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + "</h3><p>" + description + `</p><p>Created by: ${email}</p>`});
+
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
-          infoWindow.open(map, marker);
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><p>` + description + `</p><p>Created by: ${email}</p>`});
         }
       }
-    });
-    //adding pointer id
-    marker.description = description;
+    }
+
+    infoWindowArray.push(infoWindow);
     markersArray.push(marker);
   }
 
@@ -82,6 +148,8 @@ $(() => {
   }
 
 
+
+  console.log(isOwner);
   initMap(markers);
 
 
@@ -138,7 +206,6 @@ $(() => {
       if(document.getElementById('marker-image-upload').files.length === 0){
         location.reload();
       } else {
-        console.log('Attempting to upload');
         $.ajax({
             type: "POST",
             url: "/markers/" + id + "/image",
@@ -147,13 +214,69 @@ $(() => {
             contentType: false
         }).done(() => {
           location.reload();
-        })
+        }).catch((err) =>{
+          $('#alert').append(`
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>OOPS!</strong> Invalid File type!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          `)
+          $(".alert").delay(3000).fadeOut("slow");
+        });
       }
     }).catch((err) => {
       alert('Some kind of error happened!');
     });
 
   });
+
+  /**
+   * Closes the info windows
+   */
+  closeInfoWindows = () => {
+      for (var x = 0; x < infoWindowArray.length; x++) {
+          infoWindowArray[x].close();
+      }
+  }
+
+  /**
+   * Deletes a marker
+   * @param  {int} id ID of marker to be deleted
+   */
+  deleteMarker = (id) => {
+    //Preventing from deleting all markers off a map
+    if(markersArray.length === 1){
+      $('#info-window-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      Maps must have at least one marker!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
+
+    var confirmBox = confirm("Are you sure?!");
+    if (confirmBox == true) {
+      $.ajax({
+        url: '/markers/delete/' + id,
+        data: {
+          mapID: mapID
+        },
+        method: 'POST'
+      }).done(() => {
+        location.reload();
+
+      }).catch((err) => {
+        alert('Some kind of error happened!');
+      });
+    }
+
+  }
 
   document.getElementById("toggle-on").addEventListener('click', () => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
