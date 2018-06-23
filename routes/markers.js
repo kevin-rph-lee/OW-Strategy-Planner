@@ -18,14 +18,14 @@ module.exports = (knex, multer, _, path) => {
   });
 
 
-  router.post("/map/:id/new", (req, res) => {
+  router.post('/map/:id/new', (req, res) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
 
     knex
-      .select("id")
-      .from("users")
+      .select('id')
+      .from('users')
       .where({email:req.session.email})
       .then((results) => {
         knex
@@ -37,6 +37,17 @@ module.exports = (knex, multer, _, path) => {
         });
       });
   });
+
+
+
+  router.post('/delete/:id', (req, res) => {
+    if(req.session.email === undefined){
+      res.sendStatus(400);
+    }
+    console.log(req.body);
+    res.sendStatus(200);
+  });
+
 
 
   router.post("/:id/image", (req, res) => {

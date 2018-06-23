@@ -83,12 +83,12 @@ $(() => {
 
       if(image === true){
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button">Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
 `});
 
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button">Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
 `});
 
         }
@@ -232,6 +232,26 @@ $(() => {
       for (var x = 0; x < infoWindowArray.length; x++) {
           infoWindowArray[x].close();
       }
+  }
+
+  /**
+   * Deletes a marker
+   * @param  {int} id ID of marker to be deleted
+   */
+  deleteMarker = (id) => {
+    $.ajax({
+      url: '/markers/delete/' + id,
+      data: {
+        mapID: mapID
+      },
+      method: 'POST'
+    }).done(() => {
+      console.log('finished')
+
+    }).catch((err) => {
+      alert('Some kind of error happened!');
+    });
+
   }
 
   document.getElementById("toggle-on").addEventListener('click', () => {
