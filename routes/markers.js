@@ -51,8 +51,12 @@ module.exports = (knex, multer, _, path) => {
       .where({id:req.body.mapID})
       .then((results) => {
         if(results[0].owner_id === req.session.userID){
-          console.log('Owner')
-          res.sendStatus(200);
+          knex('markers')
+          .where({ id: req.params.id })
+          .del()
+          .then(() => {
+            res.sendStatus(200);
+          })
         } else {
           res.sendStatus(403);
         }

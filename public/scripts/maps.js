@@ -246,7 +246,7 @@ $(() => {
       },
       method: 'POST'
     }).done(() => {
-      console.log('finished')
+      location.reload();
 
     }).catch((err) => {
       alert('Some kind of error happened!');
