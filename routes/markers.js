@@ -87,7 +87,7 @@ module.exports = (knex, multer, _, path) => {
       fileFilter: function(req, file, callback) {
         //Only allowing png, jpg, gif, jpeg
         const ext = path.extname(file.originalname)
-        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+        if (ext !== '.jpg') {
           res.sendStatus(400);
           return;
         }

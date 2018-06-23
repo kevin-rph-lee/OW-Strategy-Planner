@@ -206,7 +206,6 @@ $(() => {
       if(document.getElementById('marker-image-upload').files.length === 0){
         location.reload();
       } else {
-        console.log('Attempting to upload');
         $.ajax({
             type: "POST",
             url: "/markers/" + id + "/image",
@@ -215,7 +214,17 @@ $(() => {
             contentType: false
         }).done(() => {
           location.reload();
-        })
+        }).catch((err) =>{
+          $('#alert').append(`
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>OOPS!</strong> Invalid File type!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          `)
+          $(".alert").delay(3000).fadeOut("slow");
+        });
       }
     }).catch((err) => {
       alert('Some kind of error happened!');
