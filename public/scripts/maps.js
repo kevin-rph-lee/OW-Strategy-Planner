@@ -84,12 +84,12 @@ $(() => {
       if(image === true){
         if(infoWindow === undefined){
           infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-`});
+<div id="info-window-alert"></div>`});
 
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: "<h3>"+marker.title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-`});
+<div id="info-window-alert"></div>`});
 
         }
 
@@ -127,11 +127,6 @@ $(() => {
       }
     }
 
-
-
-    // });
-    //adding pointer id
-    // marker.description = description;
     infoWindowArray.push(infoWindow);
     markersArray.push(marker);
   }
@@ -239,18 +234,35 @@ $(() => {
    * @param  {int} id ID of marker to be deleted
    */
   deleteMarker = (id) => {
-    $.ajax({
-      url: '/markers/delete/' + id,
-      data: {
-        mapID: mapID
-      },
-      method: 'POST'
-    }).done(() => {
-      location.reload();
+    //Preventing from deleting all markers off a map
+    if(markersArray.length === 1){
+      $('#info-window-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      Maps must have at least one marker!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
 
-    }).catch((err) => {
-      alert('Some kind of error happened!');
-    });
+    var confirmBox = confirm("Are you sure?!");
+    if (confirmBox == true) {
+      $.ajax({
+        url: '/markers/delete/' + id,
+        data: {
+          mapID: mapID
+        },
+        method: 'POST'
+      }).done(() => {
+        location.reload();
+
+      }).catch((err) => {
+        alert('Some kind of error happened!');
+      });
+    }
 
   }
 

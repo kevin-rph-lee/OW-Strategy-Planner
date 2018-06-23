@@ -39,18 +39,20 @@ module.exports = (knex, multer, _, path) => {
   });
 
 
-
+  //Deleting a marker
   router.post('/delete/:id', (req, res) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
 
+    //Check if the user who is logged in is the actual owner
     knex
       .select('owner_id')
       .from('maps')
       .where({id:req.body.mapID})
       .then((results) => {
         if(results[0].owner_id === req.session.userID){
+          //Delete the marker
           knex('markers')
           .where({ id: req.params.id })
           .del()
