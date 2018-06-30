@@ -1,10 +1,11 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('maps').del()
+  return knex('plans').del()
     .then(function () {
       // Inserts seed entries
-      return knex('maps').insert([
+      return knex('plans').insert([
+        {name: 'Pirate Ship', description: 'RRRRRR', owner_id: 1}
       ]);
     });
 };

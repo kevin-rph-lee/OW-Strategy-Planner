@@ -9,13 +9,13 @@ $(() => {
   var infoWindow;
 
   /**
-   * Initializes the map
-   * @param  {array} locations An array of locations to have markers added to the map
+   * Initializes the plan
+   * @param  {array} locations An array of locations to have markers added to the plan
    */
-  initMap = (markers) => {
+  initPlan = (markers) => {
     var bounds = new google.maps.LatLngBounds();
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    plan = new google.maps.Map(document.getElementById('plan'), {
       mapTypeId: 'terrain'
     });
 
@@ -27,7 +27,7 @@ $(() => {
       bounds.extend(markersArray[x].getPosition())
     }
 
-    map.fitBounds(bounds);
+    plan.fitBounds(bounds);
 
 
     //TO DO WHY DOES THIS NOT WORK
@@ -56,7 +56,7 @@ $(() => {
         (function(f) {
             google.maps.event.addListener(markersArray[f], 'click', function() {
                 closeInfoWindows();
-                infoWindowArray[f].open(map, markersArray[f]);
+                infoWindowArray[f].open(plan, markersArray[f]);
             });
         }(f));
     }
@@ -72,7 +72,7 @@ $(() => {
   addMarker = (position, title, icon_file_location, description, id, email, image) => {
     var marker = new google.maps.Marker({
       position: position,
-      map: map,
+      map: plan,
       title: title,
       icon:icon_file_location
     });
@@ -139,7 +139,7 @@ $(() => {
     if(markerClick === undefined || markerClick.getMap() === null){
       markerClick = new google.maps.Marker({
         position: event.latLng,
-        map: map,
+        map: plan,
         icon:  'https://www.google.com/mapfiles/arrow.png'
       });
     } else {
@@ -150,7 +150,7 @@ $(() => {
 
 
   console.log(isOwner);
-  initMap(markers);
+  initPlan(markers);
 
 
 
@@ -192,7 +192,7 @@ $(() => {
     }
 
     $.ajax({
-      url: '/markers/map/' + mapID + '/new',
+      url: '/markers/plan/' + planID + '/new',
       data: {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
@@ -265,7 +265,7 @@ $(() => {
       $.ajax({
         url: '/markers/delete/' + id,
         data: {
-          mapID: mapID
+          planID: planID
         },
         method: 'POST'
       }).done(() => {
@@ -283,7 +283,7 @@ $(() => {
     $('#toggle-on').css('display', 'none');
     $('#toggle-off').css('display', 'inline');
     $('#new-marker-button').css('display', 'inline');
-    clickListener = map.addListener('click', toggleAddMarker);
+    clickListener = plan.addListener('click', toggleAddMarker);
   });
 
 

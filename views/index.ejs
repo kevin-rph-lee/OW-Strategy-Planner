@@ -9,20 +9,20 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <script>window.maps = <%- JSON.stringify(maps); %></script>
+    <script>window.plans = <%- JSON.stringify(plans); %></script>
   </head>
 
   <body>
     <% include partials/navbar %>
     <% include partials/register %>
-    <h1>Maps</h1>
+    <h1>Plans</h1>
 
-    <% for(var i in maps) { %>
+    <% for(var i in plans) { %>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title"><%= maps[i].name %></h5>
-          <p class="card-text"><%= maps[i].description  %></p>
-          <a href="http://localhost:8080/maps/<%= maps[i].id %>"   class="btn btn-primary">View Map</a>
+          <h5 class="card-title"><%= plans[i].name %></h5>
+          <p class="card-text"><%= plans[i].description  %></p>
+          <a href="http://localhost:8080/plans/<%= plans[i].id %>"   class="btn btn-primary">View Map</a>
 
 
 

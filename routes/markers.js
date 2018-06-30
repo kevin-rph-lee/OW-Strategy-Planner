@@ -5,12 +5,12 @@ const router  = express.Router();
 
 module.exports = (knex, multer, _, path) => {
 
-  router.get("/map/:id", (req, res) => {
+  router.get("/plan/:id", (req, res) => {
 
     knex
       .select("*")
       .from("markers")
-      .where({map_id: req.params.id})
+      .where({plan_id: req.params.id})
       .then((results) => {
         //WILL ALWAYS RETURN AN ARRAY
         res.json(results[0]);
@@ -18,7 +18,7 @@ module.exports = (knex, multer, _, path) => {
   });
 
 
-  router.post('/map/:id/new', (req, res) => {
+  router.post('/plan/:id/new', (req, res) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
@@ -29,7 +29,7 @@ module.exports = (knex, multer, _, path) => {
       .where({email:req.session.email})
       .then((results) => {
         knex
-        .insert({map_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
+        .insert({plan_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
         .into('markers')
         .returning('id')
         .then((results) => {
@@ -48,8 +48,8 @@ module.exports = (knex, multer, _, path) => {
     //Check if the user who is logged in is the actual owner
     knex
       .select('owner_id')
-      .from('maps')
-      .where({id:req.body.mapID})
+      .from('plans')
+      .where({id:req.body.planID})
       .then((results) => {
         if(results[0].owner_id === req.session.userID){
           //Delete the marker

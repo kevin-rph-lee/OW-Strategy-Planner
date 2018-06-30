@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('description');
     table.string('type');
     table.integer('owner_id');
-    table.integer('map_id');
+    table.integer('plan_id');
     table.json('position');
     table.boolean('image');
     table.integer('marker_type_id');

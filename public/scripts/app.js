@@ -1,5 +1,5 @@
 $(() => {
 
-  console.log('Maps ', maps[0].id);
+  console.log('Plans ', plans[0].id);
 
 });

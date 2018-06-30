@@ -20,6 +20,7 @@ const cookieSession = require('cookie-session');
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const markersRoutes = require("./routes/markers");
+const plansRoutes = require("./routes/plans");
 const _ = require('lodash');
 const multer = require('multer');
 var path = require('path')
@@ -52,6 +53,7 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
+app.use("/plans", plansRoutes(knex));
 app.use("/markers", markersRoutes(knex, multer, _, path));
 
 
@@ -62,13 +64,13 @@ app.get("/", (req, res) => {
 
   knex
     .select("*")
-    .from("maps")
+    .from("plans")
     .then((results) => {
       console.log(results)
       res.render('index', {
         email: req.session.email,
         userID: req.session.userID,
-        maps: results
+        plans: results
       });
     });
 
