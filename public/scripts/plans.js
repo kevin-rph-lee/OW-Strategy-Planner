@@ -16,8 +16,34 @@ $(() => {
     var bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
-      mapTypeId: 'terrain'
+      center: {lat: 0, lng: 0},
+      zoom: 1,
+      streetViewControl: false,
+      mapTypeControlOptions: {
+        mapTypeIds: ['OW']
+      }
     });
+
+    var OWMapType = new google.maps.ImageMapType({
+      getTileUrl: function(coord, zoom) {
+          var normalizedCoord = getNormalizedCoord(coord, zoom);
+          if (!normalizedCoord) {
+            return null;
+          }
+          var bound = Math.pow(2, zoom);
+          return 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hanamura' +
+              '/' + zoom + '/' + normalizedCoord.x + '/' +
+              (bound - normalizedCoord.y - 1) + '.png';
+      },
+      tileSize: new google.maps.Size(256, 256),
+      maxZoom: 6,
+      minZoom: 4,
+      name: 'Volskaya'
+    });
+
+
+    plan.mapTypes.set('OW', OWMapType);
+    plan.setMapTypeId('OW');
 
     for(var i = 0; i < markers.length; i ++){
       addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email, markers[i].image);
@@ -63,6 +89,34 @@ $(() => {
 
 
   }
+
+
+  /**
+   * Gets normalized coordinates for the map. Used only when the map is initialized
+   */
+  getNormalizedCoord = (coord, zoom) => {
+    var y = coord.y;
+    var x = coord.x;
+
+    // tile range in one direction range is dependent on zoom level
+    // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+    var tileRange = 1 << zoom;
+
+    // don't repeat across y-axis (vertically)
+    if (y < 0 || y >= tileRange) {
+      return null;
+    }
+
+    if (x < 0 || x >= tileRange) {
+      x = (x % tileRange + tileRange) % tileRange;
+    }
+
+    return {x: x, y: y};
+  }
+
+
+
+
 
   /**
    * Adds a marker to the map
