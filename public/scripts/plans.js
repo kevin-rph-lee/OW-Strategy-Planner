@@ -41,6 +41,33 @@ $(() => {
     });
 
 
+    //Defining out far out a user is able to pan
+    const allowedBounds = new google.maps.LatLngBounds(
+         new google.maps.LatLng(-76.53872912052131, -122.52994923110276),
+         new google.maps.LatLng(-12.670418295569519, -12.480669814400471));
+
+    //Listnes to drag event, if it goes out of bounds, auto pan the user back within bounds
+    google.maps.event.addListener(plan, 'dragend', function() {
+       if (allowedBounds.contains(plan.getCenter())) return;
+
+       // Out of bounds - Move the map back within the bounds
+
+       var c = plan.getCenter(),
+           x = c.lng(),
+           y = c.lat(),
+           maxX = allowedBounds.getNorthEast().lng(),
+           maxY = allowedBounds.getNorthEast().lat(),
+           minX = allowedBounds.getSouthWest().lng(),
+           minY = allowedBounds.getSouthWest().lat();
+
+       if (x < minX) x = minX;
+       if (x > maxX) x = maxX;
+       if (y < minY) y = minY;
+       if (y > maxY) y = maxY;
+
+       plan.setCenter(new google.maps.LatLng(y, x));
+    })
+
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
