@@ -13,10 +13,10 @@ $(() => {
    * @param  {array} locations An array of locations to have markers added to the plan
    */
   initPlan = (markers) => {
-    var bounds = new google.maps.LatLngBounds();
+    // var bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
-      center: {lat: 0, lng: 0},
+      center: {lat: -55.60427598849055, lng: -64.92253974426148},
       zoom: 1,
       streetViewControl: false,
       mapTypeControlOptions: {
@@ -48,11 +48,11 @@ $(() => {
       addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email, markers[i].image);
     }
 
-    for(var x = 0; x < markersArray.length; x ++){
-      bounds.extend(markersArray[x].getPosition())
-    }
+    // for(var x = 0; x < markersArray.length; x ++){
+    //   bounds.extend(markersArray[x].getPosition())
+    // }
 
-    plan.fitBounds(bounds);
+    // plan.fitBounds(bounds);
 
 
     //TO DO WHY DOES THIS NOT WORK
