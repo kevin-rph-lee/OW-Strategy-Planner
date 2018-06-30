@@ -31,14 +31,13 @@ $(() => {
             return null;
           }
           var bound = Math.pow(2, zoom);
-          return 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hanamura' +
-              '/' + zoom + '/' + normalizedCoord.x + '/' +
+          return `${markers[0].url}` + zoom + '/' + normalizedCoord.x + '/' +
               (bound - normalizedCoord.y - 1) + '.png';
       },
       tileSize: new google.maps.Size(256, 256),
       maxZoom: 6,
       minZoom: 4,
-      name: 'Volskaya'
+      name: markers[0].name
     });
 
 
@@ -113,9 +112,6 @@ $(() => {
 
     return {x: x, y: y};
   }
-
-
-
 
 
   /**

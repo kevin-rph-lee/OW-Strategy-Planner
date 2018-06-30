@@ -7,7 +7,7 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
     knex
-      .select('plans.owner_id','markers.description','markers.title','markers.position','markers.description','markers.image','markers.type','users.email', 'markers.id', 'marker_types.icon_file_location', 'maps.url')
+      .select('plans.name', 'plans.owner_id','markers.description','markers.title','markers.position','markers.description','markers.image','markers.type','users.email', 'markers.id', 'marker_types.icon_file_location', 'maps.url')
       .from('markers')
       .where({plan_id:req.params.id})
       .innerJoin('users', 'users.id', 'markers.owner_id')
