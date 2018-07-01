@@ -95,6 +95,38 @@ $(() => {
             }
     });
 
+
+
+
+// Point: -57.56469240982394 -74.3756662343776
+// plans_draw.js:94 Point: -58.125990315508346 -79.6930490468776
+// plans_draw.js:94 Point: -56.99460623981639 -77.3639474843776
+// plans_draw.js:94 Point: -59.86847143398984 -77.0123849843776
+// plans_draw.js:94 Point: -57.98648526597417 -79.2535959218776
+
+
+    // var flightPlanCoordinates = [
+      // {lat: -57.56469240982394, lng: -74.3756662343776},
+      // {lat:  -58.125990315508346, lng: -79.6930490468776},
+      // {lat: -56.99460623981639, lng: -77.3639474843776},
+      // {lat: -59.86847143398984, lng: -77.0123849843776},
+      // {lat: -57.98648526597417, lng: -79.2535959218776}
+    // ];
+
+
+    // var flightPath = new google.maps.Polyline({
+    //   path: flightPlanCoordinates,
+    //   geodesic: true,
+    //   strokeColor: '#FF0000',
+    //   strokeOpacity: 1.0,
+    //   strokeWeight: 2
+    // });
+
+
+
+    flightPath.setMap(plan);
+
+
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
