@@ -56,7 +56,7 @@ app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
 app.use("/plans", plansRoutes(knex));
 app.use("/markers", markersRoutes(knex, multer, _, path));
-app.use("/polylines", markersRoutes(knex));
+app.use("/polylines", polylinesRoutes(knex));
 
 
 
