@@ -75,7 +75,7 @@ $(() => {
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_CENTER,
         drawingModes: ['circle', 'polyline']
-      }
+      },
       circleOptions: {
         fillColor: '#ffff00',
         fillOpacity: 0.3,
@@ -87,7 +87,12 @@ $(() => {
     });
     drawingManager.setMap(plan);
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
-            console.log(polyline.getPath().b[0].lat());
+            // console.log(polyline.getPath().b[0].lat());
+            console.log(polyline.getPath().b)
+            var arr = polyline.getPath().b
+            for(var i in arr){
+              console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
+            }
     });
 
     plan.mapTypes.set('OW', OWMapType);
