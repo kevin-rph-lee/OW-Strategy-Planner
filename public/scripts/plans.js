@@ -17,7 +17,7 @@ $(() => {
 
     plan = new google.maps.Map(document.getElementById('plan'), {
       center: {lat: -55.60427598849055, lng: -64.92253974426148},
-      zoom: 1,
+      zoom: 5,
       streetViewControl: false,
       mapTypeControlOptions: {
         mapTypeIds: ['OW']
