@@ -7,7 +7,7 @@ $(() => {
   var clickListener;
   var markerClick;
   var infoWindow;
-  var lines = [];
+  var linesFromDB = [];
 
   /**
    * Initializes the plan
@@ -108,6 +108,7 @@ $(() => {
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
+        linesFromDB.push(newPolyline)
         newPolyline.setMap(plan);
       }
 
