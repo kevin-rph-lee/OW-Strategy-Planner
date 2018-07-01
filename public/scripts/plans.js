@@ -229,11 +229,36 @@ $(() => {
   console.log(isOwner);
   initPlan(markers);
 
-
-
-  for(var i = 0; i < markerTypes.length; i ++){
-    $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
-  }
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#teammates[type="radio"]').click(function(){
+    //Clearing the modal of it's current contents
+    $("#marker-type-select").children().remove();
+    for(var i = 0; i < markerTypes.length; i ++){
+      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
+        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+      }
+    }
+  });
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#enemy[type="radio"]').click(function(){
+    //Clearing the modal of it's current contents
+    $("#marker-type-select").children().remove();
+    for(var i = 0; i < markerTypes.length; i ++){
+      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon !== true){
+        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+      }
+    }
+  });
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#other[type="radio"]').click(function(){
+    //Clearing the modal of it's current contents
+    $("#marker-type-select").children().remove();
+    for(var i = 0; i < markerTypes.length; i ++){
+      if(markerTypes[i].misc_icon === true){
+        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+      }
+    }
+  });
 
   $('form').submit(function (e) {
     e.preventDefault();

@@ -57,10 +57,15 @@
           <label for="marker-image">Upload Image (optional) - JPG only</label>
           <input type="file" class="form-control" id="marker-image-upload" name="userFile">
           <label for="marker-type">Type of marker</label>
-          <select class="form-control" id="marker-type-select">
-            <option>Select a type</option>
-          </select>
+          <div class = "form-group">
+            <input type="radio" name="marker-type" id="teammates" value="Teammates"> Teammates
+            <input type="radio" name="marker-type" id="enemy"  value="Enemy"> Enemy
+            <input type="radio" name="marker-type" id="other"  value="Other"> Other
+          </div>
         </div>
+        <select class="form-control" id="marker-type-select">
+        </select>
+
         <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
         <button type="button" class="btn btn-default close-button" id="close-button">Cancel</button>
       </form>
