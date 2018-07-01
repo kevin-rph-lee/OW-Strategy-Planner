@@ -7,6 +7,7 @@ $(() => {
   var clickListener;
   var markerClick;
   var infoWindow;
+  var lines = [];
 
   /**
    * Initializes the plan
@@ -68,6 +69,19 @@ $(() => {
        plan.setCenter(new google.maps.LatLng(y, x));
     })
 
+    // var drawingManager = new google.maps.drawing.DrawingManager({
+    //   drawingMode: google.maps.drawing.OverlayType.MARKER,
+    //   drawingControl: true,
+    //   drawingControlOptions: {
+    //     position: google.maps.ControlPosition.TOP_CENTER,
+    //     drawingModes: ['polyline']
+    //   }
+    // });
+    // drawingManager.setMap(plan);
+    // google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
+    //         console.log(polyline.getPath().b[0].lat());
+    //     });
+
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
@@ -112,9 +126,28 @@ $(() => {
             });
         }(f));
     }
-
-
   }
+
+
+
+  // function bindDataLayerListeners(dataLayer) {
+  //     dataLayer.addListener('addfeature', savePolygon);
+  //     dataLayer.addListener('removefeature', savePolygon);
+  //     dataLayer.addListener('setgeometry', savePolygon);
+  // }
+
+  // function savePolygon() {
+  //     plan.data.toGeoJson(function (json) {
+  //         console.log(JSON.stringify(json));
+  //         // sessionStorage.setItem('geoData', JSON.stringify(json));
+  //     });
+  // }
+
+  // //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  // $('#test').click(function(){
+  //   //Clearing the modal of it's current contents
+  //   savePolygon();
+  // });
 
 
   /**
@@ -259,6 +292,8 @@ $(() => {
       }
     }
   });
+
+
 
   $('form').submit(function (e) {
     e.preventDefault();
