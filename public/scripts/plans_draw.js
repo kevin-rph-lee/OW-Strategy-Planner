@@ -124,7 +124,7 @@ $(() => {
 
 
 
-    flightPath.setMap(plan);
+    // flightPath.setMap(plan);
 
 
     plan.mapTypes.set('OW', OWMapType);
@@ -207,6 +207,8 @@ $(() => {
     infoWindowArray.push(infoWindow);
     markersArray.push(marker);
   }
+
+
 
 
   initPlan(markers);
