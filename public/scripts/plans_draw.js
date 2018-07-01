@@ -13,7 +13,7 @@ $(() => {
    * Initializes the plan
    * @param  {array} locations An array of locations to have markers added to the plan
    */
-  initPlan = (markers) => {
+  initPlan = (markers, polylines) => {
     // var bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
@@ -95,7 +95,15 @@ $(() => {
             }
     });
 
+    for(let i = 0; i < polylines.length; i ++){
+      console.log(polylines[i].coordinates.coordinatesArray);
+      // for(let y = 0; y < polylines[i].coordinates.length; y ++){
+      //   console.log(polylines[i].coordinates[y]);
+      // }
 
+
+
+    }
 
 
 // Point: -57.56469240982394 -74.3756662343776
@@ -208,10 +216,19 @@ $(() => {
     markersArray.push(marker);
   }
 
+  $.ajax({
+    url: '/polylines/' + planID,
+    method: 'GET'
+  }).done((polylines) => {
+
+
+    initPlan(markers,polylines);
+  }).catch((err) => {
+
+  });
 
 
 
-  initPlan(markers);
 
 
   /**

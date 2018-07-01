@@ -14,6 +14,7 @@ module.exports = (knex) => {
       .from('polylines')
       .where({plan_id:req.params.id})
       .then((polylines) => {
+        console.log(polylines);
         res.json(polylines);
       });
 
