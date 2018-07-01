@@ -5,8 +5,12 @@ exports.seed = function(knex, Promise) {
   return knex('marker_types').del()
     .then(function () {
       return Promise.all([
-        knex('marker_types').insert({title: 'Misc', icon_file_location: null, misc_icon: true}),
-        knex('marker_types').insert({title: 'Danger', icon_file_location: 'https://maps.google.com/mapfiles/kml/shapes/caution_maps.png', misc_icon: true}),
+        knex('marker_types').insert({title: 'Pointer', icon_file_location: null, misc_icon: true}),
+        knex('marker_types').insert({title: 'Danger', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/caution.png', misc_icon: true}),
+        knex('marker_types').insert({title: 'Sym Turret', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/symturret_b.png', misc_icon:true, teammate_icon: true}),
+        knex('marker_types').insert({title: 'Sym Turret', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/symturret_r.png', misc_icon:true}),
+        knex('marker_types').insert({title: 'Torb Turret', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/torbturret_b.png', misc_icon:true, teammate_icon: true}),
+        knex('marker_types').insert({title: 'Torb Turret', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/torbturret_r.png', misc_icon:true}),
         knex('marker_types').insert({title: 'Ana', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/ana_b.png', teammate_icon: true}),
         knex('marker_types').insert({title: 'Ana', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/ana_r.png'}),
         knex('marker_types').insert({title: 'Bastion', icon_file_location: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/bastion_b.png', teammate_icon: true}),
