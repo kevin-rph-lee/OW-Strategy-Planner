@@ -95,13 +95,21 @@ $(() => {
             }
     });
 
+
+
     for(let i = 0; i < polylines.length; i ++){
+      let polylineCoordinates = []
       console.log(polylines[i].coordinates.coordinatesArray);
-      // for(let y = 0; y < polylines[i].coordinates.length; y ++){
-      //   console.log(polylines[i].coordinates[y]);
-      // }
-
-
+      for(let y = 0; y < polylines[i].coordinates.coordinatesArray.length; y ++){
+        var newPolyline = new google.maps.Polyline({
+          path: polylines[i].coordinates.coordinatesArray,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        newPolyline.setMap(plan);
+      }
 
     }
 
@@ -123,11 +131,11 @@ $(() => {
 
 
     // var flightPath = new google.maps.Polyline({
-    //   path: flightPlanCoordinates,
-    //   geodesic: true,
-    //   strokeColor: '#FF0000',
-    //   strokeOpacity: 1.0,
-    //   strokeWeight: 2
+      // path: flightPlanCoordinates,
+      // geodesic: true,
+      // strokeColor: '#FF0000',
+      // strokeOpacity: 1.0,
+      // strokeWeight: 2
     // });
 
 
