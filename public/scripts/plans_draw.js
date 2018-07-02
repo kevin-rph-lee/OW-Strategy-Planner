@@ -229,7 +229,7 @@ $(() => {
     for(let i = 0; i < newPolylines.length; i ++){
       let newPolyLineLatLngArray = []
       for(var y in newPolylines[i].getPath().b){
-        let newPolyLineLatLng = {lat: newPolylines[i].getPath().b[y].lat(), lng: newPolylines[i].getPath().b[y].lng()}
+        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
         console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
       }

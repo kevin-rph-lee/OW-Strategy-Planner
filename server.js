@@ -75,10 +75,6 @@ app.get("/", (req, res) => {
         plans: results
       });
     });
-
-
-
-
 });
 
 app.listen(PORT, () => {
