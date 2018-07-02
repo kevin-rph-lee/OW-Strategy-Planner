@@ -8,6 +8,7 @@ $(() => {
   var markerClick;
   var infoWindow;
   var linesFromDB = [];
+  var newPolylines = [];
 
   /**
    * Initializes the plan
@@ -88,11 +89,13 @@ $(() => {
     drawingManager.setMap(plan);
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
             // console.log(polyline.getPath().b[0].lat());
+            newPolylines.push(polyline)
             console.log(polyline.getPath().b)
             var arr = polyline.getPath().b
             for(var i in arr){
               console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
             }
+
     });
 
 
@@ -113,36 +116,6 @@ $(() => {
       }
 
     }
-
-
-// Point: -57.56469240982394 -74.3756662343776
-// plans_draw.js:94 Point: -58.125990315508346 -79.6930490468776
-// plans_draw.js:94 Point: -56.99460623981639 -77.3639474843776
-// plans_draw.js:94 Point: -59.86847143398984 -77.0123849843776
-// plans_draw.js:94 Point: -57.98648526597417 -79.2535959218776
-
-
-    // var flightPlanCoordinates = [
-      // {lat: -57.56469240982394, lng: -74.3756662343776},
-      // {lat:  -58.125990315508346, lng: -79.6930490468776},
-      // {lat: -56.99460623981639, lng: -77.3639474843776},
-      // {lat: -59.86847143398984, lng: -77.0123849843776},
-      // {lat: -57.98648526597417, lng: -79.2535959218776}
-    // ];
-
-
-    // var flightPath = new google.maps.Polyline({
-      // path: flightPlanCoordinates,
-      // geodesic: true,
-      // strokeColor: '#FF0000',
-      // strokeOpacity: 1.0,
-      // strokeWeight: 2
-    // });
-
-
-
-    // flightPath.setMap(plan);
-
 
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
@@ -236,9 +209,57 @@ $(() => {
 
   });
 
+  //Clears the polylines from the plan and wipes the array
+  $('#clear-button').click(function(){
+    console.log('click clear')
+    //Clearing the modal of it's current contents
+    for(let i = 0; i < newPolylines.length; i ++){
+      newPolylines[i].setMap(null);
+    }
+    while(newPolylines.length > 0) {
+      newPolylines.pop();
+    }
+  });
+
+  //Clears the polylines from the plan and wipes the array
+  $('#save-button').click(function(){
+    //The total number of polylines that are pushed to the server
+    const polyLinesToPush = []
+    console.log('click save')
+    for(let i = 0; i < newPolylines.length; i ++){
+      let newPolyLineLatLngArray = []
+      for(var y in newPolylines[i].getPath().b){
+        let newPolyLineLatLng = {lat: newPolylines[i].getPath().b[y].lat(), lng: newPolylines[i].getPath().b[y].lng()}
+        newPolyLineLatLngArray.push(newPolyLineLatLng)
+        console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
+      }
+      polyLinesToPush.push(newPolyLineLatLngArray);
+    }
+    console.log(polyLinesToPush);
+    $.ajax({
+      url: '/polylines/' + planID,
+      data: {polylines: polyLinesToPush},
+      method: 'POST'
+    }).done(() => {
 
 
+    }).catch((err) => {
 
+    });
+
+
+  });
+
+    // google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
+    //         // console.log(polyline.getPath().b[0].lat());
+    //         newPolylines.push(polyline)
+    //         console.log(polyline.getPath().b)
+    //         var arr = polyline.getPath().b
+    //         for(var i in arr){
+    //           console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
+    //         }
+
+    // });
 
   /**
    * Closes the info windows

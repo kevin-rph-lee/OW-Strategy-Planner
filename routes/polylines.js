@@ -21,6 +21,14 @@ module.exports = (knex) => {
   });
 
 
+  router.post("/:id", (req, res) => {
+
+    console.log(req.body.polylines)
+    res.sendStatus(200);
+
+  });
+
+
   return router;
 }
 
