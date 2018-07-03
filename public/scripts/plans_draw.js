@@ -255,7 +255,7 @@ $(() => {
       data: {polylines: polyLinesToPush},
       method: 'POST'
     }).done(() => {
-
+      location.reload();
 
     }).catch((err) => {
 
