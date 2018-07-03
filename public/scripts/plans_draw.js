@@ -203,8 +203,8 @@ $(() => {
     method: 'GET'
   }).done((polylines) => {
 
-
     initPlan(markers,polylines);
+
   }).catch((err) => {
 
   });

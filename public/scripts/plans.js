@@ -13,7 +13,7 @@ $(() => {
    * Initializes the plan
    * @param  {array} locations An array of locations to have markers added to the plan
    */
-  initPlan = (markers) => {
+  initPlan = (markers, polylines) => {
     // var bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
@@ -69,18 +69,24 @@ $(() => {
        plan.setCenter(new google.maps.LatLng(y, x));
     })
 
-    // var drawingManager = new google.maps.drawing.DrawingManager({
-    //   drawingMode: google.maps.drawing.OverlayType.MARKER,
-    //   drawingControl: true,
-    //   drawingControlOptions: {
-    //     position: google.maps.ControlPosition.TOP_CENTER,
-    //     drawingModes: ['polyline']
-    //   }
-    // });
-    // drawingManager.setMap(plan);
-    // google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
-    //         console.log(polyline.getPath().b[0].lat());
-    //     });
+    var linesFromDB = [];
+
+    for(let i = 0; i < polylines.length; i ++){
+      let polylineCoordinates = []
+      console.log(polylines[i].coordinates.coordinatesArray);
+      for(let y = 0; y < polylines[i].coordinates.coordinatesArray.length; y ++){
+        var newPolyline = new google.maps.Polyline({
+          path: polylines[i].coordinates.coordinatesArray,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        linesFromDB.push(newPolyline)
+        newPolyline.setMap(plan);
+      }
+
+    }
 
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
@@ -89,6 +95,7 @@ $(() => {
       addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email, markers[i].image);
     }
 
+    //NOTE: How to auto zoom around all markers
     // for(var x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
@@ -259,8 +266,16 @@ $(() => {
 
 
 
-  console.log(isOwner);
-  initPlan(markers);
+  $.ajax({
+    url: '/polylines/' + planID,
+    method: 'GET'
+  }).done((polylines) => {
+
+    initPlan(markers,polylines);
+
+  }).catch((err) => {
+
+  });
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#teammates[type="radio"]').click(function(){
