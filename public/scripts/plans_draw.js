@@ -221,9 +221,18 @@ $(() => {
     }
   });
 
+  //Delete all polylines associated with that plan
+  $('#delete-polylines').click(function(){
+    $.ajax({
+      url: '/polylines/' + planID + '/delete',
+      data: {},
+      method: 'POST'
+    }).done(() => {
+      location.reload();
 
-  $('#save-button').click(function(){
+    }).catch((err) => {
 
+    });
   })
 
   //Clears the polylines from the plan and wipes the array
@@ -244,7 +253,7 @@ $(() => {
       return;
     }
 
-    console.log('click save')
+
     for(let i = 0; i < newPolylines.length; i ++){
       let newPolyLineLatLngArray = []
       for(var y in newPolylines[i].getPath().b){
@@ -254,7 +263,8 @@ $(() => {
       }
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
-    console.log(polyLinesToPush);
+
+
     $.ajax({
       url: '/polylines/' + planID,
       data: {polylines: polyLinesToPush},
@@ -268,17 +278,6 @@ $(() => {
 
 
   });
-
-    // google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
-    //         // console.log(polyline.getPath().b[0].lat());
-    //         newPolylines.push(polyline)
-    //         console.log(polyline.getPath().b)
-    //         var arr = polyline.getPath().b
-    //         for(var i in arr){
-    //           console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
-    //         }
-
-    // });
 
   /**
    * Closes the info windows
