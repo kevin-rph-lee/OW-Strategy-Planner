@@ -16,8 +16,9 @@ module.exports = (knex) => {
       .innerJoin('maps', 'plans.map_id', 'maps.id')
       .then((markers) => {
         let isOwner = false;
-        if(markers[0].owner_id === req.session.userID){
-          isOwner = true;
+        if(markers[0].owner_id !== req.session.userID){
+          res.sendStatus(403);
+          return;
         }
 
         knex
