@@ -75,7 +75,7 @@ $(() => {
       drawingControl: true,
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_CENTER,
-        drawingModes: ['circle', 'polyline']
+        drawingModes: ['polyline']
       },
       circleOptions: {
         fillColor: '#ffff00',
@@ -225,6 +225,20 @@ $(() => {
   $('#save-button').click(function(){
     //The total number of polylines that are pushed to the server
     const polyLinesToPush = []
+
+    if(newPolylines.length === 0){
+      $('#polyline-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      No polylines to add!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
+
     console.log('click save')
     for(let i = 0; i < newPolylines.length; i ++){
       let newPolyLineLatLngArray = []
