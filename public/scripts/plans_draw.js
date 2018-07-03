@@ -221,6 +221,11 @@ $(() => {
     }
   });
 
+
+  $('#save-button').click(function(){
+
+  })
+
   //Clears the polylines from the plan and wipes the array
   $('#save-button').click(function(){
     //The total number of polylines that are pushed to the server

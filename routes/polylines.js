@@ -20,6 +20,35 @@ module.exports = (knex) => {
   });
 
 
+  router.post("/:id/delete", (req, res) => {
+
+    knex
+      .select('owner_id')
+      .from('plans')
+      .where({id:req.params.id})
+      .then((id) => {
+        if(req.session.userID !== id[0].owner_id){
+          res.sendStatus(403);
+          return;
+        } else {
+          knex
+          .select('id')
+          .from('polylines')
+          .where({plan_id:req.params.id})
+          .then((results) => {
+            for(let i = 1; i <= results.length; i++){
+               knex('polylines')
+                .where({ id: i })
+                .del()
+                .then(()=>{});
+            }
+            res.sendStatus(200);
+          });
+        }
+      });
+  });
+
+
   router.post("/:id", (req, res) => {
 
     knex
