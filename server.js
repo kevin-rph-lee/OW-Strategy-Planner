@@ -21,6 +21,7 @@ const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const markersRoutes = require("./routes/markers");
 const plansRoutes = require("./routes/plans");
+const polylinesRoutes = require("./routes/polylines");
 const _ = require('lodash');
 const multer = require('multer');
 var path = require('path')
@@ -55,6 +56,7 @@ app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
 app.use("/plans", plansRoutes(knex));
 app.use("/markers", markersRoutes(knex, multer, _, path));
+app.use("/polylines", polylinesRoutes(knex));
 
 
 
@@ -73,10 +75,6 @@ app.get("/", (req, res) => {
         plans: results
       });
     });
-
-
-
-
 });
 
 app.listen(PORT, () => {

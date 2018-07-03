@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Draw</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/plans_draw.js"></script>
+
+    <script>window.markers = <%- JSON.stringify(markers); %></script>
+    <script>window.markerTypes = <%- JSON.stringify(markerTypes); %></script>
+    <script>window.planID = <%= planID %></script>
+    <script>window.isOwner = <%= isOwner %></script>
+
+    <link href="/styles/plan_view.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+
+
+
+    <% include partials/navbar %>
+    <% include partials/register %>
+
+    <div id="plan" style="width:100%;height:600px;"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrLSXiD3Llx4PIBESHzU99vuLeXh_Dfig&libraries=drawing"></script>
+
+
+<!--   <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
+ -->
+    <div>
+      <button type="button" class="btn btn-default" id="clear-button">Clear</button>
+      <button type="button" class="btn btn-success" id="save-button">Save</button>
+    </div>
+    <button type="button" class="btn btn-danger" id="delete-polylines">Delete all polylines from plan</button>
+    <a href="http://localhost:8080/plans/<%= planID %>/"   class="btn btn-primary">Go Back</a>
+    <div id="polyline-alert"></div>
+  </body>
+
+
+</html>
+
+<!--
+          <form id="uploadForm">
+            <input id='avatar-upload' type="file" name="userFile" />
+            <button type="submit">Send</button>
+          </form>
+ -->

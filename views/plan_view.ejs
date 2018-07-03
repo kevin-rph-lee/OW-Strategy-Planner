@@ -29,54 +29,58 @@
 
     <div id="plan" style="width:100%;height:600px;"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrLSXiD3Llx4PIBESHzU99vuLeXh_Dfig"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrLSXiD3Llx4PIBESHzU99vuLeXh_Dfig&libraries=drawing"></script>
 
-    <% if (email !== undefined) { %>
+    <% if (isOwner === true) { %>
       <div class="button-container">
         <button type="button" class="btn btn-primary" id="toggle-on">Toggle On</button>
         <button type="button" class="btn btn-warning" id="toggle-off">Toggle Off</button>
         <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
       </div>
     <% } %>
-  <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
+    <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
 
+    <!-- The Modal -->
+    <div id="new-marker-modal" class="modal">
 
-
-  <!-- The Modal -->
-  <div id="new-marker-modal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <h1>New maker</h1>
-      <form id="new-marker-form">
-        <div class="form-group">
-          <label for="marker-name">Marker Name</label>
-          <input type="text" class="form-control" id="marker-name">
-          <label for="marker-description">Description</label>
-          <input type="text" class="form-control" id="marker-description">
-          <label for="marker-image">Upload Image (optional) - JPG only</label>
-          <input type="file" class="form-control" id="marker-image-upload" name="userFile">
-          <label for="marker-type">Type of marker</label>
-          <div class = "form-group">
-            <input type="radio" name="marker-type" id="teammates" value="Teammates"> Teammates
-            <input type="radio" name="marker-type" id="enemy"  value="Enemy"> Enemy
-            <input type="radio" name="marker-type" id="other"  value="Other"> Other
+      <!-- Modal content -->
+      <div class="modal-content">
+        <h1>New marker</h1>
+        <form id="new-marker-form">
+          <div class="form-group">
+            <label for="marker-name">Marker Name</label>
+            <input type="text" class="form-control" id="marker-name">
+            <label for="marker-description">Description</label>
+            <input type="text" class="form-control" id="marker-description">
+            <label for="marker-image">Upload Image (optional) - JPG only</label>
+            <input type="file" class="form-control" id="marker-image-upload" name="userFile">
+            <label for="marker-type">Type of marker</label>
+            <div class = "form-group">
+              <input type="radio" name="marker-type" id="teammates" value="Teammates"> Teammates
+              <input type="radio" name="marker-type" id="enemy"  value="Enemy"> Enemy
+              <input type="radio" name="marker-type" id="other"  value="Other"> Other
+            </div>
           </div>
-        </div>
-        <select class="form-control" id="marker-type-select">
-        </select>
+          <select class="form-control" id="marker-type-select">
+          </select>
 
-        <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
-        <button type="button" class="btn btn-default close-button" id="close-button">Cancel</button>
-      </form>
-      <div id='alert'></div>
+          <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
+          <button type="button" class="btn btn-default close-button" id="close-button">Cancel</button>
+        </form>
+        <div id='alert'></div>
+      </div>
+
     </div>
 
-  </div>
 
-
+    <% if (isOwner === true) { %>
+      <div class="button-container">
+        <a href="http://localhost:8080/plans/<%= planID %>/draw"   class="btn btn-primary">Draw</a>
+      </div>
+    <% } %>
 
   </body>
+
 </html>
 
 <!--
