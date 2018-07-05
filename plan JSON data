@@ -1,0 +1,504 @@
+{
+    "planID": "1",
+    "markers": [
+        {
+            "name": "Pirate Ship",
+            "owner_id": 1,
+            "description": "test",
+            "title": "Parking Spot",
+            "position": {
+                "lat": 0,
+                "lng": 0
+            },
+            "image": true,
+            "type": null,
+            "email": "test@test.com",
+            "id": 1,
+            "icon_file_location": null,
+            "url": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/eichenwalde/"
+        }
+    ],
+    "markerTypes": [
+        {
+            "id": 1,
+            "title": "Pointer",
+            "description": null,
+            "icon_file_location": null,
+            "teammate_icon": null,
+            "misc_icon": true
+        },
+        {
+            "id": 2,
+            "title": "Danger",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/caution.png",
+            "teammate_icon": null,
+            "misc_icon": true
+        },
+        {
+            "id": 3,
+            "title": "Sym Turret",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/symturret_b.png",
+            "teammate_icon": true,
+            "misc_icon": true
+        },
+        {
+            "id": 4,
+            "title": "Sym Turret (Enemy)",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/symturret_r.png",
+            "teammate_icon": null,
+            "misc_icon": true
+        },
+        {
+            "id": 5,
+            "title": "Torb Turret",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/torbturret_b.png",
+            "teammate_icon": true,
+            "misc_icon": true
+        },
+        {
+            "id": 6,
+            "title": "Torb Turret (Enemy)",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/misc_icon/torbturret_r.png",
+            "teammate_icon": null,
+            "misc_icon": true
+        },
+        {
+            "id": 7,
+            "title": "Ana",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/ana_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 8,
+            "title": "Bastion",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/bastion_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 9,
+            "title": "Ana",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/ana_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 10,
+            "title": "Bastion",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/bastion_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 11,
+            "title": "Brigitte",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/brigitte_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 12,
+            "title": "Brigitte",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/brigitte_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 13,
+            "title": "Doomfist",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/doomfist_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 14,
+            "title": "Doomfist",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/doomfist_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 15,
+            "title": "Dva",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/dva_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 16,
+            "title": "Dva",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/dva_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 17,
+            "title": "Genji",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/genji_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 18,
+            "title": "Genji",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/genji_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 19,
+            "title": "Hanzo",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/hanzo_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 20,
+            "title": "Hanzo",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/hanzo_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 21,
+            "title": "Junkrat",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/junkrat_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 22,
+            "title": "Junkrat",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/junkrat_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 23,
+            "title": "Lucio",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/lucio_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 24,
+            "title": "Lucio",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/lucio_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 25,
+            "title": "McCree",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mccree_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 26,
+            "title": "McCree",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mccree_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 27,
+            "title": "Mei",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mei_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 28,
+            "title": "Mei",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mei_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 29,
+            "title": "Mercy",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mercy_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 30,
+            "title": "Mercy",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/mercy_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 31,
+            "title": "Moira",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/moira_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 32,
+            "title": "Moira",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/moira_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 33,
+            "title": "Orisa",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/orisa_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 34,
+            "title": "Orisa",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/orisa_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 35,
+            "title": "Pharah",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/pharah_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 36,
+            "title": "Pharah",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/pharah_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 37,
+            "title": "Reaper",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/reaper_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 38,
+            "title": "Reaper",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/reaper_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 39,
+            "title": "Reinhardt",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/reinhardt_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 40,
+            "title": "Reinhardt",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/reinhardt_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 41,
+            "title": "Roadhog",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/roadhog_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 42,
+            "title": "Roadhog",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/roadhog_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 43,
+            "title": "Soldier76",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/soldier76_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 44,
+            "title": "Soldier76",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/soldier76_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 45,
+            "title": "Sombra",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/sombra_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 46,
+            "title": "Sombra",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/sombra_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 47,
+            "title": "Symmetra",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/symmetra_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 48,
+            "title": "Symmetra",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/symmetra_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 49,
+            "title": "Torbjorn",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/torbjorn_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 50,
+            "title": "Torbjorn",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/torbjorn_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 51,
+            "title": "Tracer",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/tracer_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 52,
+            "title": "Tracer",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/tracer_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 53,
+            "title": "Widowmaker",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/widowmaker_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 54,
+            "title": "Widowmaker",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/widowmaker_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 55,
+            "title": "Winston",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/winston_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 56,
+            "title": "Winston",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/winston_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 57,
+            "title": "Zarya",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/zarya_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 58,
+            "title": "Zarya",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/zarya_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        },
+        {
+            "id": 59,
+            "title": "Zenyatta",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/zenyatta_b.png",
+            "teammate_icon": true,
+            "misc_icon": null
+        },
+        {
+            "id": 60,
+            "title": "Zenyatta",
+            "description": null,
+            "icon_file_location": "https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hero_icons/zenyatta_r.png",
+            "teammate_icon": null,
+            "misc_icon": null
+        }
+    ],
+    "isOwner": false
+}
