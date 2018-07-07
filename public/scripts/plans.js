@@ -266,16 +266,9 @@ $(() => {
 
 
 
-  $.ajax({
-    url: '/polylines/' + planID,
-    method: 'GET'
-  }).done((polylines) => {
+  initPlan(markers,polylines);
 
-    initPlan(markers,polylines);
 
-  }).catch((err) => {
-
-  });
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#teammates[type="radio"]').click(function(){

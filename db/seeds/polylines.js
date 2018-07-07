@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('polylines').insert([
-        {step_id: '1', coordinates: JSON.stringify({ coordinatesArray:
+        {step_id: 1, coordinates: JSON.stringify({ coordinatesArray:
                 [{lat: -57.56469240982394, lng: -74.3756662343776},
                 {lat:  -58.125990315508346, lng: -79.6930490468776},
                 {lat: -56.99460623981639, lng: -77.3639474843776},
@@ -13,7 +13,7 @@ exports.seed = function(knex, Promise) {
                 {lat: -57.98648526597417, lng: -79.2535959218776}]
           })
         },
-        {step_id: '1', coordinates: JSON.stringify({ coordinatesArray:
+        {step_id: 1, coordinates: JSON.stringify({ coordinatesArray:
                 [{lat: -56.01770278839883, lng: -86.27252663555134},
                 {lat:   -58.649202167759086, lng: -92.99615944805134},
                 {lat: -58.967829321350834, lng: -89.52447976055134},
