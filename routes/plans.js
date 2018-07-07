@@ -43,12 +43,12 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
       knex
-      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type')
+      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
       .from('steps')
       .where({plan_id:req.params.id})
       .innerJoin('plans', 'plans.id', 'steps.plan_id')
       .innerJoin('markers', 'steps.id', 'markers.step_id')
-      .innerJoin('maps', 'maps.id', 'plans.map_id')
+      .innerJoin('marker_types','marker_types.id', 'markers.marker_type_id')
       .then((markers) => {
           knex
           .select('polylines.step_id', 'polylines.coordinates')
@@ -71,8 +71,8 @@ module.exports = (knex) => {
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
                   .then((planInfo) => {
-                    // res.json({
                       res.render('plan_view', {
+                      // res.json({
                         markers:markers,
                         polylines:polylines,
                         markerTypes:markerTypes,
@@ -83,9 +83,6 @@ module.exports = (knex) => {
                         mapURL: planInfo[0]
                       })
                   });
-                  // res.json({
-
-
               })
 
           })

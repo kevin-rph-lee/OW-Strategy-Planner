@@ -7,7 +7,6 @@ $(() => {
   var clickListener;
   var markerClick;
   var infoWindow;
-  var lines = [];
 
   /**
    * Initializes the plan
@@ -91,7 +90,7 @@ $(() => {
     plan.setMapTypeId('OW');
 
     for(var i = 0; i < markers.length; i ++){
-      addMarker(markers[i].position, markers[i].title, markers[i].icon_file_location, markers[i].description, markers[i].id, markers[i].email, markers[i].image);
+      addMarker(markers[i]);
     }
 
     //NOTE: How to auto zoom around all markers
@@ -134,28 +133,6 @@ $(() => {
     }
   }
 
-
-
-  // function bindDataLayerListeners(dataLayer) {
-  //     dataLayer.addListener('addfeature', savePolygon);
-  //     dataLayer.addListener('removefeature', savePolygon);
-  //     dataLayer.addListener('setgeometry', savePolygon);
-  // }
-
-  // function savePolygon() {
-  //     plan.data.toGeoJson(function (json) {
-  //         console.log(JSON.stringify(json));
-  //         // sessionStorage.setItem('geoData', JSON.stringify(json));
-  //     });
-  // }
-
-  // //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
-  // $('#test').click(function(){
-  //   //Clearing the modal of it's current contents
-  //   savePolygon();
-  // });
-
-
   /**
    * Gets normalized coordinates for the map. Used only when the map is initialized
    */
@@ -181,72 +158,73 @@ $(() => {
 
 
   /**
-   * Adds a marker to the map
+   * Adds an individual marker to the map
    * @param  {google maps loc obj} location A google maps lat/long obj
    * @param  {string} title    Title of the marker
    */
-  addMarker = (position, title, icon_file_location, description, id, email, image) => {
+  // addMarker = (position, title, icon_file_location, description, id, email, image) => {
+  addMarker = (marker) => {
+    console.log('MARKER ', marker)
     var marker = new google.maps.Marker({
-      position: position,
+      position: marker.position,
       map: plan,
-      title: title,
-      icon:icon_file_location
+      title: marker.title,
+      icon: marker.icon_file_location
     });
 
     var infoWindow ;
-    console.log('owner ', isOwner)
-    console.log('description: ', description)
-    if(isOwner === true){
 
-      if(image === true){
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-<div id="info-window-alert"></div>`});
+//     if(isOwner === true){
 
-        } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-<div id="info-window-alert"></div>`});
+//       if(image === true){
+//         if(infoWindow === undefined){
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+// <div id="info-window-alert"></div>`});
 
-        }
+//         } else {
+//           infoWindow.close();
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+// <div id="info-window-alert"></div>`});
+
+//         }
 
 
-      } else {
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-<div id="info-window-alert"></div>`});
+//       } else {
+//         if(infoWindow === undefined){
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+// <div id="info-window-alert"></div>`});
 
-        } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
-<div id="info-window-alert"></div>`});
+//         } else {
+//           infoWindow.close();
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+title + `</h3><p>` + description + `</p><p>Created by: ${email}</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${id})">Delete</button>
+// <div id="info-window-alert"></div>`});
 
-        }
-      }
+//         }
+//       }
 
-    } else {
+//     } else {
 
-      if(image === true){
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+//       if(image === true){
+//         if(infoWindow === undefined){
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
 
-        } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
+//         } else {
+//           infoWindow.close();
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><img class='tool-tip-image' src='./../images/${id}.jpg'><p>` + marker.description + `</p><p>Created by: ${email}</p>`});
 
-        }
-      } else {
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + "</h3><p>" + description + `</p><p>Created by: ${email}</p>`});
+//         }
+//       } else {
+//         if(infoWindow === undefined){
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + "</h3><p>" + description + `</p><p>Created by: ${email}</p>`});
 
-        } else {
-          infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><p>` + description + `</p><p>Created by: ${email}</p>`});
-        }
-      }
-    }
+//         } else {
+//           infoWindow.close();
+//           infoWindow = new google.maps.InfoWindow({content: "<h3>"+ title + `</h3><p>` + description + `</p><p>Created by: ${email}</p>`});
+//         }
+//       }
+//     }
 
-    infoWindowArray.push(infoWindow);
+//     infoWindowArray.push(infoWindow);
     markersArray.push(marker);
   }
 
