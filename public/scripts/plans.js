@@ -8,6 +8,10 @@ $(() => {
   var clickListener;
   var markerClick;
   var infoWindow;
+  let currentStep = {
+    id: Number(stepIDs[0]),
+    number: 1
+  }
 
 
   /**
@@ -231,8 +235,8 @@ $(() => {
 
 
 
-  initPlan(markers, polylines, 2);
-
+  initPlan(markers, polylines, currentStep.id);
+  console.log('StepIDs ', stepIDs)
 
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
@@ -266,6 +270,12 @@ $(() => {
     }
   });
 
+  $('#step-forward').click(function (e) {
+    console.log('forward')
+  })
+  $('#step-backwards').click(function (e) {
+    console.log('backwards')
+  })
 
 
   $('form').submit(function (e) {
