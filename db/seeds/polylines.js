@@ -13,7 +13,7 @@ exports.seed = function(knex, Promise) {
                 {lat: -57.98648526597417, lng: -79.2535959218776}]
           })
         },
-        {step_id: 1, coordinates: JSON.stringify({ coordinatesArray:
+        {step_id: 2, coordinates: JSON.stringify({ coordinatesArray:
                 [{lat: -56.01770278839883, lng: -86.27252663555134},
                 {lat:   -58.649202167759086, lng: -92.99615944805134},
                 {lat: -58.967829321350834, lng: -89.52447976055134},

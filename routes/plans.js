@@ -43,41 +43,45 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
       knex
-      .select('plans.name', 'plans.owner_id','markers.description','markers.title','markers.position','markers.description','markers.image','markers.type','users.email', 'markers.id', 'marker_types.icon_file_location', 'maps.url')
-      .from('plans')
-      .where({plan_id:req.params.id, step_number:1})
-      .innerJoin('steps', 'steps.plan_id', 'plans.id')
+      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'markers.id')
+      .from('steps')
+      .where({plan_id:req.params.id})
+      .innerJoin('plans', 'plans.id', 'steps.plan_id')
       .innerJoin('markers', 'steps.id', 'markers.step_id')
-      .innerJoin('users', 'plans.owner_id', 'plans.id')
-      .innerJoin('marker_types', 'marker_types.id', 'markers.marker_type_id')
-      .innerJoin('maps', 'plans.map_id', 'maps.id')
-      .then((results) => {
-        let isOwner = false;
-        if(results[0].owner_id === req.session.userID){
-          isOwner = true;
-        }
-
-        knex
-          .select('*')
-          .from('marker_types')
-          .then((markerTypes) => {
-            knex
+      .then((markers) => {
+          knex
+          .select('polylines.step_id', 'polylines.coordinates')
+          .from('steps')
+          .where({plan_id:req.params.id})
+          .innerJoin('plans', 'plans.id', 'steps.plan_id')
+          .innerJoin('polylines', 'steps.id', 'polylines.id')
+          .then((polylines) => {
+              knex
               .select('*')
-              .from('polylines')
-              .where({plan_id:req.params.id, step_number:1})
-              .innerJoin('steps', 'steps.plan_id', 'steps.id')
-              .then((polylines) => {
-                res.render('plan_view', {
-                  planID: req.params.id,
-                  email: req.session.email,
-                  userID: req.session.userID,
-                  markers:results,
-                  markerTypes: markerTypes,
-                  isOwner: isOwner,
-                  polylines: polylines
-                });
-              });
-          });
+              .from('marker_types')
+              .then((marker_types) => {
+                knex
+                .select('owner_id')
+                .from('plans')
+                .then((ownerID) => {
+                  let isOwner = false;
+                  if(req.session.userID === ownerID[0].owner_id){
+                    isOwner = true;
+                  }
+
+                  res.json({
+                    markers:markers,
+                    polylines:polylines,
+                    marker_types:marker_types,
+                    isOwner: isOwner
+                  })
+                })
+              })
+
+
+
+          })
+
       })
   });
 
