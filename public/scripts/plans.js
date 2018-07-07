@@ -4,10 +4,11 @@ $(() => {
 
   const markersArray = [];
   const infoWindowArray = [];
+  const polylinesArray = [];
   var clickListener;
   var markerClick;
   var infoWindow;
-  var polylinesArray = [];
+
 
   /**
    * Initializes the plan
@@ -15,6 +16,8 @@ $(() => {
    */
   initPlan = (markers, polylines, stepID) => {
     // var bounds = new google.maps.LatLngBounds();
+
+
 
     plan = new google.maps.Map(document.getElementById('plan'), {
       center: {lat: -55.60427598849055, lng: -64.92253974426148},
@@ -81,7 +84,6 @@ $(() => {
 
     //Adding Markers & event listeners
     for(var i = 0; i < markers.length; i ++){
-      console.log('Comparing ', markers[i].step_id + ' ' + stepID)
       if(markers[i].step_id === stepID){
         addMarker(markers[i]);
       }
@@ -229,7 +231,7 @@ $(() => {
 
 
 
-  initPlan(markers, polylines, 1);
+  initPlan(markers, polylines, 2);
 
 
 
@@ -386,6 +388,34 @@ $(() => {
 
   }
 
+  /**
+   * Clears all polylines and markers currently active on the plan
+   */
+  clearMarkersAndPolylines = () =>{
+    console.log('Markers Array1: ', markersArray)
+    console.log('Polylines Array1: ', polylinesArray)
+    for (let i = 0; i < markersArray.length; i ++) {
+      // markersArray[i].removeListener();
+      // markersArray[i].removeEventListener("click");
+      markersArray[i].setMap(null);
+    }
+    for (let y = 0; y < polylinesArray.length; y ++) {
+      // markersArray[i].removeListener();
+      // markersArray[i].removeEventListener("click");
+      polylinesArray[y].setMap(null);
+    }
+    markersArray.length = 0;
+    infoWindowArray.length = 0;
+    polylinesArray.length = 0;
+    console.log('Markers Array2: ', markersArray)
+    console.log('Polylines Array2: ', polylinesArray)
+
+  }
+
+  document.getElementById("test-button").addEventListener('click', () => {
+    clearMarkersAndPolylines();
+  });
+
   document.getElementById("toggle-on").addEventListener('click', () => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
     $('#toggle-on').css('display', 'none');
@@ -393,7 +423,6 @@ $(() => {
     $('#new-marker-button').css('display', 'inline');
     clickListener = plan.addListener('click', toggleAddMarker);
   });
-
 
   document.getElementById("toggle-off").addEventListener('click', () => {
     $('#toggle-off').css('display', 'none');
