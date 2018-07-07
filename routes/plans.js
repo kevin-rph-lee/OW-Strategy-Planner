@@ -43,7 +43,7 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
       knex
-      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
+      .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
       .from('steps')
       .where({plan_id:req.params.id})
       .innerJoin('plans', 'plans.id', 'steps.plan_id')
@@ -61,16 +61,16 @@ module.exports = (knex) => {
               .select('*')
               .from('marker_types')
               .then((markerTypes) => {
-                let isOwner = false;
-                if(markers[0].owner_id === req.session.userID){
-                  isOwner = true;
-                }
                 knex
                   .select("maps.url", 'plans.id', 'plans.owner_id')
                   .from("plans")
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
                   .then((planInfo) => {
+                      let isOwner = false;
+                      if(planInfo[0].owner_id === req.session.userID){
+                        isOwner = true;
+                      }
                       res.render('plan_view', {
                       // res.json({
                         markers:markers,
