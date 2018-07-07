@@ -71,17 +71,39 @@ module.exports = (knex) => {
                       if(planInfo[0].owner_id === req.session.userID){
                         isOwner = true;
                       }
-                      res.render('plan_view', {
-                      // res.json({
-                        markers:markers,
-                        polylines:polylines,
-                        markerTypes:markerTypes,
-                        isOwner: isOwner,
-                        planID: planInfo[0].id,
-                        email: req.session.email,
-                        planID: planInfo[0].id,
-                        mapURL: planInfo[0]
-                      })
+
+
+
+
+                      knex
+                        .select("id")
+                        .from("steps")
+                        .where({plan_id: req.params.id})
+                        .then((stepIDs) => {
+                            let isOwner = false;
+                            if(planInfo[0].owner_id === req.session.userID){
+                              isOwner = true;
+                            }
+                            const stepIDsArray = [];
+                            for(let i = 0; i < stepIDs.length; i ++){
+                              stepIDsArray.push(stepIDs[i].id)
+                            }
+                            stepIDsArray.sort();
+
+                            res.render('plan_view', {
+                            // res.json({
+                              markers:markers,
+                              polylines:polylines,
+                              markerTypes:markerTypes,
+                              isOwner: isOwner,
+                              planID: planInfo[0].id,
+                              email: req.session.email,
+                              planID: planInfo[0].id,
+                              mapURL: planInfo[0],
+                              stepIDs: stepIDsArray
+                            })
+                        });
+
                   });
               })
 
