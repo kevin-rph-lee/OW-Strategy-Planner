@@ -86,7 +86,7 @@ module.exports = (knex) => {
                             }
                             const stepIDsArray = [];
                             for(let i = 0; i < stepIDs.length; i ++){
-                              stepIDsArray.push(stepIDs[i].id)
+                              stepIDsArray.push(stepIDs[i].id.toString())
                             }
                             stepIDsArray.sort();
 
