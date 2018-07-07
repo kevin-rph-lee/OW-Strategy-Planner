@@ -89,13 +89,13 @@ $(() => {
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
+    //Adding Markers & event listeners
     for(var i = 0; i < markers.length; i ++){
       console.log('Comparing ', markers[i].step_id + ' ' + stepID)
       if(markers[i].step_id === stepID){
         addMarker(markers[i]);
       }
     }
-
     //NOTE: How to auto zoom around all markers
     // for(var x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
@@ -103,37 +103,6 @@ $(() => {
 
     // plan.fitBounds(bounds);
 
-
-    //TO DO WHY DOES THIS NOT WORK
-    // for(var v = 0; v < markersArray.length; v ++){
-    //   console.log('looping1, ', v);
-    //   markersArray[v].addListener('click', () =>{
-    //     infoWindowArray[v].open(map, markersArray[v]);
-    //   })
-    // }
-
-    // markersArray[0].addListener('click', () => {
-    //   infoWindowArray[0].open(map, markersArray[0]);
-    // })
-
-    // markersArray[1].addListener('click', () => {
-    //   infoWindowArray[1].open(map, markersArray[1]);
-    // })
-
-    // markersArray[2].addListener('click', () => {
-    //   infoWindowArray[2].open(map, markersArray[2]);
-    // })
-
-    //TO DO = FIGURE OUT WTF THIS MEANS
-    for (var f = 0; f < markersArray.length; f++) {
-        // Keep value of 'i' in event creation
-        (function(f) {
-            google.maps.event.addListener(markersArray[f], 'click', function() {
-                closeInfoWindows();
-                infoWindowArray[f].open(plan, markersArray[f]);
-            });
-        }(f));
-    }
   }
 
   /**
@@ -231,7 +200,13 @@ $(() => {
     }
 
     infoWindowArray.push(infoWindow);
+    google.maps.event.addListener(marker, 'click', function() {
+        closeInfoWindows();
+        infoWindow.open(plan, marker);
+    });
+
     markersArray.push(marker);
+
   }
 
 
