@@ -24,7 +24,7 @@ $(() => {
         mapTypeIds: ['OW']
       }
     });
-
+    console.log('MapURL ', mapURL)
     var OWMapType = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
           var normalizedCoord = getNormalizedCoord(coord, zoom);
@@ -32,7 +32,7 @@ $(() => {
             return null;
           }
           var bound = Math.pow(2, zoom);
-          return `${markers[0].url}` + zoom + '/' + normalizedCoord.x + '/' +
+          return `${mapURL}` + zoom + '/' + normalizedCoord.x + '/' +
               (bound - normalizedCoord.y - 1) + '.png';
       },
       tileSize: new google.maps.Size(256, 256),
