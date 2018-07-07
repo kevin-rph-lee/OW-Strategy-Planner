@@ -7,6 +7,7 @@ $(() => {
   var clickListener;
   var markerClick;
   var infoWindow;
+  var polylinesArray = [];
 
   /**
    * Initializes the plan
@@ -69,21 +70,10 @@ $(() => {
 
     var linesFromDB = [];
 
-    for(let i = 0; i < polylines.length; i ++){
-      let polylineCoordinates = []
-      console.log(polylines[i].coordinates.coordinatesArray);
-      for(let y = 0; y < polylines[i].coordinates.coordinatesArray.length; y ++){
-        var newPolyline = new google.maps.Polyline({
-          path: polylines[i].coordinates.coordinatesArray,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-        linesFromDB.push(newPolyline)
-        newPolyline.setMap(plan);
+    for(let y = 0; y < polylines.length; y ++){
+      if(polylines[y].step_id === stepID){
+        addPolyline(polylines[y]);
       }
-
     }
 
     plan.mapTypes.set('OW', OWMapType);
@@ -128,6 +118,21 @@ $(() => {
     return {x: x, y: y};
   }
 
+  addPolyline = (polylineToAdd) => {
+    let polylineCoordinates = []
+    // console.log(polylines[i].coordinates.coordinatesArray);
+    for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
+      var newPolyline = new google.maps.Polyline({
+        path: polylineToAdd.coordinates.coordinatesArray,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      polylinesArray.push(newPolyline)
+      newPolyline.setMap(plan);
+    }
+  }
 
   /**
    * Adds an individual marker to the map
