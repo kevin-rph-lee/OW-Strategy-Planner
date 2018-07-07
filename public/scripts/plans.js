@@ -12,7 +12,7 @@ $(() => {
    * Initializes the plan
    * @param  {array} locations An array of locations to have markers added to the plan
    */
-  initPlan = (markers, polylines) => {
+  initPlan = (markers, polylines, stepID) => {
     // var bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
@@ -90,7 +90,10 @@ $(() => {
     plan.setMapTypeId('OW');
 
     for(var i = 0; i < markers.length; i ++){
-      addMarker(markers[i]);
+      console.log('Comparing ', markers[i].step_id + ' ' + stepID)
+      if(markers[i].step_id === stepID){
+        addMarker(markers[i]);
+      }
     }
 
     //NOTE: How to auto zoom around all markers
@@ -171,7 +174,7 @@ $(() => {
       icon: markerToAdd.icon_file_location
     });
 
-    var infoWindow ;
+    var infoWindow;
 
     if(isOwner === true){
 
@@ -246,7 +249,7 @@ $(() => {
 
 
 
-  initPlan(markers,polylines);
+  initPlan(markers, polylines, 1);
 
 
 
