@@ -43,7 +43,7 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
       knex
-      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'plans.id', 'plans.owner_id', 'maps.url')
+      .select('markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type')
       .from('steps')
       .where({plan_id:req.params.id})
       .innerJoin('plans', 'plans.id', 'steps.plan_id')
@@ -65,18 +65,26 @@ module.exports = (knex) => {
                 if(markers[0].owner_id === req.session.userID){
                   isOwner = true;
                 }
+                knex
+                  .select("maps.url", 'plans.id', 'plans.owner_id')
+                  .from("plans")
+                  .where({"plans.id": req.params.id})
+                  .innerJoin('maps', 'plans.map_id', 'maps.id')
+                  .then((planInfo) => {
+                    // res.json({
+                      res.render('plan_view', {
+                        markers:markers,
+                        polylines:polylines,
+                        markerTypes:markerTypes,
+                        isOwner: isOwner,
+                        planID: planInfo[0].id,
+                        email: req.session.email,
+                        planID: planInfo[0].id,
+                        mapURL: planInfo[0]
+                      })
+                  });
+                  // res.json({
 
-                  res.json({
-                  // res.render('plan_view', {
-                    markers:markers,
-                    polylines:polylines,
-                    markerTypes:markerTypes,
-                    isOwner: isOwner,
-                    planID: markers[0].id,
-                    email: req.session.email,
-                    planID: markers[0].id,
-                    mapURL: markers[0].url
-                  })
 
               })
 
