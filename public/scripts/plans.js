@@ -14,6 +14,22 @@ $(() => {
   }
 
 
+  addMarkersAndLines = (stepID) => {
+    for(let y = 0; y < polylines.length; y ++){
+      if(polylines[y].step_id === stepID){
+        addPolyline(polylines[y]);
+      }
+    }
+
+    //Adding Markers & event listeners
+    for(var i = 0; i < markers.length; i ++){
+      if(markers[i].step_id === stepID){
+        addMarker(markers[i]);
+      }
+    }
+  }
+
+
   /**
    * Initializes the plan
    * @param  {array} locations An array of locations to have markers added to the plan
@@ -75,29 +91,17 @@ $(() => {
        plan.setCenter(new google.maps.LatLng(y, x));
     })
 
-    var linesFromDB = [];
-
-    for(let y = 0; y < polylines.length; y ++){
-      if(polylines[y].step_id === stepID){
-        addPolyline(polylines[y]);
-      }
-    }
 
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
-    //Adding Markers & event listeners
-    for(var i = 0; i < markers.length; i ++){
-      if(markers[i].step_id === stepID){
-        addMarker(markers[i]);
-      }
-    }
     //NOTE: How to auto zoom around all markers
     // for(var x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
 
     // plan.fitBounds(bounds);
+    addMarkersAndLines(currentStep.id);
 
   }
 
@@ -236,7 +240,6 @@ $(() => {
 
 
   initPlan(markers, polylines, currentStep.id);
-  console.log('StepIDs ', stepIDs)
 
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
@@ -419,8 +422,8 @@ $(() => {
     polylinesArray.length = 0;
     console.log('Markers Array2: ', markersArray)
     console.log('Polylines Array2: ', polylinesArray)
-
   }
+
 
   document.getElementById("test-button").addEventListener('click', () => {
     clearMarkersAndPolylines();
