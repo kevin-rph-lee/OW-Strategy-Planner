@@ -14,6 +14,8 @@ $(() => {
   }
 
 
+
+
   addMarkersAndLines = (stepID) => {
     for(let y = 0; y < polylines.length; y ++){
       if(polylines[y].step_id === stepID){
@@ -29,6 +31,51 @@ $(() => {
     }
   }
 
+
+  $('#step-forward').click(function (e) {
+    for(let i = 0; i < stepIDs.length; i++){
+      if(currentStep.id === Number(stepIDs[i])){
+        if(isNaN(stepIDs[i+1])){
+          alert('END')
+          return;
+        } else {
+          clearMarkersAndPolylines();
+          console.log(currentStep.id)
+          addMarkersAndLines(Number(stepIDs[i+1]))
+          currentStep.number++
+          currentStep.id = Number(stepIDs[i+1]);
+          console.log('NEW CURRENT STEP ', currentStep)
+          return;
+        }
+
+      }
+    }
+  })
+  $('#step-backwards').click(function (e) {
+    console.log('Backwards')
+    for(let i = 0; i < stepIDs.length; i++){
+    console.log('stepsIDs[i] ',stepIDs[i])
+    console.log('stepsIDs[0] ',stepIDs[0])
+    console.log('Backwards ', stepIDs[i-1])
+      if(currentStep.id === Number(stepIDs[i])){
+
+        if(isNaN(stepIDs[i-1])){
+          alert('END')
+          return;
+        } else {
+          clearMarkersAndPolylines();
+
+          console.log(currentStep.id)
+          addMarkersAndLines(Number(stepIDs[i-1]))
+          currentStep.number--
+          currentStep.id = Number(stepIDs[i-1]);
+          console.log('NEW CURRENT STEP ', currentStep)
+          return;
+        }
+
+      }
+    }
+  })
 
   /**
    * Initializes the plan
@@ -273,12 +320,6 @@ $(() => {
     }
   });
 
-  $('#step-forward').click(function (e) {
-    console.log('forward')
-  })
-  $('#step-backwards').click(function (e) {
-    console.log('backwards')
-  })
 
 
   $('form').submit(function (e) {
@@ -423,11 +464,6 @@ $(() => {
     console.log('Markers Array2: ', markersArray)
     console.log('Polylines Array2: ', polylinesArray)
   }
-
-
-  document.getElementById("test-button").addEventListener('click', () => {
-    clearMarkersAndPolylines();
-  });
 
   document.getElementById("toggle-on").addEventListener('click', () => {
     //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
