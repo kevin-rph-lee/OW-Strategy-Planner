@@ -354,7 +354,17 @@ $(() => {
     }
   });
 
-
+  //Clears the polylines from the plan and wipes the array
+  $('#clear-button').click(function(){
+    console.log('click clear')
+    //Clearing the modal of it's current contents
+    for(let i = 0; i < newPolylines.length; i ++){
+      newPolylines[i].setMap(null);
+    }
+    while(newPolylines.length > 0) {
+      newPolylines.pop();
+    }
+  });
 
   $('form').submit(function (e) {
     e.preventDefault();
