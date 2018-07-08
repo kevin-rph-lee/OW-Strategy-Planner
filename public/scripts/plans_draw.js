@@ -5,6 +5,7 @@ $(() => {
   const markersArray = [];
   const infoWindowArray = [];
   const polylinesArray = [];
+  const newPolylines = [];
   var clickListener;
   var markerClick;
   var infoWindow;
@@ -165,6 +166,35 @@ $(() => {
 
     // plan.fitBounds(bounds);
     addMarkersAndLines(currentStep.id);
+
+    var drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: null,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: ['polyline']
+      },
+      circleOptions: {
+        fillColor: '#ffff00',
+        fillOpacity: 0.3,
+        strokeWeight: 1,
+        clickable: false,
+        editable: true,
+        zIndex: 1
+      }
+    });
+    drawingManager.setMap(plan);
+    google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
+            // console.log(polyline.getPath().b[0].lat());
+            newPolylines.push(polyline)
+            console.log(polyline.getPath().b)
+            var arr = polyline.getPath().b
+            for(var i in arr){
+              console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
+            }
+
+    });
+
 
   }
 
