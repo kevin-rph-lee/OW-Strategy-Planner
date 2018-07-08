@@ -89,11 +89,12 @@ module.exports = (knex) => {
       .then((markers) => {
           knex
           .select('polylines.step_id', 'polylines.coordinates')
-          .from('steps')
-          .where({plan_id:req.params.id})
+          .from('polylines')
+          .where({'plans.id':req.params.id})
+          .innerJoin('steps', 'steps.id', 'polylines.step_id')
           .innerJoin('plans', 'plans.id', 'steps.plan_id')
-          .innerJoin('polylines', 'steps.id', 'polylines.id')
           .then((polylines) => {
+            console.log('polylines1: ', polylines)
               knex
               .select('*')
               .from('marker_types')
@@ -123,7 +124,7 @@ module.exports = (knex) => {
                               stepIDsArray.push(stepIDs[i].id.toString())
                             }
                             stepIDsArray.sort();
-
+                            console.log('Polylines2: ', polylines)
                             res.render('plan_view', {
                             // res.json({
                               markers:markers,

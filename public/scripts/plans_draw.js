@@ -318,41 +318,51 @@ $(() => {
   }
 
 
+  $('#save-button').click(function(){
+    //The total number of polylines that are pushed to the server
+    const polyLinesToPush = []
 
+    if(newPolylines.length === 0){
+      $('#polyline-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      No polylines to add!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
+
+    //Converting the polylines into a format the AJAX request can take
+    for(let i = 0; i < newPolylines.length; i ++){
+      let newPolyLineLatLngArray = []
+      for(var y in newPolylines[i].getPath().b){
+        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
+        newPolyLineLatLngArray.push(newPolyLineLatLng)
+        console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
+      }
+      polyLinesToPush.push(newPolyLineLatLngArray);
+    }
+
+
+    $.ajax({
+      url: '/polylines/step/' + currentStep.id,
+      data: {planID: planID, polylines: polyLinesToPush},
+      method: 'POST'
+    }).done(() => {
+      location.reload();
+
+    }).catch((err) => {
+
+    });
+
+
+  });
 
   initPlan(markers, polylines, currentStep.id);
 
-
-  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
-  $('#teammates[type="radio"]').click(function(){
-    //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
-      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
-        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
-      }
-    }
-  });
-  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
-  $('#enemy[type="radio"]').click(function(){
-    //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
-      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon !== true){
-        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
-      }
-    }
-  });
-  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
-  $('#other[type="radio"]').click(function(){
-    //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
-      if(markerTypes[i].misc_icon === true){
-        $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
-      }
-    }
-  });
 
   //Clears the polylines from the plan and wipes the array
   $('#clear-button').click(function(){
@@ -366,80 +376,6 @@ $(() => {
     }
   });
 
-  $('form').submit(function (e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-
-    //Checking if a new marker has been placed on the map
-    if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
-      $('#alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>OOPS!</strong> No marker to add!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      `)
-      $(".alert").delay(3000).fadeOut("slow");
-      return;
-    }
-
-    //Checking to see if all form inputs have been filed out (except image)
-    if( $('#marker-name').val().length === 0 || $('#marker-description').val().length === 0 || $('#marker-type-select').find(':selected').data('id') === undefined){
-      $('#alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>OOPS!</strong> Missing new marker title, descrition, or marker type
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      `)
-      $(".alert").delay(3000).fadeOut("slow");
-      return;
-
-    }
-
-    $.ajax({
-      url: '/markers/step/' + currentStep.id + '/new',
-      data: {
-        markerName: $('#marker-name').val(),
-        markerDescription: $('#marker-description').val(),
-        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-        markerTypeID: $('#marker-type-select').find(':selected').data('id')
-      },
-      method: 'POST'
-    }).done((id) => {
-      console.log('New id: ', id);
-      //checking if there is a picture to upload
-      if(document.getElementById('marker-image-upload').files.length === 0){
-        location.reload();
-      } else {
-        $.ajax({
-            type: "POST",
-            url: "/markers/" + id + "/image",
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(() => {
-          location.reload();
-        }).catch((err) =>{
-          $('#alert').append(`
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong>OOPS!</strong> Invalid File type!
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          </div>
-          `)
-          $(".alert").delay(3000).fadeOut("slow");
-        });
-      }
-    }).catch((err) => {
-      alert('Some kind of error happened!');
-    });
-
-  });
-
   /**
    * Closes the info windows
    */
@@ -447,43 +383,6 @@ $(() => {
       for (var x = 0; x < infoWindowArray.length; x++) {
           infoWindowArray[x].close();
       }
-  }
-
-  /**
-   * Deletes a marker
-   * @param  {int} id ID of marker to be deleted
-   */
-  deleteMarker = (id) => {
-    //Preventing from deleting all markers off a map
-    if(markersArray.length === 1){
-      $('#info-window-alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      Maps must have at least one marker!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      `)
-      $(".alert").delay(3000).fadeOut("slow");
-      return;
-    }
-
-    var confirmBox = confirm("Are you sure?!");
-    if (confirmBox == true) {
-      $.ajax({
-        url: '/markers/delete/' + id,
-        data: {
-          planID: planID
-        },
-        method: 'POST'
-      }).done(() => {
-        location.reload();
-
-      }).catch((err) => {
-        alert('Some kind of error happened!');
-      });
-    }
-
   }
 
   /**
@@ -522,48 +421,5 @@ $(() => {
     }
   }
 
-
-
-  if(isOwner) {
-    document.getElementById("toggle-on").addEventListener('click', () => {
-      //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-      console.log('toggle')
-      $('#toggle-on').css('display', 'none');
-      $('#toggle-off').css('display', 'inline');
-      $('#new-marker-button').css('display', 'inline');
-      clickListener = plan.addListener('click', toggleAddMarker);
-    });
-
-    document.getElementById("toggle-off").addEventListener('click', () => {
-      $('#toggle-off').css('display', 'none');
-      $('#new-marker-button').css('display', 'none');
-      $('#toggle-on').css('display', 'inline');
-      google.maps.event.removeListener(clickListener);
-      markerClick.setMap(null);
-    });
-
-
-  }
-
-  $( "#new-marker-button" ).click(function() {
-      newMarkerModal.style.display = "block";
-  });
-
-
-  // Get the modal
-  const newMarkerModal = document.getElementById('new-marker-modal');
-
-  // Get the button that opens the modal
-  const newMarkerButton = document.getElementById("new-marker-button");
-
-  // Get the <span> element that closes the modal
-  const closeButton = document.getElementsByClassName("close-button");
-
-
-
-  document.getElementById("close-button").addEventListener('click', () => {
-    console.log('click')
-    newMarkerModal.style.display = 'none';
-  });
 
 });

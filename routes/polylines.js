@@ -49,12 +49,12 @@ module.exports = (knex) => {
   });
 
 
-  router.post("/:id", (req, res) => {
+  router.post("/step/:id", (req, res) => {
 
     knex
       .select('owner_id')
       .from('plans')
-      .where({id:req.params.id})
+      .where({id:req.body.planID})
       .then((results) => {
         if(req.session.userID !== results[0].owner_id){
           res.sendStatus(403);
@@ -68,7 +68,7 @@ module.exports = (knex) => {
             }
             promiseArray.push(
               knex
-              .insert({plan_id: req.params.id, coordinates: JSON.stringify({ coordinatesArray: newCoordinatesArray}) })
+              .insert({step_id: req.params.id, coordinates: JSON.stringify({ coordinatesArray: newCoordinatesArray}) })
               .into('polylines')
             )
           }

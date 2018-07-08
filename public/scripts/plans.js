@@ -1,6 +1,5 @@
 $(() => {
 
-  console.log('Markers ', markers);
 
   const markersArray = [];
   const infoWindowArray = [];
@@ -17,6 +16,8 @@ $(() => {
 
 
   addMarkersAndLines = (stepID) => {
+    console.log(polylines);
+
     for(let y = 0; y < polylines.length; y ++){
       if(polylines[y].step_id === stepID){
         addPolyline(polylines[y]);
@@ -62,9 +63,7 @@ $(() => {
   $('#step-backwards').click(function (e) {
     console.log('Backwards')
     for(let i = 0; i < stepIDs.length; i++){
-    console.log('stepsIDs[i] ',stepIDs[i])
-    console.log('stepsIDs[0] ',stepIDs[0])
-    console.log('Backwards ', stepIDs[i-1])
+
       if(currentStep.id === Number(stepIDs[i])){
         if(isNaN(stepIDs[i-1])){
           // alert('END')
@@ -193,7 +192,6 @@ $(() => {
 
   addPolyline = (polylineToAdd) => {
     let polylineCoordinates = []
-    // console.log(polylines[i].coordinates.coordinatesArray);
     for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
       var newPolyline = new google.maps.Polyline({
         path: polylineToAdd.coordinates.coordinatesArray,
@@ -450,8 +448,7 @@ $(() => {
    * Clears all polylines and markers currently active on the plan
    */
   clearMarkersAndPolylines = () =>{
-    console.log('Markers Array1: ', markersArray)
-    console.log('Polylines Array1: ', polylinesArray)
+
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
       // markersArray[i].removeEventListener("click");
@@ -465,8 +462,7 @@ $(() => {
     markersArray.length = 0;
     infoWindowArray.length = 0;
     polylinesArray.length = 0;
-    console.log('Markers Array2: ', markersArray)
-    console.log('Polylines Array2: ', polylinesArray)
+
   }
 
 
@@ -487,7 +483,7 @@ $(() => {
   if(isOwner) {
     document.getElementById("toggle-on").addEventListener('click', () => {
       //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-      console.log('toggle')
+
       $('#toggle-on').css('display', 'none');
       $('#toggle-off').css('display', 'inline');
       $('#new-marker-button').css('display', 'inline');
@@ -522,7 +518,7 @@ $(() => {
 
 
   document.getElementById("close-button").addEventListener('click', () => {
-    console.log('click')
+
     newMarkerModal.style.display = 'none';
   });
 
