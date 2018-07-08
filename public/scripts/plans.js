@@ -39,7 +39,15 @@ $(() => {
           alert('END')
           return;
         } else {
+
+          //moving the pagination active marker
+          $('.active').next().addClass('active');
+          $( '.active' ).first().removeClass( 'active' );
+
+
           clearMarkersAndPolylines();
+
+
           console.log(currentStep.id)
           addMarkersAndLines(Number(stepIDs[i+1]))
           currentStep.number++
@@ -58,12 +66,20 @@ $(() => {
     console.log('stepsIDs[0] ',stepIDs[0])
     console.log('Backwards ', stepIDs[i-1])
       if(currentStep.id === Number(stepIDs[i])){
-
         if(isNaN(stepIDs[i-1])){
           alert('END')
           return;
         } else {
+
+
+          //moving the pagination active marker
+          $('.active').prev().addClass('active');
+          $( '.active' ).last().removeClass( 'active' );
+
           clearMarkersAndPolylines();
+
+
+
 
           console.log(currentStep.id)
           addMarkersAndLines(Number(stepIDs[i-1]))
