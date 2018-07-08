@@ -360,13 +360,12 @@ $(() => {
     }
 
     $.ajax({
-      url: '/markers/plan/' + planID + '/new',
+      url: '/markers/step/' + currentStep.id + '/new',
       data: {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-        markerTypeID: $('#marker-type-select').find(':selected').data('id'),
-        stepID: currentStep.id
+        markerTypeID: $('#marker-type-select').find(':selected').data('id')
       },
       method: 'POST'
     }).done((id) => {
