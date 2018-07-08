@@ -36,7 +36,7 @@ $(() => {
     for(let i = 0; i < stepIDs.length; i++){
       if(currentStep.id === Number(stepIDs[i])){
         if(isNaN(stepIDs[i+1])){
-          alert('END')
+          // alert('END')
           return;
         } else {
 
@@ -67,7 +67,7 @@ $(() => {
     console.log('Backwards ', stepIDs[i-1])
       if(currentStep.id === Number(stepIDs[i])){
         if(isNaN(stepIDs[i-1])){
-          alert('END')
+          // alert('END')
           return;
         } else {
 
@@ -288,18 +288,6 @@ $(() => {
   }
 
 
-  var toggleAddMarker = (event) => {
-    if(markerClick === undefined || markerClick.getMap() === null){
-      markerClick = new google.maps.Marker({
-        position: event.latLng,
-        map: plan,
-        icon:  'https://www.google.com/mapfiles/arrow.png'
-      });
-    } else {
-      markerClick.setPosition(event.latLng);
-    }
-  }
-
 
 
   initPlan(markers, polylines, currentStep.id);
@@ -377,7 +365,8 @@ $(() => {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-        markerTypeID: $('#marker-type-select').find(':selected').data('id')
+        markerTypeID: $('#marker-type-select').find(':selected').data('id'),
+        stepID: currentStep.id
       },
       method: 'POST'
     }).done((id) => {
@@ -481,21 +470,46 @@ $(() => {
     console.log('Polylines Array2: ', polylinesArray)
   }
 
-  document.getElementById("toggle-on").addEventListener('click', () => {
-    //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
-    $('#toggle-on').css('display', 'none');
-    $('#toggle-off').css('display', 'inline');
-    $('#new-marker-button').css('display', 'inline');
-    clickListener = plan.addListener('click', toggleAddMarker);
+
+  var toggleAddMarker = (event) => {
+    if(markerClick === undefined || markerClick.getMap() === null){
+      markerClick = new google.maps.Marker({
+        position: event.latLng,
+        map: plan,
+        icon:  'https://www.google.com/mapfiles/arrow.png'
+      });
+    } else {
+      markerClick.setPosition(event.latLng);
+    }
+  }
+
+
+
+  if(isOwner) {
+    document.getElementById("toggle-on").addEventListener('click', () => {
+      //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
+      console.log('toggle')
+      $('#toggle-on').css('display', 'none');
+      $('#toggle-off').css('display', 'inline');
+      $('#new-marker-button').css('display', 'inline');
+      clickListener = plan.addListener('click', toggleAddMarker);
+    });
+
+    document.getElementById("toggle-off").addEventListener('click', () => {
+      $('#toggle-off').css('display', 'none');
+      $('#new-marker-button').css('display', 'none');
+      $('#toggle-on').css('display', 'inline');
+      google.maps.event.removeListener(clickListener);
+      markerClick.setMap(null);
+    });
+
+
+  }
+
+  $( "#new-marker-button" ).click(function() {
+      newMarkerModal.style.display = "block";
   });
 
-  document.getElementById("toggle-off").addEventListener('click', () => {
-    $('#toggle-off').css('display', 'none');
-    $('#new-marker-button').css('display', 'none');
-    $('#toggle-on').css('display', 'inline');
-    google.maps.event.removeListener(clickListener);
-    markerClick.setMap(null);
-  });
 
   // Get the modal
   const newMarkerModal = document.getElementById('new-marker-modal');
@@ -506,10 +520,6 @@ $(() => {
   // Get the <span> element that closes the modal
   const closeButton = document.getElementsByClassName("close-button");
 
-  // When the user clicks on the button, open the modal
-  newMarkerButton.onclick = function() {
-      newMarkerModal.style.display = "block";
-  }
 
 
   document.getElementById("close-button").addEventListener('click', () => {
