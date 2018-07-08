@@ -12,9 +12,13 @@
     <script type="text/javascript" src="/scripts/plans_draw.js"></script>
 
     <script>window.markers = <%- JSON.stringify(markers); %></script>
+
     <script>window.markerTypes = <%- JSON.stringify(markerTypes); %></script>
+    <script>window.polylines = <%- JSON.stringify(polylines); %></script>
     <script>window.planID = <%= planID %></script>
     <script>window.isOwner = <%= isOwner %></script>
+    <script>window.mapURL = <%- JSON.stringify(mapURL); %></script>
+    <script>window.stepIDs = <%- JSON.stringify(stepIDs); %></script>
 
     <link href="/styles/plan_view.css" rel="stylesheet" type="text/css">
 
@@ -41,6 +45,26 @@
     <button type="button" class="btn btn-danger" id="delete-polylines">Delete all polylines from plan</button>
     <a href="http://localhost:8080/plans/<%= planID %>/"   class="btn btn-primary">Go Back</a>
     <div id="polyline-alert"></div>
+
+    <div class = "pagination-container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" id="step-backwards"><a class="page-link" href="#">Previous</a></li>
+
+          <li class="page-item active step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[0] %>' ><%= stepIDs[0] %></a></li>
+
+          <% if(stepIDs.length > 1) { %>
+            <% for(let i = 1; i < stepIDs.length; i++) { %>
+                <li class="page-item step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[i] %>' ><%= stepIDs[i] %></a></li>
+            <% } %>
+          <% } %>
+
+          <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
   </body>
 
 
