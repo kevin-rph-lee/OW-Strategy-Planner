@@ -385,6 +385,23 @@ $(() => {
       }
   }
 
+
+
+  //Delete all polylines associated with that plan
+  $('#delete-polylines').click(function(){
+    $.ajax({
+      url: '/polylines/' + currentStep.id + '/delete',
+      data: {planID: planID},
+      method: 'POST'
+    }).done(() => {
+      location.reload();
+
+    }).catch((err) => {
+
+    });
+  })
+
+
   /**
    * Clears all polylines and markers currently active on the plan
    */
