@@ -25,7 +25,7 @@ module.exports = (knex) => {
     knex
       .select('owner_id')
       .from('plans')
-      .where({id:req.params.id})
+      .where({id:req.body.planID})
       .then((id) => {
         if(req.session.userID !== id[0].owner_id){
           res.sendStatus(403);
@@ -34,11 +34,12 @@ module.exports = (knex) => {
           knex
           .select('id')
           .from('polylines')
-          .where({plan_id:req.params.id})
+          .where({step_id:req.params.id})
           .then((results) => {
+
             for(let i = 1; i <= results.length; i++){
                knex('polylines')
-                .where({ id: i })
+                .where({ step_id: req.params.id })
                 .del()
                 .then(()=>{});
             }
@@ -49,12 +50,12 @@ module.exports = (knex) => {
   });
 
 
-  router.post("/:id", (req, res) => {
+  router.post("/step/:id", (req, res) => {
 
     knex
       .select('owner_id')
       .from('plans')
-      .where({id:req.params.id})
+      .where({id:req.body.planID})
       .then((results) => {
         if(req.session.userID !== results[0].owner_id){
           res.sendStatus(403);
@@ -68,7 +69,7 @@ module.exports = (knex) => {
             }
             promiseArray.push(
               knex
-              .insert({plan_id: req.params.id, coordinates: JSON.stringify({ coordinatesArray: newCoordinatesArray}) })
+              .insert({step_id: req.params.id, coordinates: JSON.stringify({ coordinatesArray: newCoordinatesArray}) })
               .into('polylines')
             )
           }

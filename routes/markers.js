@@ -18,7 +18,7 @@ module.exports = (knex, multer, _, path) => {
   });
 
 
-  router.post('/plan/:id/new', (req, res) => {
+  router.post('/step/:id/new', (req, res) => {
     if(req.session.email === undefined){
       res.sendStatus(400);
     }
@@ -29,7 +29,7 @@ module.exports = (knex, multer, _, path) => {
       .where({email:req.session.email})
       .then((results) => {
         knex
-        .insert({plan_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
+        .insert({step_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
         .into('markers')
         .returning('id')
         .then((results) => {
