@@ -77,6 +77,15 @@ $(() => {
   })
 
 
+
+  // Get the modal
+  const newPlanModal = document.getElementById('new-plan-modal');
+
+  // Get the button that opens the modal
+  const newPlanButton = document.getElementById("new-plan-button");
+
+
+
   // Get the modal
   const registerModal = document.getElementById('register-modal');
 
@@ -99,6 +108,11 @@ $(() => {
       registerModal.style.display = "block";
   }
 
+  // When the user clicks on the button, open the modal
+  newPlanButton.onclick = function() {
+      newPlanModal.style.display = "block";
+  }
+
 
   // When the user clicks on the button, open the modal
   loginButton.onclick = function() {
@@ -111,6 +125,7 @@ $(() => {
       console.log('Close')
       registerModal.style.display = "none";
       loginModal.style.display = "none";
+      newPlanModal.style.display = "none";
   }
 
   // When the user clicks anywhere outside of the modal, close it
@@ -123,6 +138,9 @@ $(() => {
       }
       if (event.target == newMarkerModal) {
           newMarkerModal.style.display = "none";
+      }
+      if (event.target == newPlanModal) {
+          newPlanModal.style.display = "none";
       }
   }
 
