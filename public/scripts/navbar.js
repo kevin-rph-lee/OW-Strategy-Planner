@@ -78,6 +78,20 @@ $(() => {
 
 
 
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#teammates[type="radio"]').click(function(){
+    //Clearing the modal of it's current contents
+    $("#map-type-select").children().remove();
+    for(var i = 0; i < markerTypes.length; i ++){
+      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
+        $('#map-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+      }
+    }
+  });
+
+
+
+
   // Get the modal
   const newPlanModal = document.getElementById('new-plan-modal');
 

@@ -25,7 +25,7 @@
 
   <!-- Bootstrap Style Sheets -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <script>window.maps = <%- JSON.stringify(maps); %></script>
+
 
 
 </head>
@@ -122,8 +122,23 @@
 
     <!-- Modal content -->
     <div class="modal-content">
-      <h1>Test</h1>
+      <form id="new-plan-form">
+        <div class="form-group">
+          <label for="plan-name">Plan Name</label>
+          <input type="text" class="form-control" id="plan-name">
+          <div class = "form-group">
+            <input type="radio" name="marker-type" id="control" value="Teammates"> Control
+            <input type="radio" name="marker-type" id="escort"  value="Enemy"> Escort
+            <input type="radio" name="marker-type" id="assault"  value="Other"> Assault
+            <input type="radio" name="marker-type" id="hybrid"  value="Other"> Hybrid
+          </div>
+        </div>
+        <select class="form-control" id="marker-type-select">
+        </select>
 
+        <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
+        <button type="button" class="btn btn-default close-button" id="close-button">Cancel</button>
+      </form>
     </div>
   </div>
 

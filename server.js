@@ -68,17 +68,11 @@ app.get("/", (req, res) => {
     .select("*")
     .from("plans")
     .then((results) => {
-      knex
-        .select("*")
-        .from("maps")
-        .then((maps) => {
-          res.render('index', {
-            email: req.session.email,
-            userID: req.session.userID,
-            plans: results,
-            maps: maps
-          });
-        });
+      res.render('index', {
+        email: req.session.email,
+        userID: req.session.userID,
+        plans: results
+      });
     });
 });
 
