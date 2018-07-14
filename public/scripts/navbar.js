@@ -152,12 +152,12 @@ $(() => {
   $('#new-plan-form').submit(function (e) {
     e.preventDefault();
 
-
     //Checking to see if all form inputs have been filed out (except image)
-    if( $('#marker-name').val().length === 0 || $('#marker-description').val().length === 0 || $('#marker-type-select').find(':selected').data('id') === undefined){
-      $('#alert').append(`
+    if( $('#plan-name').val().length === 0 || $('#map-type-select').find(':selected').data('id') === undefined){
+      console.log('alert')
+      $('#new-plan-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>OOPS!</strong> Missing new marker title, descrition, or marker type
+      <strong>OOPS!</strong> Missing plan name or map
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -168,21 +168,21 @@ $(() => {
 
     }
 
-    $.ajax({
-      url: '/markers/step/' + currentStep.id + '/new',
-      data: {
-        markerName: $('#marker-name').val(),
-        markerDescription: $('#marker-description').val(),
-        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-        markerTypeID: $('#marker-type-select').find(':selected').data('id')
-      },
-      method: 'POST'
-    }).done((id) => {
+    // $.ajax({
+    //   url: '/markers/step/' + currentStep.id + '/new',
+    //   data: {
+    //     markerName: $('#marker-name').val(),
+    //     markerDescription: $('#marker-description').val(),
+    //     position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
+    //     markerTypeID: $('#marker-type-select').find(':selected').data('id')
+    //   },
+    //   method: 'POST'
+    // }).done((id) => {
 
 
-    }).catch((err) => {
-      alert('Some kind of error happened!');
-    });
+    // }).catch((err) => {
+    //   alert('Some kind of error happened!');
+    // });
 
   });
 
