@@ -172,7 +172,7 @@ $(() => {
   const loginButton = document.getElementById("login-button");
 
   // Get the <span> element that closes the modal
-  const closeButton = document.getElementsByClassName("close-button");
+  const closeButton = document.getElementById("close-button");
 
   const newMarkerModal = document.getElementById('new-marker-modal');
 
@@ -181,12 +181,12 @@ $(() => {
       registerModal.style.display = "block";
   }
 
-  if(email !== undefined){
-    // When the user clicks on the button, open the modal
-    newPlanButton.onclick = function() {
-        newPlanModal.style.display = "block";
-    }
+
+  // When the user clicks on the button, open the modal
+  newPlanButton.onclick = function() {
+      newPlanModal.style.display = "block";
   }
+
 
 
   // When the user clicks on the button, open the modal
