@@ -171,8 +171,8 @@ $(() => {
       url: '/plans/new',
       data: {
         planName: $('#plan-name').val(),
-        markerDescription: $('#plan-description').val(),
-        markerTypeID: $('#map-type-select').find(':selected').data('id')
+        planDescription: $('#plan-description').val(),
+        mapTypeID: $('#map-type-select').find(':selected').data('id')
       },
       method: 'POST'
     }).done((id) => {
