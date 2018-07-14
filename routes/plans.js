@@ -159,8 +159,7 @@ module.exports = (knex) => {
       knex
       .insert({plan_id:results[0]})
       .into('steps')
-      .then((results)=> {
-        console.log(results)
+      .then(()=> {
         res.sendStatus(200);
       })
     })
