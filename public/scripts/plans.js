@@ -518,7 +518,14 @@ $(() => {
   });
 
   $( "#delete-step-button" ).click(function() {
-
+    $.ajax({
+      url: '/steps/delete/' + currentStep.id,
+      method: 'POST'
+    }).done(() => {
+      location.reload();
+    }).catch((err) => {
+      alert('Some kind of error happened!');
+    });
   });
 
   // Get the modal
