@@ -506,6 +506,13 @@ $(() => {
       newMarkerModal.style.display = "block";
   });
 
+  $( "#new-step-button" ).click(function() {
+
+  });
+
+  $( "#delete-step-button" ).click(function() {
+
+  });
 
   // Get the modal
   const newMarkerModal = document.getElementById('new-marker-modal');
