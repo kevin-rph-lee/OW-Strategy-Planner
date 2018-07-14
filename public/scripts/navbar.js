@@ -79,14 +79,73 @@ $(() => {
 
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
-  $('#teammates[type="radio"]').click(function(){
-    //Clearing the modal of it's current contents
-    $("#map-type-select").children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
-      if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
-        $('#map-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
+  $('#control[type="radio"]').click(function(){
+
+    $.ajax({
+      url: '/maps/control',
+      method: 'GET'
+    }).done((mapTypes) => {
+      console.log(mapTypes);
+      $("#map-type-select").children().remove();
+      for(var i = 0; i < mapTypes.length; i ++){
+        $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
       }
-    }
+    }).catch((err) => {
+      console.log('error!')
+    });
+
+  });
+
+
+  $('#escort[type="radio"]').click(function(){
+
+    $.ajax({
+      url: '/maps/escort',
+      method: 'GET'
+    }).done((mapTypes) => {
+      console.log(mapTypes);
+      $("#map-type-select").children().remove();
+      for(var i = 0; i < mapTypes.length; i ++){
+        $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
+      }
+    }).catch((err) => {
+      console.log('error!')
+    });
+
+  });
+
+  $('#hybrid[type="radio"]').click(function(){
+
+    $.ajax({
+      url: '/maps/hybrid',
+      method: 'GET'
+    }).done((mapTypes) => {
+      console.log(mapTypes);
+      $("#map-type-select").children().remove();
+      for(var i = 0; i < mapTypes.length; i ++){
+        $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
+      }
+    }).catch((err) => {
+      console.log('error!')
+    });
+
+  });
+
+  $('#assault[type="radio"]').click(function(){
+
+    $.ajax({
+      url: '/maps/assault',
+      method: 'GET'
+    }).done((mapTypes) => {
+      console.log(mapTypes);
+      $("#map-type-select").children().remove();
+      for(var i = 0; i < mapTypes.length; i ++){
+        $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
+      }
+    }).catch((err) => {
+      console.log('error!')
+    });
+
   });
 
 
@@ -122,9 +181,11 @@ $(() => {
       registerModal.style.display = "block";
   }
 
-  // When the user clicks on the button, open the modal
-  newPlanButton.onclick = function() {
-      newPlanModal.style.display = "block";
+  if(email !== undefined){
+    // When the user clicks on the button, open the modal
+    newPlanButton.onclick = function() {
+        newPlanModal.style.display = "block";
+    }
   }
 
 
