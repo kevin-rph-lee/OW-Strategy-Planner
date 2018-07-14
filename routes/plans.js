@@ -148,6 +148,12 @@ module.exports = (knex) => {
   });
 
 
+
+  router.post("/new", (req, res) => {
+    console.log(req.body)
+  });
+
+
   return router;
 }
 

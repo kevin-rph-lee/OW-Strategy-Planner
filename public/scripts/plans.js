@@ -60,6 +60,8 @@ $(() => {
       }
     }
   })
+
+
   $('#step-backwards').click(function (e) {
     console.log('Backwards')
     for(let i = 0; i < stepIDs.length; i++){
@@ -324,7 +326,7 @@ $(() => {
 
 
 
-  $('form').submit(function (e) {
+  $('#new-marker-form').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
 
