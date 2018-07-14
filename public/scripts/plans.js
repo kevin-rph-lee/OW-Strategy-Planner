@@ -507,7 +507,14 @@ $(() => {
   });
 
   $( "#new-step-button" ).click(function() {
-
+    $.ajax({
+      url: '/steps/plan/' + planID + '/new/',
+      method: 'POST'
+    }).done(() => {
+      location.reload();
+    }).catch((err) => {
+      alert('Some kind of error happened!');
+    });
   });
 
   $( "#delete-step-button" ).click(function() {
