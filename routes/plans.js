@@ -148,6 +148,44 @@ module.exports = (knex) => {
   });
 
 
+
+  router.post("/new", (req, res) => {
+    knex
+    .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID) })
+    .into('plans')
+    .returning('id')
+    .then((results)=> {
+      knex
+      .insert({plan_id:results[0]})
+      .into('steps')
+      .then(()=> {
+        res.sendStatus(200);
+      })
+    })
+  });
+
+  router.post("/delete/:id", (req, res) => {
+      knex
+      .select('owner_id')
+      .from('plans')
+      .where({id:req.params.id})
+      .then((results) => {
+        if(results[0].owner_id === req.session.userID){
+          knex('plans')
+          .where({ id: req.params.id })
+          .del()
+          .then(() => {
+            knex('steps')
+            .where({ plan_id: req.params.id })
+            .del()
+            .then(() => {
+              res.sendStatus(200);
+            })
+          })
+        }
+      })
+  });
+
   return router;
 }
 

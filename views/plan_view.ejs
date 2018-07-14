@@ -6,7 +6,6 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/plans.js"></script>
@@ -51,11 +50,11 @@
         <ul class="pagination">
           <li class="page-item" id="step-backwards"><a class="page-link" href="#">Previous</a></li>
 
-          <li class="page-item active step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[0] %>' ><%= stepIDs[0] %></a></li>
+          <li class="page-item active step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[0] %>' >1</a></li>
 
           <% if(stepIDs.length > 1) { %>
             <% for(let i = 1; i < stepIDs.length; i++) { %>
-                <li class="page-item step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[i] %>' ><%= stepIDs[i] %></a></li>
+                <li class="page-item step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[i] %>' ><%= i %></a></li>
             <% } %>
           <% } %>
 

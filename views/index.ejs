@@ -5,11 +5,11 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/index.js"></script>
     <script>window.plans = <%- JSON.stringify(plans); %></script>
+
   </head>
 
   <body>
@@ -23,9 +23,9 @@
           <h5 class="card-title"><%= plans[i].name %></h5>
           <p class="card-text"><%= plans[i].description  %></p>
           <a href="http://localhost:8080/plans/<%= plans[i].id %>"   class="btn btn-primary">View Map</a>
-
-
-
+          <% if(plans[i].owner_id === userID){ %>
+            <button type="button" class="btn btn-warning delete-plan" data-id="<%= plans[i].id %>">Delete Plan</button>
+          <% } %>
         </div>
       </div>
     <% } %>

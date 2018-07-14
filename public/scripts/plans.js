@@ -60,6 +60,8 @@ $(() => {
       }
     }
   })
+
+
   $('#step-backwards').click(function (e) {
     console.log('Backwards')
     for(let i = 0; i < stepIDs.length; i++){
@@ -121,8 +123,7 @@ $(() => {
       },
       tileSize: new google.maps.Size(256, 256),
       maxZoom: 6,
-      minZoom: 4,
-      name: markers[0].name
+      minZoom: 4
     });
 
 
@@ -324,7 +325,7 @@ $(() => {
 
 
 
-  $('form').submit(function (e) {
+  $('#new-marker-form').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
 

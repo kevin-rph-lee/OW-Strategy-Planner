@@ -68,7 +68,6 @@ app.get("/", (req, res) => {
     .select("*")
     .from("plans")
     .then((results) => {
-      console.log(results)
       res.render('index', {
         email: req.session.email,
         userID: req.session.userID,
