@@ -25,7 +25,20 @@ module.exports = (knex) => {
 
 
   router.post("/delete/:id", (req, res) => {
-    //Example Route
+    knex
+    .select('owner_id')
+    .from('plans')
+    .where({id:req.body.planID})
+    .then((results) => {
+      if(req.session.userID === results[0].owner_id){
+        knex('steps')
+        .where({ id: req.params.id })
+        .del()
+        .then(() => {
+          res.sendStatus(200);
+        })
+      }
+    })
   });
 
   return router;

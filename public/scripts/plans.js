@@ -227,14 +227,14 @@ $(() => {
       if(markerToAdd.image === true){
         if(infoWindow === undefined){
 
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         }
 
@@ -242,14 +242,14 @@ $(() => {
       } else {
 
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         }
       }
@@ -258,20 +258,20 @@ $(() => {
 
       if(marker.image === true){
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
       } else {
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + "</h3><p>" + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
         }
       }
     }
@@ -295,7 +295,7 @@ $(() => {
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#teammates[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
+    $('#marker-type-select').children().remove();
     for(var i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
@@ -305,7 +305,7 @@ $(() => {
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#enemy[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
+    $('#marker-type-select').children().remove();
     for(var i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon !== true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
@@ -315,7 +315,7 @@ $(() => {
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#other[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
-    $("#marker-type-select").children().remove();
+    $('#marker-type-select').children().remove();
     for(var i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon === true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
@@ -332,28 +332,28 @@ $(() => {
     //Checking if a new marker has been placed on the map
     if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
       $('#alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
       <strong>OOPS!</strong> No marker to add!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'>&times;</span>
       </button>
       </div>
       `)
-      $(".alert").delay(3000).fadeOut("slow");
+      $('.alert').delay(3000).fadeOut('slow');
       return;
     }
 
     //Checking to see if all form inputs have been filed out (except image)
     if( $('#marker-name').val().length === 0 || $('#marker-description').val().length === 0 || $('#marker-type-select').find(':selected').data('id') === undefined){
       $('#alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
       <strong>OOPS!</strong> Missing new marker title, descrition, or marker type
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'>&times;</span>
       </button>
       </div>
       `)
-      $(".alert").delay(3000).fadeOut("slow");
+      $('.alert').delay(3000).fadeOut('slow');
       return;
 
     }
@@ -374,8 +374,8 @@ $(() => {
         location.reload();
       } else {
         $.ajax({
-            type: "POST",
-            url: "/markers/" + id + "/image",
+            type: 'POST',
+            url: '/markers/' + id + '/image',
             data: formData,
             processData: false,
             contentType: false
@@ -383,14 +383,14 @@ $(() => {
           location.reload();
         }).catch((err) =>{
           $('#alert').append(`
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <div class='alert alert-warning alert-dismissible fade show' role='alert'>
           <strong>OOPS!</strong> Invalid File type!
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
           </button>
           </div>
           `)
-          $(".alert").delay(3000).fadeOut("slow");
+          $('.alert').delay(3000).fadeOut('slow');
         });
       }
     }).catch((err) => {
@@ -416,18 +416,18 @@ $(() => {
     //Preventing from deleting all markers off a map
     if(markersArray.length === 1){
       $('#info-window-alert').append(`
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
       Maps must have at least one marker!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'>&times;</span>
       </button>
       </div>
       `)
-      $(".alert").delay(3000).fadeOut("slow");
+      $('.alert').delay(3000).fadeOut('slow');
       return;
     }
 
-    var confirmBox = confirm("Are you sure?!");
+    var confirmBox = confirm('Are you sure?!');
     if (confirmBox == true) {
       $.ajax({
         url: '/markers/delete/' + id,
@@ -452,12 +452,12 @@ $(() => {
 
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
-      // markersArray[i].removeEventListener("click");
+      // markersArray[i].removeEventListener('click');
       markersArray[i].setMap(null);
     }
     for (let y = 0; y < polylinesArray.length; y ++) {
       // markersArray[i].removeListener();
-      // markersArray[i].removeEventListener("click");
+      // markersArray[i].removeEventListener('click');
       polylinesArray[y].setMap(null);
     }
     markersArray.length = 0;
@@ -482,8 +482,8 @@ $(() => {
 
 
   if(isOwner) {
-    document.getElementById("toggle-on").addEventListener('click', () => {
-      //When you click on the map, it adds a marker (only 1 "clicked" marker appears at a time)
+    document.getElementById('toggle-on').addEventListener('click', () => {
+      //When you click on the map, it adds a marker (only 1 'clicked' marker appears at a time)
 
       $('#toggle-on').css('display', 'none');
       $('#toggle-off').css('display', 'inline');
@@ -491,7 +491,7 @@ $(() => {
       clickListener = plan.addListener('click', toggleAddMarker);
     });
 
-    document.getElementById("toggle-off").addEventListener('click', () => {
+    document.getElementById('toggle-off').addEventListener('click', () => {
       $('#toggle-off').css('display', 'none');
       $('#new-marker-button').css('display', 'none');
       $('#toggle-on').css('display', 'inline');
@@ -502,11 +502,11 @@ $(() => {
 
   }
 
-  $( "#new-marker-button" ).click(function() {
-      newMarkerModal.style.display = "block";
+  $( '#new-marker-button' ).click(function() {
+      newMarkerModal.style.display = 'block';
   });
 
-  $( "#new-step-button" ).click(function() {
+  $( '#new-step-button' ).click(function() {
     $.ajax({
       url: '/steps/plan/' + planID + '/new/',
       method: 'POST'
@@ -517,29 +517,33 @@ $(() => {
     });
   });
 
-  $( "#delete-step-button" ).click(function() {
-    $.ajax({
-      url: '/steps/delete/' + currentStep.id,
-      method: 'POST'
-    }).done(() => {
-      location.reload();
-    }).catch((err) => {
-      alert('Some kind of error happened!');
-    });
+  $( '#delete-step-button' ).click(function() {
+    let confirmBox = confirm('Are you sure?');
+    if(confirmBox){
+      $.ajax({
+        url: '/steps/delete/' + currentStep.id,
+        data: {planID: planID},
+        method: 'POST'
+      }).done(() => {
+        location.reload();
+      }).catch((err) => {
+        alert('Some kind of error happened!');
+      });
+    }
   });
 
   // Get the modal
   const newMarkerModal = document.getElementById('new-marker-modal');
 
   // Get the button that opens the modal
-  const newMarkerButton = document.getElementById("new-marker-button");
+  const newMarkerButton = document.getElementById('new-marker-button');
 
   // Get the <span> element that closes the modal
-  const closeButton = document.getElementsByClassName("close-button");
+  const closeButton = document.getElementsByClassName('close-button');
 
 
 
-  document.getElementById("close-button").addEventListener('click', () => {
+  document.getElementById('close-button').addEventListener('click', () => {
 
     newMarkerModal.style.display = 'none';
   });
