@@ -123,8 +123,7 @@ $(() => {
       },
       tileSize: new google.maps.Size(256, 256),
       maxZoom: 6,
-      minZoom: 4,
-      name: markers[0].name
+      minZoom: 4
     });
 
 
