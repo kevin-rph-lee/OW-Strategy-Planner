@@ -169,8 +169,15 @@ module.exports = (knex) => {
       .select('owner_id')
       .from('plans')
       .where({id:req.params.id})
-      .then(() => {
-        res.sendStatus(200)
+      .then((results) => {
+        if(results[0].owner_id === req.session.userID){
+          knex('plans')
+          .where({ id: req.params.id })
+          .del()
+          .then(() => {
+            res.sendStatus(200);
+          })
+        }
       })
   });
 
