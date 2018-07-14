@@ -175,7 +175,12 @@ module.exports = (knex) => {
           .where({ id: req.params.id })
           .del()
           .then(() => {
-            res.sendStatus(200);
+            knex('steps')
+            .where({ plan_id: req.params.id })
+            .del()
+            .then(() => {
+              res.sendStatus(200);
+            })
           })
         }
       })
