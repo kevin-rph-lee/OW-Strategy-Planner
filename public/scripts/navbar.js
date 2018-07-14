@@ -153,7 +153,7 @@ $(() => {
     e.preventDefault();
 
     //Checking to see if all form inputs have been filed out (except image)
-    if( $('#plan-name').val().length === 0 || $('#map-type-select').find(':selected').data('id') === undefined){
+    if( $('#plan-name').val().length === 0 || $('#plan-description').val().length === 0 || $('#map-type-select').find(':selected').data('id') === undefined){
       console.log('alert')
       $('#new-plan-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -165,24 +165,22 @@ $(() => {
       `)
       $(".alert").delay(3000).fadeOut("slow");
       return;
-
     }
 
-    // $.ajax({
-    //   url: '/markers/step/' + currentStep.id + '/new',
-    //   data: {
-    //     markerName: $('#marker-name').val(),
-    //     markerDescription: $('#marker-description').val(),
-    //     position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-    //     markerTypeID: $('#marker-type-select').find(':selected').data('id')
-    //   },
-    //   method: 'POST'
-    // }).done((id) => {
+    $.ajax({
+      url: '/plans/new',
+      data: {
+        planName: $('#plan-name').val(),
+        markerDescription: $('#plan-description').val(),
+        markerTypeID: $('#map-type-select').find(':selected').data('id')
+      },
+      method: 'POST'
+    }).done((id) => {
+      location.reload()
 
-
-    // }).catch((err) => {
-    //   alert('Some kind of error happened!');
-    // });
+    }).catch((err) => {
+      alert('Some kind of error happened!');
+    });
 
   });
 
