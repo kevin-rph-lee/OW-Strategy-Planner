@@ -13,10 +13,6 @@ module.exports = (knex, bcrypt, cookieSession) => {
       return (false)
   }
 
-  router.get("/", (req, res) => {
-    //Example Route
-  });
-
   router.post("/new", (req, res) => {
     const email = req.body.email.trim().toLowerCase();
     const password = req.body.password.trim();

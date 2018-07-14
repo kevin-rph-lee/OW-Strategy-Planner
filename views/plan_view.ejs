@@ -44,7 +44,6 @@
     <% } %>
     <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
 
-
     <div class = "pagination-container">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -54,13 +53,20 @@
 
           <% if(stepIDs.length > 1) { %>
             <% for(let i = 1; i < stepIDs.length; i++) { %>
-                <li class="page-item step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[i] %>' ><%= i %></a></li>
+                <li class="page-item step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[i] %>' ><%= i + 1 %></a></li>
             <% } %>
           <% } %>
 
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
+    </div>
+
+
+    <div>
+      <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
+      <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
+      <div id='delete-step-alert'></div>
     </div>
 
     <!-- The Modal -->

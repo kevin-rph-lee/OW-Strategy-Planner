@@ -22,6 +22,7 @@ const mapsRoutes = require("./routes/maps");
 const markersRoutes = require("./routes/markers");
 const plansRoutes = require("./routes/plans");
 const polylinesRoutes = require("./routes/polylines");
+const stepsRoutes = require("./routes/steps");
 const _ = require('lodash');
 const multer = require('multer');
 var path = require('path')
@@ -57,7 +58,7 @@ app.use("/maps", mapsRoutes(knex));
 app.use("/plans", plansRoutes(knex));
 app.use("/markers", markersRoutes(knex, multer, _, path));
 app.use("/polylines", polylinesRoutes(knex));
-
+app.use("/steps", stepsRoutes(knex));
 
 
 // Home page
