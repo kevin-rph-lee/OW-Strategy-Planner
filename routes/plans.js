@@ -150,7 +150,6 @@ module.exports = (knex) => {
 
 
   router.post("/new", (req, res) => {
-    console.log(req.body)
     knex
     .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID) })
     .into('plans')
@@ -165,6 +164,15 @@ module.exports = (knex) => {
     })
   });
 
+  router.post("/delete/:id", (req, res) => {
+      knex
+      .select('owner_id')
+      .from('plans')
+      .where({id:req.params.id})
+      .then(() => {
+        res.sendStatus(200)
+      })
+  });
 
   return router;
 }
