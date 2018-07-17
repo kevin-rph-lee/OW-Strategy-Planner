@@ -11,7 +11,9 @@ exports.seed = function(knex, Promise) {
         {name: 'Kings Row', type: 'hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/kingsrow/'},
         {name: 'Numbani', type: 'hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/numbani/'},
         {name: 'Rialto', type: 'escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/rialto/'},
-        {name: 'Watchpoint: Gibraltar', type: 'escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/watchpointgibraltar/'}
+        {name: 'Watchpoint: Gibraltar', type: 'escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/watchpointgibraltar/'},
+        {name: 'Ilios', type: 'control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/ilios/'},
+        {name: 'Lijiang Tower', type: 'control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/lijiangtower/'}
       ]);
     });
 };
