@@ -290,7 +290,7 @@ $(() => {
 
 
   initPlan(markers, polylines, currentStep.id);
-
+  console.log('Map Type ' + mapType)
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#teammates[type="radio"]').click(function(){

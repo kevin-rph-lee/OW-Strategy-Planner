@@ -31,7 +31,7 @@ module.exports = (knex) => {
               .from('marker_types')
               .then((markerTypes) => {
                 knex
-                  .select("maps.url", 'plans.id', 'plans.owner_id')
+                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type')
                   .from("plans")
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
@@ -100,7 +100,7 @@ module.exports = (knex) => {
               .from('marker_types')
               .then((markerTypes) => {
                 knex
-                  .select("maps.url", 'plans.id', 'plans.owner_id')
+                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type')
                   .from("plans")
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
@@ -124,7 +124,7 @@ module.exports = (knex) => {
                               stepIDsArray.push(stepIDs[i].id.toString())
                             }
                             stepIDsArray.sort();
-
+                            console.log('Map Type ', planInfo[0].type)
                             res.render('plan_view', {
                             // res.json({
                               markers:markers,
@@ -135,7 +135,8 @@ module.exports = (knex) => {
                               email: req.session.email,
                               planID: planInfo[0].id,
                               mapURL: planInfo[0],
-                              stepIDs: stepIDsArray
+                              stepIDs: stepIDsArray,
+                              planInfo: planInfo[0]
                             })
                         });
 
