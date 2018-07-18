@@ -127,10 +127,19 @@ $(() => {
     });
 
 
-    //Defining out far out a user is able to pan
-    const allowedBounds = new google.maps.LatLngBounds(
-         new google.maps.LatLng(-76.53872912052131, -122.52994923110276),
-         new google.maps.LatLng(-12.670418295569519, -12.480669814400471));
+    let allowedBounds;
+    if(mapType !== 'control'){
+      //Defining out far out a user is able to pan  SW corner first, NE corner second
+      allowedBounds = new google.maps.LatLngBounds(
+           new google.maps.LatLng(-76.53872912052131, -122.52994923110276),
+           new google.maps.LatLng(-12.670418295569519, -12.480669814400471));
+    } else {
+      //Defining out far out a user is able to pan
+      allowedBounds = new google.maps.LatLngBounds(
+           new google.maps.LatLng(-76.64062074438048, -121.80094949737884),
+           new google.maps.LatLng(-13.375349018704462, 97.22468850116775));
+
+    }
 
     //Listnes to drag event, if it goes out of bounds, auto pan the user back within bounds
     google.maps.event.addListener(plan, 'dragend', function() {
@@ -360,7 +369,7 @@ $(() => {
 
   });
 
-  initPlan(markers, polylines, currentStep.id);
+  initPlan(markers, polylines, currentStep.id, mapType);
 
 
   //Clears the polylines from the plan and wipes the array
