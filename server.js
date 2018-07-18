@@ -64,7 +64,6 @@ app.use("/steps", stepsRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   console.log('Email passed down to EJS: ', req.session.email)
-
   knex
     .select("*")
     .from("plans")
