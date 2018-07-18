@@ -216,11 +216,13 @@ $(() => {
       registerModal.style.display = "block";
   }
 
-
-  // When the user clicks on the button, open the modal
-  newPlanButton.onclick = function() {
-      newPlanModal.style.display = "block";
+  if($('#new-plan-button').length !== 0){
+    // When the user clicks on the button, open the modal
+    newPlanButton.onclick = function() {
+        newPlanModal.style.display = "block";
+    }
   }
+
 
 
 
