@@ -206,9 +206,6 @@ $(() => {
   // Get the button that opens the modal
   const loginButton = document.getElementById("login-button");
 
-  // Get the <span> element that closes the modal
-  const closeButton = document.getElementById("close-button");
-
   const newMarkerModal = document.getElementById('new-marker-modal');
 
   // When the user clicks on the button, open the modal
@@ -233,12 +230,13 @@ $(() => {
 
 
   // When the user clicks on <span> (x), close the modal
-  closeButton.onclick = function() {
+  $('.close-button').click(function() {
       console.log('Close')
       registerModal.style.display = "none";
       loginModal.style.display = "none";
       newPlanModal.style.display = "none";
-  }
+  });
+
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
