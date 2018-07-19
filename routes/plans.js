@@ -9,7 +9,7 @@ module.exports = (knex) => {
 
 
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id/draw", (req, res) => {
       knex
       .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
       .from('steps')
