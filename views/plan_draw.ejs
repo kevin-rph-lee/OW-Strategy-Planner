@@ -36,15 +36,12 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.API %>"></script>
 
-
-<!--   <a href="http://localhost:8080/"   class="btn btn-default">Return</a>
- -->
     <div>
       <button type="button" class="btn btn-default" id="clear-button">Clear</button>
       <button type="button" class="btn btn-success" id="save-button">Save</button>
     </div>
     <button type="button" class="btn btn-danger" id="delete-polylines">Delete all polylines from plan</button>
-    <a href="http://localhost:8080/plans/<%= planID %>/"   class="btn btn-primary">Go Back</a>
+    <a href="/plans/<%= planID %>/"   class="btn btn-primary">Go Back</a>
     <div id="polyline-alert"></div>
 
     <div class = "pagination-container">
