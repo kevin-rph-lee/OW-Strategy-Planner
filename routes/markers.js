@@ -41,7 +41,7 @@ module.exports = (knex, multer, _, path) => {
       .where({email:req.session.email})
       .then((results) => {
 
-        if(req.body.videoURL !== undefined || req.body.videoURL.length !== 0) {
+        if(req.body.videoURL !== undefined) {
 
           try{
             getYoutubeID(req.body.videoURL);

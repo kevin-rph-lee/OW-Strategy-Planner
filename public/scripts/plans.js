@@ -16,7 +16,7 @@ $(() => {
 
 
   addMarkersAndLines = (stepID) => {
-    console.log(polylines);
+
 
     for(let y = 0; y < polylines.length; y ++){
       if(polylines[y].step_id === stepID){
@@ -49,11 +49,11 @@ $(() => {
           clearMarkersAndPolylines();
 
 
-          console.log(currentStep.id)
+
           addMarkersAndLines(Number(stepIDs[i+1]))
           currentStep.number++
           currentStep.id = Number(stepIDs[i+1]);
-          console.log('NEW CURRENT STEP ', currentStep)
+
           return;
         }
 
@@ -63,7 +63,7 @@ $(() => {
 
 
   $('#step-backwards').click(function (e) {
-    console.log('Backwards')
+
     for(let i = 0; i < stepIDs.length; i++){
 
       if(currentStep.id === Number(stepIDs[i])){
@@ -82,11 +82,11 @@ $(() => {
 
 
 
-          console.log(currentStep.id)
+
           addMarkersAndLines(Number(stepIDs[i-1]))
           currentStep.number--
           currentStep.id = Number(stepIDs[i-1]);
-          console.log('NEW CURRENT STEP ', currentStep)
+
           return;
         }
 
@@ -221,6 +221,7 @@ $(() => {
    */
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
+    console.log('adding marker ', markerToAdd)
     var marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
@@ -232,8 +233,9 @@ $(() => {
 
     if(isOwner === true){
 
-      if(markerToAdd.image === true){
-        if(infoWindow === undefined){
+      if(markerToAdd.image === true) {
+
+        if(infoWindow === undefined) {
 
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
@@ -247,9 +249,24 @@ $(() => {
         }
 
 
+      } else if (markerToAdd.video_URL) {
+
+        console.log('VIdeo found! ', markerToAdd.video_URL)
+        if(infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
+
+        } else {
+
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
+
+        }
+
       } else {
 
-        if(infoWindow === undefined){
+        if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
 
@@ -264,16 +281,27 @@ $(() => {
 
     } else {
 
-      if(marker.image === true){
-        if(infoWindow === undefined){
+      if(markerToAdd.image === true){
+        if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         } else {
+
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
+      } else if (markerToAdd.video_URL) {
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
+
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p>`});
+        }
+
       } else {
+
         if(infoWindow === undefined){
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
 
@@ -334,7 +362,7 @@ $(() => {
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#image[type="radio"]').click(function(){
-    console.log('image')
+
     //Clearing the modal of it's current contents
     $('#add-image-video-container').children().remove();
     $('#add-image-video-container').append(`
@@ -346,7 +374,7 @@ $(() => {
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#video[type="radio"]').click(function(){
-    console.log('Video')
+
     //Clearing the modal of it's current contents
     $('#add-image-video-container').children().remove();
     $('#add-image-video-container').append(`
@@ -443,7 +471,7 @@ $(() => {
     }).catch((err) => {
         $('#alert').append(`
         <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-        <strong>OOPS!</strong> ${err.responseText}
+        <strong>OOPS!</strong> ${err.responsetext}
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'>&times;</span>
         </button>
