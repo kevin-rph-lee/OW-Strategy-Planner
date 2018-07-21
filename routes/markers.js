@@ -42,6 +42,13 @@ module.exports = (knex, multer, _, path) => {
       .then((results) => {
 
         if(req.body.videoURL !== undefined || req.body.videoURL.length !== 0) {
+
+          try{
+            getYoutubeID(req.body.videoURL);
+          } catch(err){
+            return res.status(400).send('Invalid youtube URL format!');
+          }
+
           knex
           .insert({step_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, video_URL: getYoutubeID(req.body.videoURL), title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
           .into('markers')
