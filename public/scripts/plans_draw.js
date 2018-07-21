@@ -252,6 +252,7 @@ $(() => {
    */
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
+    console.log('adding marker ', markerToAdd)
     var marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
@@ -263,54 +264,81 @@ $(() => {
 
     if(isOwner === true){
 
-      if(markerToAdd.image === true){
-        if(infoWindow === undefined){
+      if(markerToAdd.image === true) {
 
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+        if(infoWindow === undefined) {
+
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         }
 
 
-      } else {
+      } else if (markerToAdd.video_URL) {
 
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+        console.log('VIdeo found! ', markerToAdd.video_URL)
+        if(infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type="button" class="btn btn-warning" id="delete-marker-button" onClick="deleteMarker(${markerToAdd.id})">Delete</button>
-<div id="info-window-alert"></div>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
+
+        }
+
+      } else {
+
+        if(infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
+
+        } else {
+
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+<div id='info-window-alert'></div>`});
 
         }
       }
 
     } else {
 
-      if(marker.image === true){
-        if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+      if(markerToAdd.image === true){
+        if(infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         } else {
+
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
-      } else {
+      } else if (markerToAdd.video_URL) {
         if(infoWindow === undefined){
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + "</h3><p>" + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: "<h3>"+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p>`});
+        }
+
+      } else {
+
+        if(infoWindow === undefined){
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
+
+        } else {
+          infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
         }
       }
     }
@@ -324,6 +352,9 @@ $(() => {
     markersArray.push(marker);
 
   }
+
+
+
 
 
   $('#save-button').click(function(){
