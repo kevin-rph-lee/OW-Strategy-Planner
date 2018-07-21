@@ -390,17 +390,32 @@ $(() => {
 
     }
 
-    $.ajax({
-      url: '/markers/step/' + currentStep.id + '/new',
-      data: {
+    let newMarkerData;
+
+
+    if($('#marker-image-upload').length !== 0 && $().val().length !== 0 ){
+      newMarkerData = {
+        markerName: $('#marker-name').val(),
+        markerDescription: $('#marker-description').val(),
+        position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
+        markerTypeID: $('#marker-type-select').find(':selected').data('id'),
+        videoURL: $('#marker-image-upload').val()
+      }
+    } else {
+      newMarkerData = {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
         markerTypeID: $('#marker-type-select').find(':selected').data('id')
-      },
+      }
+    }
+
+    $.ajax({
+      url: '/markers/step/' + currentStep.id + '/new',
+      data: newMarkerData,
       method: 'POST'
     }).done((id) => {
-      console.log('New id: ', id);
+
       //checking if there is a picture to upload
       if($('#marker-image-upload').length === 0 || document.getElementById('marker-image-upload').files.length === 0){
         location.reload();
