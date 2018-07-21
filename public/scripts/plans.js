@@ -538,6 +538,11 @@ $(() => {
       newMarkerModal.style.display = 'block';
   });
 
+  $( '.close-new-marker-button' ).click(function() {
+      newMarkerModal.style.display = 'none';
+  });
+
+
   $( '#new-step-button' ).click(function() {
     $.ajax({
       url: '/steps/plan/' + planID + '/new/',
