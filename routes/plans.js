@@ -149,6 +149,11 @@ module.exports = (knex) => {
 
 
   router.post("/new", (req, res) => {
+    if(req.session.userID === undefined) {
+      res.sendStatus(403);
+    }
+
+
     knex
     .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID) })
     .into('plans')
