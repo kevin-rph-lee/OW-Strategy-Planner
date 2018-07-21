@@ -82,8 +82,13 @@
             <input type="text" class="form-control" id="marker-name">
             <label for="marker-description">Description</label>
             <input type="text" class="form-control" id="marker-description">
-            <label for="marker-image">Upload Image (optional) - JPG only</label>
-            <input type="file" class="form-control" id="marker-image-upload" name="userFile">
+            <label for="add-image-video">Add picture or video</label>
+            <div class = "form-group">
+              <input type="radio" name="add-image-video" id="video" value="video"> Youtube Video
+              <input type="radio" name="add-image-video" id="image"  value="image"> Upload Picture
+            </div>
+            <div id = "add-image-video-container">
+            </div>
             <label for="marker-type">Type of marker</label>
             <div class = "form-group">
               <input type="radio" name="marker-type" id="teammates" value="Teammates"> Teammates

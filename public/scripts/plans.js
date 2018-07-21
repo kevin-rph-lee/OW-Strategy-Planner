@@ -332,6 +332,28 @@ $(() => {
 
 
 
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#image[type="radio"]').click(function(){
+    console.log('image')
+    //Clearing the modal of it's current contents
+    $('#add-image-video-container').children().remove();
+    $('#add-image-video-container').append(`
+            <label for="marker-image">Upload Image (optional) - JPG only</label>
+            <input type="file" class="form-control" id="marker-image-upload" name="userFile">
+      `)
+
+  });
+
+  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  $('#video[type="radio"]').click(function(){
+    console.log('Video')
+    //Clearing the modal of it's current contents
+    $('#add-image-video-container').children().remove();
+
+  });
+
+
+
   $('#new-marker-form').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
