@@ -399,7 +399,7 @@ $(() => {
     }).done((id) => {
       console.log('New id: ', id);
       //checking if there is a picture to upload
-      if(document.getElementById('marker-image-upload').files.length === 0){
+      if($('#marker-image-upload').length === 0 || document.getElementById('marker-image-upload').files.length === 0){
         location.reload();
       } else {
         $.ajax({
