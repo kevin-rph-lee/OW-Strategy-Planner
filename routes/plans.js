@@ -11,7 +11,7 @@ module.exports = (knex) => {
 
   router.get("/:id/draw", (req, res) => {
       knex
-      .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
+      .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location', 'markers.video_URL')
       .from('steps')
       .where({plan_id:req.params.id})
       .innerJoin('plans', 'plans.id', 'steps.plan_id')
@@ -79,7 +79,7 @@ module.exports = (knex) => {
   });
   router.get("/:id", (req, res) => {
       knex
-      .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location')
+      .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'markers.type', 'marker_types.icon_file_location', 'markers.video_URL')
       .from('steps')
       .where({plan_id:req.params.id})
       .innerJoin('plans', 'plans.id', 'steps.plan_id')
@@ -149,6 +149,11 @@ module.exports = (knex) => {
 
 
   router.post("/new", (req, res) => {
+    if(req.session.userID === undefined) {
+      res.sendStatus(403);
+    }
+
+
     knex
     .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID) })
     .into('plans')
