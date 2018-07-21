@@ -393,13 +393,13 @@ $(() => {
     let newMarkerData;
 
 
-    if($('#marker-image-upload').length !== 0 && $().val().length !== 0 ){
+    if($('#marker-video-upload').length !== 0 && $('#marker-video-upload').val().length !== 0 ){
       newMarkerData = {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
         markerTypeID: $('#marker-type-select').find(':selected').data('id'),
-        videoURL: $('#marker-image-upload').val()
+        videoURL: $('#marker-video-upload').val()
       }
     } else {
       newMarkerData = {

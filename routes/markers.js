@@ -5,6 +5,18 @@ const router  = express.Router();
 
 module.exports = (knex, multer, _, path) => {
 
+  /**
+   * Gets the youtube ID from a youtube URL
+   * @param  {[STRING]} url youtube URL
+   * @return {[STRING]}     youtube ID
+   */
+  function getYoutubeID(url){
+    //TO DO - get a better function
+    const VID_REGEX = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+
+    return (url.match(VID_REGEX)[1]);
+  }
+
   router.get("/plan/:id", (req, res) => {
 
     knex
@@ -28,13 +40,24 @@ module.exports = (knex, multer, _, path) => {
       .from('users')
       .where({email:req.session.email})
       .then((results) => {
-        knex
-        .insert({step_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
-        .into('markers')
-        .returning('id')
-        .then((results) => {
-          res.send(results);
-        });
+
+        if(req.body.videoURL !== undefined || req.body.videoURL.length !== 0) {
+          knex
+          .insert({step_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, video_URL: getYoutubeID(req.body.videoURL), title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
+          .into('markers')
+          .returning('id')
+          .then((results) => {
+            res.send(results);
+          });
+        } else{
+          knex
+          .insert({step_id:req.params.id, owner_id: results[0].id, position:{lat:Number(req.body.position.lat), lng:Number(req.body.position.lng)}, title: req.body.markerName, description:req.body.markerDescription, marker_type_id:req.body.markerTypeID, image: false})
+          .into('markers')
+          .returning('id')
+          .then((results) => {
+            res.send(results);
+          });
+        }
       });
   });
 
