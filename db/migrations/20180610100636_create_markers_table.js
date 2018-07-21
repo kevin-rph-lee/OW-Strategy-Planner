@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
     table.json('position');
     table.boolean('image');
     table.integer('marker_type_id');
+    table.string('video_URL')
   });
 };
 
