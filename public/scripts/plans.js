@@ -349,7 +349,10 @@ $(() => {
     console.log('Video')
     //Clearing the modal of it's current contents
     $('#add-image-video-container').children().remove();
-
+    $('#add-image-video-container').append(`
+            <label for="marker-video">Embed Youtube Video</label>
+            <input type="text" class="form-control" id="marker-video-upload">
+      `)
   });
 
 
