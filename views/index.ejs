@@ -33,17 +33,15 @@
             <img src="<%= plans[i].icon %>">
             <div class="media-body">
               <h5 class="mt-0"><%= plans[i].name %></h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              <div><%= plans[i].map_name %> </div>
+              <div><%= plans[i].email %></div>
             </div>
           </div>
-
-
-<!--           <span><img src="<%= plans[i].icon %>"><h5 class="card-title"><%= plans[i].name %></h5></span>
           <p class="card-text"><%= plans[i].description  %></p>
           <a href="/plans/<%= plans[i].id %>"   class="btn btn-primary">View Map</a>
           <% if(plans[i].owner_id === userID){ %>
             <button type="button" class="btn btn-warning delete-plan" data-id="<%= plans[i].id %>">Delete Plan</button>
-          <% } %> -->
+          <% } %>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ app.use("/steps", stepsRoutes(knex));
 app.get("/", (req, res) => {
   console.log('Email passed down to EJS: ', req.session.email)
   knex
-    .select('plans.id', 'plans.description', 'maps.icon', 'plans.name', 'users.email')
+    .select('plans.id', 'plans.description', 'maps.icon', 'plans.name', 'users.email', 'maps.type', 'maps.name as map_name')
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')
