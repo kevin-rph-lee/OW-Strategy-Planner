@@ -40,7 +40,7 @@
         <div class="card-body">
           <p class="card-text"><%= plans[i].description  %></p>
           <div class = "button-container">
-            <a href="/plans/<%= plans[i].id %>"   class="btn btn-primary">View Map</a>
+            <a href="/plans/<%= plans[i].id %>"   class="btn btn-primary">View Plan</a>
             <% if(plans[i].owner_id === userID){ %>
               <button type="button" class="btn btn-warning delete-plan" data-id="<%= plans[i].id %>">Delete Plan</button>
             <% } %>
