@@ -69,15 +69,24 @@ app.get("/", (req, res) => {
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')
-    .then((results) => {
-      console.log(results)
-      res.render('index', {
-        email: req.session.email,
-        userID: req.session.userID,
-        plans: results
-      });
+    .then((plans) => {
+      knex
+        .select('*')
+        .from("maps")
+        .then((maps) => {
+          res.render('index', {
+            email: req.session.email,
+            userID: req.session.userID,
+            plans: plans,
+            maps:maps
+          });
+        });
     });
 });
+
+
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
