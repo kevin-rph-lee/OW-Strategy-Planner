@@ -43,10 +43,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Assault') { %>
-                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <a class="dropdown-item" href="#">All</a>
+                  <div class="dropdown-item" data-type="Assault">All</div>
                 </div>
               </div>
 
@@ -57,10 +57,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Control') { %>
-                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <a class="dropdown-item" href="#">All</a>
+                  <div class="dropdown-item" data-type="Control">All</div>
                 </div>
               </div>
 
@@ -71,10 +71,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Escort') { %>
-                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <a class="dropdown-item" href="#">All</a>
+                  <div class="dropdown-item" data-type="Escort">All</div>
                 </div>
               </div>
 
@@ -85,15 +85,15 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Hybrid') { %>
-                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <a class="dropdown-item" href="#">All</a>
+                  <div class="dropdown-item" data-type="Hybrid">All</div>
                 </div>
               </div>
+
             </div>
           </div>
-
         </div>
       </div>
       <div class="row">
