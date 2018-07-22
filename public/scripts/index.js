@@ -12,4 +12,9 @@ $(() => {
     })
   })
 
+  $('.dropdown-item').on('click', function(event) {
+    $('.cards-container').empty();
+
+  })
+
 });
