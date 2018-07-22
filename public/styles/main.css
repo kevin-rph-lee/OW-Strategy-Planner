@@ -20,3 +20,12 @@
   height: 400px;
   margin-bottom: 30px;
 }
+
+.media-body{
+  margin-left: 5px;
+}
+
+.button-container{
+  position:absolute;
+  bottom: 55px;
+}
