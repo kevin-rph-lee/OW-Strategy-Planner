@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/scripts/index.js"></script>
     <script>window.plans = <%- JSON.stringify(plans); %></script>
     <script>window.maps = <%- JSON.stringify(maps); %></script>
+    <script>window.userID = <%= userID %> </script>
 
   </head>
 
@@ -34,7 +35,7 @@
         <div class="col-12">
 
           <div class="map-filters">
-            <button type="button" class="btn btn-secondary all-maps-button">All Maps</button>
+            <button type="button" class="btn btn-secondary map-filter-button" data-id="All">All Maps</button>
 
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 
@@ -45,10 +46,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Assault') { %>
-                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
+                      <div class="dropdown-item map-filter-button" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <div class="dropdown-item" data-type="Assault">All</div>
+                  <div class="dropdown-item map-filter-button" data-id="Assault">All</div>
                 </div>
               </div>
 
@@ -59,10 +60,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Control') { %>
-                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
+                      <div class="dropdown-item map-filter-button" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <div class="dropdown-item" data-type="Control">All</div>
+                  <div class="dropdown-item map-filter-button" data-id="Control">All</div>
                 </div>
               </div>
 
@@ -73,10 +74,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Escort') { %>
-                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
+                      <div class="dropdown-item map-filter-button" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <div class="dropdown-item" data-type="Escort">All</div>
+                  <div class="dropdown-item map-filter-button" data-id="Escort">All</div>
                 </div>
               </div>
 
@@ -87,10 +88,10 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <% for(var i in maps) { %>
                     <% if(maps[i].type === 'Hybrid') { %>
-                      <div class="dropdown-item" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
+                      <div class="dropdown-item map-filter-button" data-id="<%= maps[i].id %>"><%= maps[i].name %></div>
                     <% } %>
                   <% } %>
-                  <div class="dropdown-item" data-type="Hybrid">All</div>
+                  <div class="dropdown-item map-filter-button" data-id="Hybrid">All</div>
                 </div>
               </div>
 
