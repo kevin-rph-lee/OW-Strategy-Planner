@@ -41,7 +41,11 @@
                   Assault
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">Dropdown link</a>
+                  <% for(var i in maps) { %>
+                    <% if(maps[i].type === 'Assault') { %>
+                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                    <% } %>
+                  <% } %>
                   <a class="dropdown-item" href="#">All</a>
                 </div>
               </div>
@@ -51,7 +55,11 @@
                   Control
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">Dropdown link</a>
+                  <% for(var i in maps) { %>
+                    <% if(maps[i].type === 'Control') { %>
+                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                    <% } %>
+                  <% } %>
                   <a class="dropdown-item" href="#">All</a>
                 </div>
               </div>
@@ -61,7 +69,11 @@
                   Escort
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">Dropdown link</a>
+                  <% for(var i in maps) { %>
+                    <% if(maps[i].type === 'Escort') { %>
+                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                    <% } %>
+                  <% } %>
                   <a class="dropdown-item" href="#">All</a>
                 </div>
               </div>
@@ -71,7 +83,11 @@
                   Hybrid
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">Dropdown link</a>
+                  <% for(var i in maps) { %>
+                    <% if(maps[i].type === 'Hybrid') { %>
+                      <a class="dropdown-item" href="#"><%= maps[i].name %></a>
+                    <% } %>
+                  <% } %>
                   <a class="dropdown-item" href="#">All</a>
                 </div>
               </div>
