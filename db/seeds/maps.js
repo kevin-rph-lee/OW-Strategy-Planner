@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       return knex('maps').insert([
         {name: 'Eichenwalde', type: 'Hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/eichenwalde/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/eichenwalde/icon.png'},
         {name: 'Hanamura', type: 'Assault', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hanamura/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hanamura/icon.png'},
-        {name: 'Horizon', type: 'Assault', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/horizon/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/horizon/icon.png'},
+        {name: 'Horizon Lunar Colony', type: 'Assault', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/horizon/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/horizon/icon.png'},
         {name: 'Kings Row', type: 'Hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/kingsrow/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/kingsrow/icon.png'},
         {name: 'Numbani', type: 'Hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/numbani/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/numbani/icon.png'},
         {name: 'Rialto', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/rialto/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/rialto/icon.png'},
