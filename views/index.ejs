@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/scripts/index.js"></script>
     <script>window.plans = <%- JSON.stringify(plans); %></script>
     <script>window.maps = <%- JSON.stringify(maps); %></script>
-    <script>window.userID = <%= userID %> </script>
+    <script>window.userID = <%- JSON.stringify(userID) %></script>
 
   </head>
 
