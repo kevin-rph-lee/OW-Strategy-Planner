@@ -20,7 +20,7 @@ $(() => {
     if( $(this).data('id') === 'Hybrid' || $(this).data('id') === 'Assault' || $(this).data('id') === 'Control' || $(this).data('id') === 'Escort'){
       for(let i = 0; i < plans.length; i ++){
 
-        if(Number(plans[i].type) === mapID ){
+        if(plans[i].type === mapID ){
 
           if( typeof userID.id === null|| plans[i].owner_id !== userID.id){
 
