@@ -26,6 +26,7 @@ const stepsRoutes = require("./routes/steps");
 const _ = require('lodash');
 const multer = require('multer');
 var path = require('path')
+const moment = require('moment');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -55,7 +56,7 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
-app.use("/plans", plansRoutes(knex));
+app.use("/plans", plansRoutes(knex, moment));
 app.use("/markers", markersRoutes(knex, multer, _, path));
 app.use("/polylines", polylinesRoutes(knex));
 app.use("/steps", stepsRoutes(knex));
