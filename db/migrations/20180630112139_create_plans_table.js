@@ -5,8 +5,8 @@ exports.up = function(knex, Promise) {
     table.string('description');
     table.integer('owner_id');
     table.integer('map_id');
-    table.dateTime('created_datetime');
-    table.dateTime('updated_datetime');
+    table.string('created_datetime');
+    table.string('updated_datetime');
   });
 };
 

@@ -155,7 +155,7 @@ module.exports = (knex, moment) => {
 
 
     knex
-    .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID), created_datetime: moment() })
+    .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID), created_datetime: moment().format("H:mm d/M/YY"), updated_datetime: moment().format("H:mm d/M/YY")})
     .into('plans')
     .returning('id')
     .then((results)=> {
