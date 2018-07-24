@@ -81,7 +81,6 @@ app.get("/", (req, res) => {
             userID = {id: req.session.userID}
           }
 
-
           res.render('index', {
             email: req.session.email,
             userID: userID,

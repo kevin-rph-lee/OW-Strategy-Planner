@@ -39,7 +39,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-body">
-                    <p class="card-text"><${plans[i].description}</p>
+                    <p class="card-text">${plans[i].description}</p>
                     <div class = "button-container">
                       <a href="/plans/${plans[i].id}"   class="btn btn-primary">View Plan</a>
                     </div>
@@ -109,7 +109,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-body">
-                    <p class="card-text"><${plans[i].description}</p>
+                    <p class="card-text">${plans[i].description}</p>
                     <div class = "button-container">
                       <a href="/plans/${plans[i].id}"   class="btn btn-primary">View Plan</a>
                     </div>
@@ -178,7 +178,7 @@ $(() => {
                   </div>
                 </div>
                 <div class="card-body">
-                  <p class="card-text"><${plans[i].description}</p>
+                  <p class="card-text">${plans[i].description}</p>
                   <div class = "button-container">
                     <a href="/plans/${plans[i].id}"   class="btn btn-primary">View Plan</a>
                   </div>
