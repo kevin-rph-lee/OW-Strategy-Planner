@@ -21,7 +21,7 @@ module.exports = (knex) => {
       knex
         .select("*")
         .from("maps")
-        .where({type: 'control'})
+        .where({type: 'Control'})
         .then((results) => {
           //WILL ALWAYS RETURN AN ARRAY
           res.json(results);
@@ -35,7 +35,7 @@ module.exports = (knex) => {
       knex
         .select("*")
         .from("maps")
-        .where({type: 'assault'})
+        .where({type: 'Assault'})
         .then((results) => {
           //WILL ALWAYS RETURN AN ARRAY
           res.json(results);
@@ -47,7 +47,7 @@ module.exports = (knex) => {
       knex
         .select("*")
         .from("maps")
-        .where({type: 'escort'})
+        .where({type: 'Escort'})
         .then((results) => {
           //WILL ALWAYS RETURN AN ARRAY
           res.json(results);
@@ -59,7 +59,7 @@ module.exports = (knex) => {
       knex
         .select("*")
         .from("maps")
-        .where({type: 'hybrid'})
+        .where({type: 'Hybrid'})
         .then((results) => {
           //WILL ALWAYS RETURN AN ARRAY
           res.json(results);

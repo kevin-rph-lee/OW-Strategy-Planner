@@ -3,7 +3,8 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary();
     table.string('name');
     table.string('type');
-    table.string('url')
+    table.string('url');
+    table.string('icon');
   });
 };
 

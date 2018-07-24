@@ -128,7 +128,7 @@ $(() => {
 
 
     let allowedBounds;
-    if(mapType !== 'control'){
+    if(mapType !== 'Control'){
       //Defining out far out a user is able to pan  SW corner first, NE corner second
       allowedBounds = new google.maps.LatLngBounds(
            new google.maps.LatLng(-76.53872912052131, -122.52994923110276),

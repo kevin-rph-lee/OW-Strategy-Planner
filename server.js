@@ -65,16 +65,35 @@ app.use("/steps", stepsRoutes(knex));
 app.get("/", (req, res) => {
   console.log('Email passed down to EJS: ', req.session.email)
   knex
-    .select("*")
+    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.email', 'maps.type', 'maps.name as map_name')
     .from("plans")
-    .then((results) => {
-      res.render('index', {
-        email: req.session.email,
-        userID: req.session.userID,
-        plans: results
-      });
+    .innerJoin('users', 'users.id', 'plans.owner_id')
+    .innerJoin('maps', 'maps.id', 'plans.map_id')
+    .then((plans) => {
+      knex
+        .select('*')
+        .from("maps")
+        .then((maps) => {
+          let userID;
+          if(req.session.userID === undefined){
+            userID = {id:null}
+          } else {
+            userID = {id: req.session.userID}
+          }
+
+          res.render('index', {
+            email: req.session.email,
+            userID: userID,
+            plans: plans,
+            maps:maps
+          });
+        });
     });
 });
+
+
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
