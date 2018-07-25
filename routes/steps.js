@@ -3,7 +3,18 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (knex, moment) => {
+
+  /**
+   * Updates the updated_datetime of a plan
+   * @param  {[int]} planID  ID of the plan to be updated
+   */
+  let updateDateTime = (planID) => {
+    knex('plans')
+      .where({ id:planID })
+      .update({ updated_datetime: moment().format("H:mm d/M/YYYY") })
+      .then(()=>{});
+  }
 
   router.post("/plan/:id/new", (req, res) => {
     knex
@@ -16,6 +27,7 @@ module.exports = (knex) => {
         .insert({plan_id:req.params.id})
         .into('steps')
         .then(()=> {
+          updateDateTime(req.params.id);
           res.sendStatus(200);
         })
       }
@@ -35,6 +47,7 @@ module.exports = (knex) => {
         .where({ id: req.params.id })
         .del()
         .then(() => {
+          updateDateTime(req.params.id);
           res.sendStatus(200);
         })
       }

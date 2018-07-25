@@ -14,6 +14,7 @@
     <script>window.maps = <%- JSON.stringify(maps); %></script>
     <script>window.userID = <%- JSON.stringify(userID) %></script>
 
+
   </head>
 
   <body>
@@ -130,7 +131,9 @@
               </div>
             </div>
             <div class="card-footer">
-              Created by: <%= plans[i].email  %>
+              <div>Owner: <%= plans[i].email  %></div>
+              <div>Created: <%= plans[i].created_datetime %></div>
+              <div>Updated: <%= plans[i].updated_datetime %></div>
             </div>
           </div>
         </div>

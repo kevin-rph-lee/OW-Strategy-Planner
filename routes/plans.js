@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (knex, moment) => {
 
 
 
@@ -155,7 +155,7 @@ module.exports = (knex) => {
 
 
     knex
-    .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID) })
+    .insert({name: req.body.planName, description: req.body.planDescription, owner_id: req.session.userID, map_id: Number(req.body.mapTypeID), created_datetime: moment().format("H:mm d/M/YYYY"), updated_datetime: moment().format("H:mm d/M/YYYY")})
     .into('plans')
     .returning('id')
     .then((results)=> {

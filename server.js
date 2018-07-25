@@ -26,6 +26,7 @@ const stepsRoutes = require("./routes/steps");
 const _ = require('lodash');
 const multer = require('multer');
 var path = require('path')
+const moment = require('moment');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -55,17 +56,17 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
-app.use("/plans", plansRoutes(knex));
-app.use("/markers", markersRoutes(knex, multer, _, path));
-app.use("/polylines", polylinesRoutes(knex));
-app.use("/steps", stepsRoutes(knex));
+app.use("/plans", plansRoutes(knex, moment));
+app.use("/markers", markersRoutes(knex, multer, _, path, moment));
+app.use("/polylines", polylinesRoutes(knex, moment));
+app.use("/steps", stepsRoutes(knex, moment));
 
 
 // Home page
 app.get("/", (req, res) => {
   console.log('Email passed down to EJS: ', req.session.email)
   knex
-    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.email', 'maps.type', 'maps.name as map_name')
+    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.email', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime')
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')

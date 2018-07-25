@@ -3,7 +3,20 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex, multer, _, path) => {
+module.exports = (knex, multer, _, path, moment) => {
+
+
+  /**
+   * Updates the updated_datetime of a plan
+   * @param  {[int]} planID  ID of the plan to be updated
+   */
+  let updateDateTime = (planID) => {
+    knex('plans')
+      .where({ id:planID })
+      .update({ updated_datetime: moment().format("H:mm d/M/YYYY") })
+      .then(()=>{});
+  }
+
 
   /**
    * Gets the youtube ID from a youtube URL
@@ -62,6 +75,7 @@ module.exports = (knex, multer, _, path) => {
           .into('markers')
           .returning('id')
           .then((results) => {
+            updateDateTime(req.body.planID)
             res.send(results);
           });
         }
@@ -87,6 +101,7 @@ module.exports = (knex, multer, _, path) => {
           .where({ id: req.params.id })
           .del()
           .then(() => {
+            updateDateTime(req.body.planID)
             res.sendStatus(200);
           })
         } else {

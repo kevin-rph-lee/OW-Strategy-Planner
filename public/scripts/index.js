@@ -45,7 +45,9 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
                 </div>
               </div>
@@ -75,7 +77,9 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
                 </div>
               </div>
@@ -115,7 +119,9 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
                 </div>
               </div>
@@ -145,7 +151,9 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
                 </div>
               </div>
@@ -184,7 +192,9 @@ $(() => {
                   </div>
                 </div>
                 <div class="card-footer">
-                  Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                 </div>
               </div>
             </div>
@@ -214,7 +224,9 @@ $(() => {
                   </div>
                 </div>
                 <div class="card-footer">
-                  Created by: ${plans[i].email}
+                    <div>Owner: ${plans[i].email}</div>
+                    <div>Created: ${plans[i].created_datetime}</div>
+                    <div>Updated: ${plans[i].updated_datetime}</div>
                 </div>
               </div>
             </div>
