@@ -391,6 +391,7 @@ $(() => {
       data: {planID: planID, polylines: polyLinesToPush},
       method: 'POST'
     }).done(() => {
+      console.log('Reload?')
       location.reload();
 
     }).catch((err) => {

@@ -57,8 +57,8 @@ app.use(cookieSession({
 app.use("/users", usersRoutes(knex, bcrypt, cookieSession));
 app.use("/maps", mapsRoutes(knex));
 app.use("/plans", plansRoutes(knex, moment));
-app.use("/markers", markersRoutes(knex, multer, _, path));
-app.use("/polylines", polylinesRoutes(knex));
+app.use("/markers", markersRoutes(knex, multer, _, path, moment));
+app.use("/polylines", polylinesRoutes(knex, moment));
 app.use("/steps", stepsRoutes(knex, moment));
 
 

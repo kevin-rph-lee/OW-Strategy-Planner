@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex, multer, _, path) => {
+module.exports = (knex, multer, _, path, moment) => {
 
   /**
    * Gets the youtube ID from a youtube URL

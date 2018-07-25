@@ -5,6 +5,10 @@ const router  = express.Router();
 
 module.exports = (knex, moment) => {
 
+  /**
+   * Updates the updated_datetime of a plan
+   * @param  {[int]} planID  ID of the plan to be updated
+   */
   let updateDateTime = (planID) => {
     knex('plans')
       .where({ id:planID })

@@ -3,9 +3,18 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (knex, moment) => {
 
-
+  /**
+   * Updates the updated_datetime of a plan
+   * @param  {[int]} planID  ID of the plan to be updated
+   */
+  let updateDateTime = (planID) => {
+    knex('plans')
+      .where({ id:planID })
+      .update({ updated_datetime: moment().format("H:mm d/M/YYYY") })
+      .then(()=>{});
+  }
 
   router.get("/:id", (req, res) => {
 
@@ -37,12 +46,14 @@ module.exports = (knex) => {
           .where({step_id:req.params.id})
           .then((results) => {
 
+
             for(let i = 1; i <= results.length; i++){
                knex('polylines')
                 .where({ step_id: req.params.id })
                 .del()
                 .then(()=>{});
             }
+            updateDateTime(req.body.planID)
             res.sendStatus(200);
           });
         }
@@ -74,6 +85,7 @@ module.exports = (knex) => {
             )
           }
           Promise.all(promiseArray).then(() => {
+            updateDateTime(req.body.planID)
             res.sendStatus(200);
           }).catch((err) => {
             res.sendStatus(404);
