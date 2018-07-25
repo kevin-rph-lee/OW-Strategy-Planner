@@ -6,12 +6,12 @@ const router  = express.Router();
 module.exports = (knex, bcrypt, cookieSession) => {
 
   //Checks for valid email
-  function validateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return (true)
-    }
-      return (false)
-  }
+  // function validateEmail(mail) {
+  //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+  //     return (true)
+  //   }
+  //     return (false)
+  // }
 
   router.post("/new", (req, res) => {
     const email = req.body.email.trim().toLowerCase();
@@ -47,10 +47,10 @@ module.exports = (knex, bcrypt, cookieSession) => {
 
   // logs a user in
   router.post("/login", (req, res) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
-
-    if (!email || !password) {
+    console.log('Trying to login ', username)
+    if (!username || !password) {
       res.sendStatus(400);
       return;
     }
@@ -59,12 +59,13 @@ module.exports = (knex, bcrypt, cookieSession) => {
     knex
       .select("password", "id")
       .from("users")
-      .where({ email: email })
+      .where({ username: username })
       .then((results) => {
+        console.log('results: ', results)
         if (results.length === 0) {
           res.sendStatus(404);
         } else if (bcrypt.compareSync(password, results[0].password)) {
-          req.session.email = email;
+          req.session.username = username;
           req.session.userID = results[0].id;
           res.sendStatus(200);
         } else {

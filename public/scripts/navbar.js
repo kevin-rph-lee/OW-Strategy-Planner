@@ -41,12 +41,12 @@ $(() => {
 
 
   $('.login-submit').click(function(e){
-    const email = $('#login-email').val();
+    const username = $('#login-username').val();
     const password = $('#login-password').val();
 
     $.ajax({
       url: '/users/login',
-      data: {email: email.toLowerCase(), password: password},
+      data: {username: username.toLowerCase(), password: password},
       method: 'POST'
     }).done((id) => {
       window.location.replace(`/`);
