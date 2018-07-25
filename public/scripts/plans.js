@@ -427,14 +427,16 @@ $(() => {
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
         markerTypeID: $('#marker-type-select').find(':selected').data('id'),
-        videoURL: $('#marker-video-upload').val()
+        videoURL: $('#marker-video-upload').val(),
+        planID: planID
       }
     } else {
       newMarkerData = {
         markerName: $('#marker-name').val(),
         markerDescription: $('#marker-description').val(),
         position: {lat:markerClick.getPosition().lat(), lng:markerClick.getPosition().lng()},
-        markerTypeID: $('#marker-type-select').find(':selected').data('id')
+        markerTypeID: $('#marker-type-select').find(':selected').data('id'),
+        planID: planID
       }
     }
 
