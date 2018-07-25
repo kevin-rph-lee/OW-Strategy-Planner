@@ -59,7 +59,7 @@ app.use("/maps", mapsRoutes(knex));
 app.use("/plans", plansRoutes(knex, moment));
 app.use("/markers", markersRoutes(knex, multer, _, path));
 app.use("/polylines", polylinesRoutes(knex));
-app.use("/steps", stepsRoutes(knex));
+app.use("/steps", stepsRoutes(knex, moment));
 
 
 // Home page
