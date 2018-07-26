@@ -5,6 +5,15 @@ const router  = express.Router();
 
 module.exports = (knex, bcrypt, cookieSession) => {
 
+  /**
+   * Checks a string for special characters. Returns false if one is found
+   * @param  {string} string string to be checked
+   * @return {boolean}        returns true if invalid characters found
+   */
+  function checkInvalidCharacters(string) {
+    return !(/^[a-zA-Z0-9-#]*$/.test(string));
+  }
+
   //Checks for valid email
   // function validateEmail(mail) {
   //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
@@ -62,7 +71,7 @@ module.exports = (knex, bcrypt, cookieSession) => {
       .where({ username: username })
       .then((results) => {
         console.log('results: ', results)
-        if (results.length === 0) {
+        if (results.length === 0 || checkInvalidCharacters(string)) {
           res.sendStatus(404);
         } else if (bcrypt.compareSync(password, results[0].password)) {
           req.session.username = username;
