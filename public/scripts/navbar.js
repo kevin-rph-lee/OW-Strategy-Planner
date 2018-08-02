@@ -51,6 +51,7 @@ $(() => {
     }).done((id) => {
       window.location.replace(`/`);
     }).catch((err) => {
+      console.log('Wrong pass/username')
       $('.login-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>OOPS!</strong> Your password or username is incorrect

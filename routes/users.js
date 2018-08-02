@@ -71,7 +71,7 @@ module.exports = (knex, bcrypt, cookieSession) => {
       .where({ username: username })
       .then((results) => {
         console.log('results: ', results)
-        if (results.length === 0 || checkInvalidCharacters(string)) {
+        if (results.length === 0 || checkInvalidCharacters(username)) {
           res.sendStatus(404);
         } else if (bcrypt.compareSync(password, results[0].password)) {
           req.session.username = username;
