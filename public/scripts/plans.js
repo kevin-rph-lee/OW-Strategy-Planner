@@ -12,7 +12,7 @@ $(() => {
     number: 1
   }
 
-
+  console.log(isOwner)
 
 
   addMarkersAndLines = (stepID) => {
