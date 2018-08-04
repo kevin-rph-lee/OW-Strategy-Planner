@@ -210,9 +210,12 @@ $(() => {
 
   const newMarkerModal = document.getElementById('new-marker-modal');
 
-  // When the user clicks on the button, open the modal
-  registerButton.onclick = function() {
-      registerModal.style.display = "block";
+
+  if($('#register-button').length !== 0){
+    // When the user clicks on the button, open the modal
+    registerButton.onclick = function() {
+        registerModal.style.display = "block";
+    }
   }
 
   if($('#new-plan-button').length !== 0){
@@ -225,11 +228,12 @@ $(() => {
 
 
 
-  // When the user clicks on the button, open the modal
-  loginButton.onclick = function() {
-      loginModal.style.display = "block";
+  if($('#login-button').length !== 0){
+    // When the user clicks on the button, open the modal
+    loginButton.onclick = function() {
+        loginModal.style.display = "block";
+    }
   }
-
 
   // When the user clicks on <span> (x), close the modal
   $('.close-button').click(function() {
