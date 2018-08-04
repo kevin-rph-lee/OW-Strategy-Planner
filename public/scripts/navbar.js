@@ -42,6 +42,7 @@ $(() => {
 
 
   $('.login-submit').click(function(e){
+    e.preventDefault();
     const username = $('#login-username').val();
     const password = $('#login-password').val();
 
@@ -52,10 +53,9 @@ $(() => {
     }).done((id) => {
       window.location.replace(`/`);
     }).catch((err) => {
-      console.log('Wrong pass/username')
       $('.login-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>OOPS!</strong> Your password or username is incorrect
+      <strong>OOPS!</strong>  ${err.responseText}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

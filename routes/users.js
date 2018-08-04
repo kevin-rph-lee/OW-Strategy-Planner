@@ -57,11 +57,10 @@ module.exports = (knex, bcrypt, cookieSession) => {
 
   // logs a user in
   router.post("/login", (req, res) => {
-    const username = req.body.username;
+    const username = req.body.username.trim().toLowerCase();
     const password = req.body.password;
-    console.log('Trying to login ', username)
     if (!username || !password) {
-      res.sendStatus(400);
+      res.status(400).send('Username or password empty!');
       return;
     }
 
@@ -73,13 +72,13 @@ module.exports = (knex, bcrypt, cookieSession) => {
       .then((results) => {
         console.log('results: ', results)
         if (results.length === 0 || checkInvalidCharacters(username)) {
-          res.sendStatus(404);
+          return res.status(404).send('Username not found!');
         } else if (bcrypt.compareSync(password, results[0].password)) {
           req.session.username = username;
           req.session.userID = results[0].id;
-          res.sendStatus(200);
+          return res.sendStatus(200);
         } else {
-          res.sendStatus(403);
+          return res.status(403).send('Password incorrect!');
         }
       });
   });
