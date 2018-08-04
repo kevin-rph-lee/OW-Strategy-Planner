@@ -23,28 +23,29 @@ module.exports = (knex, bcrypt, cookieSession) => {
   // }
 
   router.post("/new", (req, res) => {
-    const email = req.body.email.trim().toLowerCase();
-    const password = req.body.password.trim();
+    const username = req.body.username.trim().toLowerCase();
+    const password = req.body.password;
     //Converting bnet ID into a format that owjs can take
 
-    if (!(validateEmail(email))){
-      return res.status(400).send('Invalid email format!');
+
+    if(checkInvalidCharacters(username) || checkInvalidCharacters(password)){
+      return res.status(400).send('Invalid characters in username or password')
     }
+
     //checking to prevent email dupes
     knex('users')
-      .select("email")
+      .select("username")
       .from("users")
-      .where({email:email})
+      .where({username:username})
       .then((results) => {
         if (results.length === 0) {
           knex
-            .insert({email: email, password: bcrypt.hashSync(password, 10)})
+            .insert({username: username, password: bcrypt.hashSync(password, 10)})
             .into('users')
             .returning('id')
             .then((results) => {
               req.session.userID = results[0];
-              req.session.email = email;
-              console.log("Session email: ", req.session.email);
+              req.session.username = username;
               res.send(results);
             });
         } else {

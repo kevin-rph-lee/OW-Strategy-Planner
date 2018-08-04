@@ -3,7 +3,8 @@ $(() => {
 
 
   $('.register-submit').click(function(e){
-    const email = $('#register-email').val();
+    e.preventDefault()
+    const username = $('#register-username').val();
     const password = $('#password1').val();
     const passwordConfirm = $('#password2').val();
 
@@ -22,7 +23,7 @@ $(() => {
 
     $.ajax({
       url: '/users/new',
-      data: {email: email.toLowerCase(), password: password},
+      data: {username: username.toLowerCase(), password: password},
       method: 'POST'
     }).done((id) => {
       window.location.replace(`/`);
