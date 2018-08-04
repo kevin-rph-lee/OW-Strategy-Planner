@@ -133,6 +133,11 @@ module.exports = (knex, multer, _, path, moment) => {
         //Only allowing png, jpg, gif, jpeg
         const ext = path.extname(file.originalname)
         if (ext !== '.jpg') {
+          knex('markers')
+            .where({ id: req.params.id })
+            .del()
+            .then(() => {})
+
           res.sendStatus(400);
           return;
         }
