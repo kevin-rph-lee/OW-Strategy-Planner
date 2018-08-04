@@ -49,7 +49,7 @@ module.exports = (knex, bcrypt, cookieSession) => {
               res.send(results);
             });
         } else {
-          res.status(400).send("Looks like you're already enrolled! Please check your email...");
+          res.status(400).send('Username already being used');
         }
       });
   });

@@ -28,14 +28,14 @@ $(() => {
     }).done((id) => {
       window.location.replace(`/`);
     }).catch((err) => {
-      // $('.register-alert').append(`
-      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      // <strong>OOPS!</strong> ${err.responseText}
-      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      //   <span aria-hidden="true">&times;</span>
-      // </button>
-      // </div>
-      // `)
+      $('.register-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> ${err.responseText}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
     });
 
   });
