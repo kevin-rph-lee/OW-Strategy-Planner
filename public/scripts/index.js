@@ -1,5 +1,6 @@
 $(() => {
 
+  console.log(plans[0].username)
   //TODO FIgure this shit out
   $('.delete-plan').on('click', function(event) {
     console.log($(this).data('id'));
@@ -45,7 +46,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
@@ -77,7 +78,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
@@ -119,7 +120,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
@@ -151,7 +152,7 @@ $(() => {
                     </div>
                   </div>
                   <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                   </div>
@@ -192,7 +193,7 @@ $(() => {
                   </div>
                 </div>
                 <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                 </div>
@@ -224,7 +225,7 @@ $(() => {
                   </div>
                 </div>
                 <div class="card-footer">
-                    <div>Owner: ${plans[i].email}</div>
+                    <div>Owner: ${plans[i].username}</div>
                     <div>Created: ${plans[i].created_datetime}</div>
                     <div>Updated: ${plans[i].updated_datetime}</div>
                 </div>

@@ -5,41 +5,51 @@ const router  = express.Router();
 
 module.exports = (knex, bcrypt, cookieSession) => {
 
-  //Checks for valid email
-  function validateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return (true)
-    }
-      return (false)
+  /**
+   * Checks a string for special characters. Returns false if one is found
+   * @param  {string} string string to be checked
+   * @return {boolean}        returns true if invalid characters found
+   */
+  function checkInvalidCharacters(string) {
+    return !(/^[a-zA-Z0-9-#]*$/.test(string));
   }
 
+  //Checks for valid email
+  // function validateEmail(mail) {
+  //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+  //     return (true)
+  //   }
+  //     return (false)
+  // }
+
   router.post("/new", (req, res) => {
-    const email = req.body.email.trim().toLowerCase();
-    const password = req.body.password.trim();
+    const username = req.body.username.trim().toLowerCase();
+    const password = req.body.password;
     //Converting bnet ID into a format that owjs can take
 
-    if (!(validateEmail(email))){
-      return res.status(400).send('Invalid email format!');
+
+    if(checkInvalidCharacters(username) || checkInvalidCharacters(password)){
+      return res.status(400).send('Invalid characters in username or password')
     }
+
     //checking to prevent email dupes
     knex('users')
-      .select("email")
+      .select("username")
       .from("users")
-      .where({email:email})
+      .where({username:username})
       .then((results) => {
         if (results.length === 0) {
           knex
-            .insert({email: email, password: bcrypt.hashSync(password, 10)})
+            .insert({username: username, password: bcrypt.hashSync(password, 10)})
             .into('users')
             .returning('id')
             .then((results) => {
               req.session.userID = results[0];
-              req.session.email = email;
-              console.log("Session email: ", req.session.email);
+              req.session.username = username;
               res.send(results);
             });
         } else {
-          res.status(400).send("Looks like you're already enrolled! Please check your email...");
+          res.status(400).send('Username already being used');
         }
       });
   });
@@ -47,11 +57,10 @@ module.exports = (knex, bcrypt, cookieSession) => {
 
   // logs a user in
   router.post("/login", (req, res) => {
-    const email = req.body.email;
+    const username = req.body.username.trim().toLowerCase();
     const password = req.body.password;
-
-    if (!email || !password) {
-      res.sendStatus(400);
+    if (!username || !password) {
+      res.status(400).send('Username or password empty!');
       return;
     }
 
@@ -59,16 +68,17 @@ module.exports = (knex, bcrypt, cookieSession) => {
     knex
       .select("password", "id")
       .from("users")
-      .where({ email: email })
+      .where({ username: username })
       .then((results) => {
-        if (results.length === 0) {
-          res.sendStatus(404);
+        console.log('results: ', results)
+        if (results.length === 0 || checkInvalidCharacters(username)) {
+          return res.status(404).send('Username not found!');
         } else if (bcrypt.compareSync(password, results[0].password)) {
-          req.session.email = email;
+          req.session.username = username;
           req.session.userID = results[0].id;
-          res.sendStatus(200);
+          return res.sendStatus(200);
         } else {
-          res.sendStatus(403);
+          return res.status(403).send('Password incorrect!');
         }
       });
   });

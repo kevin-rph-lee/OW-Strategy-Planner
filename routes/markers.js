@@ -44,14 +44,14 @@ module.exports = (knex, multer, _, path, moment) => {
 
 
   router.post('/step/:id/new', (req, res) => {
-    if(req.session.email === undefined){
+    if(req.session.username === undefined){
       res.sendStatus(400);
     }
 
     knex
       .select('id')
       .from('users')
-      .where({email:req.session.email})
+      .where({username:req.session.username})
       .then((results) => {
 
         if(req.body.videoURL !== undefined) {
@@ -85,7 +85,7 @@ module.exports = (knex, multer, _, path, moment) => {
 
   //Deleting a marker
   router.post('/delete/:id', (req, res) => {
-    if(req.session.email === undefined){
+    if(req.session.username === undefined){
       res.sendStatus(400);
     }
 
@@ -133,6 +133,11 @@ module.exports = (knex, multer, _, path, moment) => {
         //Only allowing png, jpg, gif, jpeg
         const ext = path.extname(file.originalname)
         if (ext !== '.jpg') {
+          knex('markers')
+            .where({ id: req.params.id })
+            .del()
+            .then(() => {})
+
           res.sendStatus(400);
           return;
         }

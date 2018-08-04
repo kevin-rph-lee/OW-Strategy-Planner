@@ -3,7 +3,8 @@ $(() => {
 
 
   $('.register-submit').click(function(e){
-    const email = $('#register-email').val();
+    e.preventDefault()
+    const username = $('#register-username').val();
     const password = $('#password1').val();
     const passwordConfirm = $('#password2').val();
 
@@ -22,38 +23,39 @@ $(() => {
 
     $.ajax({
       url: '/users/new',
-      data: {email: email.toLowerCase(), password: password},
+      data: {username: username.toLowerCase(), password: password},
       method: 'POST'
     }).done((id) => {
       window.location.replace(`/`);
     }).catch((err) => {
-      // $('.register-alert').append(`
-      // <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      // <strong>OOPS!</strong> ${err.responseText}
-      // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      //   <span aria-hidden="true">&times;</span>
-      // </button>
-      // </div>
-      // `)
+      $('.register-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> ${err.responseText}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
     });
 
   });
 
 
   $('.login-submit').click(function(e){
-    const email = $('#login-email').val();
+    e.preventDefault();
+    const username = $('#login-username').val();
     const password = $('#login-password').val();
 
     $.ajax({
       url: '/users/login',
-      data: {email: email.toLowerCase(), password: password},
+      data: {username: username.toLowerCase(), password: password},
       method: 'POST'
     }).done((id) => {
       window.location.replace(`/`);
     }).catch((err) => {
       $('.login-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>OOPS!</strong> Your password or username is incorrect
+      <strong>OOPS!</strong>  ${err.responseText}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -208,9 +210,12 @@ $(() => {
 
   const newMarkerModal = document.getElementById('new-marker-modal');
 
-  // When the user clicks on the button, open the modal
-  registerButton.onclick = function() {
-      registerModal.style.display = "block";
+
+  if($('#register-button').length !== 0){
+    // When the user clicks on the button, open the modal
+    registerButton.onclick = function() {
+        registerModal.style.display = "block";
+    }
   }
 
   if($('#new-plan-button').length !== 0){
@@ -223,11 +228,12 @@ $(() => {
 
 
 
-  // When the user clicks on the button, open the modal
-  loginButton.onclick = function() {
-      loginModal.style.display = "block";
+  if($('#login-button').length !== 0){
+    // When the user clicks on the button, open the modal
+    loginButton.onclick = function() {
+        loginModal.style.display = "block";
+    }
   }
-
 
   // When the user clicks on <span> (x), close the modal
   $('.close-button').click(function() {

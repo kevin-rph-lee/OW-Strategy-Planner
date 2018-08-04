@@ -64,9 +64,8 @@ app.use("/steps", stepsRoutes(knex, moment));
 
 // Home page
 app.get("/", (req, res) => {
-  console.log('Email passed down to EJS: ', req.session.email)
   knex
-    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.email', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime')
+    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.username', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime')
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')
@@ -82,8 +81,10 @@ app.get("/", (req, res) => {
             userID = {id: req.session.userID}
           }
 
+          console.log('PLans ', plans)
+
           res.render('index', {
-            email: req.session.email,
+            username: req.session.username,
             userID: userID,
             plans: plans,
             maps:maps
