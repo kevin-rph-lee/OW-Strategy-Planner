@@ -53,6 +53,12 @@
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
+      <% if (isOwner === true) { %>
+        <div>
+          <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
+          <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
+        </div>
+      <% } %>
     </div>
 
     <% if (isOwner === true) { %>
@@ -61,10 +67,7 @@
         <button type="button" class="btn btn-warning" id="toggle-off">Toggle Off</button>
         <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
       </div>
-      <div>
-        <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
-        <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
-      </div>
+
       <a href="/plans/<%= planID %>/draw"   class="btn btn-primary">Draw</a>
 
       <div id='delete-step-alert'>
