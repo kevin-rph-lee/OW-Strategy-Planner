@@ -7,14 +7,6 @@
   height: auto;
 }
 
-#toggle-off{
-  display:none;
-}
-
-#save{
-  display:none;
-}
-
 .card{
   width: 300px;
   height: 400px;

@@ -62,13 +62,23 @@
     </div>
 
     <% if (isOwner === true) { %>
-      <div>
+<!--       <div>
         <button type="button" class="btn btn-primary" id="toggle-on">Toggle On</button>
-        <button type="button" class="btn btn-warning" id="toggle-off">Toggle Off</button>
         <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
+      </div> -->
+
+      <button id="toggle-add-marker" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddMarker" aria-expanded="false" aria-controls="collapseAddMarker">
+        Add Marker
+      </button>
+      <a href="/plans/<%= planID %>/draw"   class="btn btn-primary">Draw on Map</a>
+
+      <div class="collapse" id="collapseAddMarker">
+        <div class="save-button-container">
+          <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
+
+        </div>
       </div>
 
-      <a href="/plans/<%= planID %>/draw"   class="btn btn-primary">Draw</a>
 
       <div id='delete-step-alert'>
 

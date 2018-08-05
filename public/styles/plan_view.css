@@ -24,9 +24,13 @@
   margin-right: 20px;
 }
 
-#new-marker-button {
-    display:none;
+.save-button-container {
+  /*padding: 10px;*/
+  margin: 10px;
+  border: 1px solid black;
+
 }
+
 
 .pagination-container {
   padding: 10px;
