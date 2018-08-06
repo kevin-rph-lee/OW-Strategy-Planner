@@ -567,31 +567,20 @@ $(() => {
 
 
   if(isOwner) {
-    // document.getElementById('toggle-on').addEventListener('click', () => {
-    //   //When you click on the map, it adds a marker (only 1 'clicked' marker appears at a time)
-
-    //   $('#toggle-on').css('display', 'none');
-    //   $('#toggle-off').css('display', 'inline');
-    //   $('#new-marker-button').css('display', 'inline');
-    //   clickListener = plan.addListener('click', toggleAddMarker);
-    // });
-
-    // document.getElementById('toggle-off').addEventListener('click', () => {
-    //   $('#toggle-off').css('display', 'none');
-    //   $('#new-marker-button').css('display', 'none');
-    //   $('#toggle-on').css('display', 'inline');
-    //   google.maps.event.removeListener(clickListener);
-    //   markerClick.setMap(null);
-    // });
 
     $('#toggle-add-marker').click(function() {
       if($('#toggle-add-marker').hasClass('btn-primary')) {
-        $('#toggle-add-marker').removeClass('btn-primary')
-        $('#toggle-add-marker').addClass('btn-success')
+        $('#toggle-add-marker').removeClass('btn-primary');
+        $('#toggle-add-marker').addClass('btn-success');
+        clickListener = plan.addListener('click', toggleAddMarker);
+
       }
      else{
-        $('#toggle-add-marker').removeClass('btn-success')
-        $('#toggle-add-marker').addClass('btn-primary')
+        $('#toggle-add-marker').removeClass('btn-success');
+        $('#toggle-add-marker').addClass('btn-primary');
+        google.maps.event.removeListener(clickListener);
+        markerClick.setMap(null);
+
       }
 
     });
