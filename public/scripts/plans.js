@@ -607,6 +607,9 @@ $(() => {
     });
   });
 
+  $('[data-tooltip="tooltip"]').tooltip();
+
+
   $( '#delete-step-button' ).click(function() {
     if(stepIDs.length === 1){
       $('#delete-step-alert').append(`

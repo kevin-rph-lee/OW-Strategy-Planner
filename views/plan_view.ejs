@@ -67,8 +67,9 @@
         <button type="button" class="btn btn-success" id="new-marker-button">Save</button>
       </div> -->
 
-      <button id="toggle-add-marker" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddMarker" aria-expanded="false" aria-controls="collapseAddMarker">
-        Add Marker
+      <button id="toggle-add-marker" class="btn btn-primary" type="button" data-toggle="collapse" data-tooltip="tooltip" title="Instructions: Click to toggle, click on the map to drop the marker, select save marker to save it" data-target="#collapseAddMarker" aria-expanded="false" aria-controls="collapseAddMarker">
+        Place new marker
+
       </button>
       <a href="/plans/<%= planID %>/draw"   class="btn btn-primary">Draw on Map</a>
 
