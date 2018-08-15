@@ -27,10 +27,12 @@
 .save-button-container {
   /*padding: 10px;*/
   margin: 10px;
-  border: 1px solid black;
 
 }
 
+.button-container {
+  margin: 10px;
+}
 
 .pagination-container {
   padding: 10px;
