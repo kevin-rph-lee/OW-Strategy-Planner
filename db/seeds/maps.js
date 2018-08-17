@@ -13,7 +13,16 @@ exports.seed = function(knex, Promise) {
         {name: 'Rialto', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/rialto/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/rialto/icon.png'},
         {name: 'Watchpoint: Gibraltar', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/watchpointgibraltar/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/watchpointgibraltar/icon.png'},
         {name: 'Ilios', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/ilios/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/ilios/icon.png'},
-        {name: 'Lijiang Tower', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/lijiangtower/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/lijiangtower/icon.png'}
+        {name: 'Lijiang Tower', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/lijiangtower/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/lijiangtower/icon.png'},
+        {name: 'Dorado', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/dorado/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/dorado/icon.png'},
+        {name: 'Blizzard World', type: 'Hybrid', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/blizzardworld/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/blizzardworld/icon.png'},
+        {name: 'Route 66', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/route66/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/route66/icon.png'},
+        {name: 'Nepal', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/nepal/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/nepal/icon.png'},
+        {name: 'Temple of Anubis', type: 'Assault', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/templeofanubis/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/templeofanubis/icon.png'},
+        {name: 'Hollywood', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hollywood/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/hollywood/icon.png'},
+        {name: 'Junkertown', type: 'Escort', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/junkertown/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/junkertown/icon.png'},
+        {name: 'Volskaya Industries', type: 'Assault', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/volskayaindustries/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/volskayaindustries/icon.png'},
+        {name: 'Oasis', type: 'Control', url: 'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/oasis/', icon:'https://raw.githubusercontent.com/kevin-rph-lee/OWMaps/master/oasis/icon.png'}
       ]);
     });
 };
