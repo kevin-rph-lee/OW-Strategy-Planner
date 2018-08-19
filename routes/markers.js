@@ -88,26 +88,14 @@ module.exports = (knex, multer, _, path, moment) => {
     if(req.session.username === undefined){
       res.sendStatus(400);
     }
+    knex('markers')
+    .where({ id: req.params.id })
+    .del()
+    .then(() => {
+      updateDateTime(req.body.planID)
+      res.sendStatus(200);
+    })
 
-    //Check if the user who is logged in is the actual owner
-    knex
-      .select('owner_id')
-      .from('plans')
-      .where({id:req.body.planID})
-      .then((results) => {
-        if(results[0].owner_id === req.session.userID){
-          //Delete the marker
-          knex('markers')
-          .where({ id: req.params.id })
-          .del()
-          .then(() => {
-            updateDateTime(req.body.planID)
-            res.sendStatus(200);
-          })
-        } else {
-          res.sendStatus(403);
-        }
-      });
   });
 
 

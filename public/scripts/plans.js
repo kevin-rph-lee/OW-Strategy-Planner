@@ -499,18 +499,7 @@ $(() => {
    */
   deleteMarker = (id) => {
     //Preventing from deleting all markers off a map
-    if(markersArray.length === 1){
-      $('#info-window-alert').append(`
-      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-      Maps must have at least one marker!
-      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'>&times;</span>
-      </button>
-      </div>
-      `)
-      $('.alert').delay(3000).fadeOut('slow');
-      return;
-    }
+
 
     var confirmBox = confirm('Are you sure?!');
     if (confirmBox == true) {
@@ -571,12 +560,12 @@ $(() => {
     $('#toggle-add-marker').click(function() {
       if($('#toggle-add-marker').hasClass('btn-primary')) {
         $('#toggle-add-marker').removeClass('btn-primary');
-        $('#toggle-add-marker').addClass('btn-success');
+        $('#toggle-add-marker').addClass('btn-info');
         clickListener = plan.addListener('click', toggleAddMarker);
 
       }
      else{
-        $('#toggle-add-marker').removeClass('btn-success');
+        $('#toggle-add-marker').removeClass('btn-info');
         $('#toggle-add-marker').addClass('btn-primary');
         google.maps.event.removeListener(clickListener);
         markerClick.setMap(null);
