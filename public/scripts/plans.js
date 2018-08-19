@@ -221,7 +221,7 @@ $(() => {
    */
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
-    console.log('adding marker ', markerToAdd)
+
     var marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
@@ -237,13 +237,13 @@ $(() => {
 
         if(infoWindow === undefined) {
 
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
 
         }
@@ -283,12 +283,12 @@ $(() => {
 
       if(markerToAdd.image === true){
         if(infoWindow === undefined) {
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         } else {
 
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
       } else if (markerToAdd.video_URL) {
@@ -499,18 +499,7 @@ $(() => {
    */
   deleteMarker = (id) => {
     //Preventing from deleting all markers off a map
-    if(markersArray.length === 1){
-      $('#info-window-alert').append(`
-      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-      Maps must have at least one marker!
-      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'>&times;</span>
-      </button>
-      </div>
-      `)
-      $('.alert').delay(3000).fadeOut('slow');
-      return;
-    }
+
 
     var confirmBox = confirm('Are you sure?!');
     if (confirmBox == true) {
@@ -571,12 +560,12 @@ $(() => {
     $('#toggle-add-marker').click(function() {
       if($('#toggle-add-marker').hasClass('btn-primary')) {
         $('#toggle-add-marker').removeClass('btn-primary');
-        $('#toggle-add-marker').addClass('btn-success');
+        $('#toggle-add-marker').addClass('btn-info');
         clickListener = plan.addListener('click', toggleAddMarker);
 
       }
      else{
-        $('#toggle-add-marker').removeClass('btn-success');
+        $('#toggle-add-marker').removeClass('btn-info');
         $('#toggle-add-marker').addClass('btn-primary');
         google.maps.event.removeListener(clickListener);
         markerClick.setMap(null);
