@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary();
     table.string('title');
     table.string('description');
-    table.string('type');
     table.integer('owner_id');
     table.integer('step_id');
     table.json('position');
