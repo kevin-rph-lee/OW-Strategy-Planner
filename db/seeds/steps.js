@@ -21,6 +21,9 @@ exports.seed = function(knex, Promise) {
         knex('steps').insert({plan_id: 15}),
         knex('steps').insert({plan_id: 16}),
         knex('steps').insert({plan_id: 17}),
+        knex('steps').insert({plan_id: 18}),
+        knex('steps').insert({plan_id: 18}),
+        knex('steps').insert({plan_id: 18}),
         knex('steps').insert({plan_id: 18})
       ]);
     });
