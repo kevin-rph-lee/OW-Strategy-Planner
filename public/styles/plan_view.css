@@ -34,7 +34,15 @@
   margin: 30px;
 }
 
+#clear-button{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 
+#save-button{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
 
 .pagination-container {
   padding: 10px;

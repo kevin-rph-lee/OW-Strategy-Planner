@@ -36,20 +36,16 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.API %>&libraries=drawing"></script>
 
-    <div>
-      <button type="button" class="btn btn-default" id="clear-button">Clear</button>
-      <button type="button" class="btn btn-success" id="save-button">Save</button>
-    </div>
-    <button type="button" class="btn btn-danger" id="delete-polylines">Delete all polylines from plan</button>
-    <a href="/plans/<%= planID %>/"   class="btn btn-primary">Go Back</a>
-    <div id="polyline-alert"></div>
+
+
 
     <div class = "pagination-container">
+      <h4>Plan Steps</h4>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item" id="step-backwards"><a class="page-link" href="#">Previous</a></li>
 
-          <li class="page-item active step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[0] %>' > i </a></li>
+          <li class="page-item active step-to"><a class="page-link" href="#" data-step-id= '<%= stepIDs[0] %>' >1</a></li>
 
           <% if(stepIDs.length > 1) { %>
             <% for(let i = 1; i < stepIDs.length; i++) { %>
@@ -60,6 +56,24 @@
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
+      <% if (isOwner === true) { %>
+        <div>
+          <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
+          <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="plan-button-container">
+      <div>
+        <button type="button" class="btn btn-default" id="clear-button">Clear Drawn Polylines</button>
+        <button type="button" class="btn btn-success" id="save-button">Save Polylines</button>
+      </div>
+      <button type="button" class="btn btn-danger" id="delete-polylines">Delete polylines from step</button>
+      <div>
+        <a href="/plans/<%= planID %>/"  id="return-button" class="btn btn-secondary">Return</a>
+      </div>
+      <div id="polyline-alert"></div>
     </div>
 
 
