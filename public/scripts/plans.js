@@ -62,6 +62,14 @@ $(() => {
   })
 
 
+
+  $('.step-to').click(function () {
+    console.log('Past step and ID ', currentStep.number + ' '  + currentStep.id)
+    currentStep.number = $(this).data('step-number');
+    currentStep.id = $(this).data('step-id');
+    console.log('Last step and ID ', currentStep.number + ' '  + currentStep.id)
+  })
+
   $('#step-backwards').click(function (e) {
 
     for(let i = 0; i < stepIDs.length; i++){
