@@ -68,6 +68,10 @@ $(() => {
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
     console.log('Last step and ID ', currentStep.number + ' '  + currentStep.id)
+    clearMarkersAndPolylines();
+    addMarkersAndLines(Number($(this).data('step-id')))
+
+
   })
 
   $('#step-backwards').click(function (e) {
