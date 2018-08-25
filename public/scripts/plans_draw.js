@@ -32,6 +32,21 @@ $(() => {
     }
   }
 
+  //Clicking on a pagination button to skip to a step
+  $('.step-to').click(function () {
+    //Removeing the active class and swapping it with the active
+    $('.active').removeClass('active')
+    $(this).addClass('active');
+
+    //Updating the current step and step id
+    currentStep.number = $(this).data('step-number');
+    currentStep.id = $(this).data('step-id');
+
+    //Clearing polylines and markers along with re-adding the new ones
+    clearMarkersAndPolylines();
+    addMarkersAndLines(Number($(this).data('step-id')))
+  })
+
 
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
