@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('markers', function (table) {
-    table.increments('id').primary();
+    table.integer('id');
     table.string('title');
     table.string('description');
     table.integer('owner_id');
