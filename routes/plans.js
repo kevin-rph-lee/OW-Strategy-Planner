@@ -77,6 +77,9 @@ module.exports = (knex, moment) => {
 
       })
   });
+
+
+
   router.get("/:id", (req, res) => {
       knex
       .select('markers.id', 'markers.step_id', 'markers.title', 'markers.description', 'markers.title', 'markers.position', 'markers.image', 'marker_types.icon_file_location', 'markers.video_URL')
@@ -99,7 +102,7 @@ module.exports = (knex, moment) => {
               .from('marker_types')
               .then((markerTypes) => {
                 knex
-                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type')
+                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type', 'plans.view_count')
                   .from("plans")
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
@@ -122,20 +125,27 @@ module.exports = (knex, moment) => {
                             for(let i = 0; i < stepIDs.length; i ++){
                               stepIDsArray.push(stepIDs[i].id.toString())
                             }
-                            stepIDsArray.sort();
-                            res.render('plan_view', {
-                            // res.json({
-                              markers:markers,
-                              polylines:polylines,
-                              markerTypes:markerTypes,
-                              isOwner: isOwner,
-                              planID: planInfo[0].id,
-                              username: req.session.username,
-                              planID: planInfo[0].id,
-                              mapURL: planInfo[0],
-                              stepIDs: stepIDsArray,
-                              planInfo: planInfo[0]
-                            })
+
+
+                            knex('plans')
+                            .where({ id: req.params.id })
+                            .update({ view_count: planInfo[0].view_count + 1 })
+                            .then(()=>{
+                              stepIDsArray.sort();
+                              res.render('plan_view', {
+                              // res.json({
+                                markers:markers,
+                                polylines:polylines,
+                                markerTypes:markerTypes,
+                                isOwner: isOwner,
+                                planID: planInfo[0].id,
+                                username: req.session.username,
+                                planID: planInfo[0].id,
+                                mapURL: planInfo[0],
+                                stepIDs: stepIDsArray,
+                                planInfo: planInfo[0]
+                              })
+                            });
                         });
 
                   });

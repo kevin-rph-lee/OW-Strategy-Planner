@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     table.integer('map_id');
     table.string('created_datetime');
     table.string('updated_datetime');
+    table.integer('view_count');
   });
 };
 

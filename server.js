@@ -65,7 +65,7 @@ app.use("/steps", stepsRoutes(knex, moment));
 // Home page
 app.get("/", (req, res) => {
   knex
-    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.username', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime')
+    .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.username', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime', 'plans.view_count')
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')
@@ -87,7 +87,7 @@ app.get("/", (req, res) => {
             username: req.session.username,
             userID: userID,
             plans: plans,
-            maps:maps
+            maps:maps,
           });
         });
     });
