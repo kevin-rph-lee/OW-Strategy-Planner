@@ -126,7 +126,6 @@ module.exports = (knex, moment) => {
                               stepIDsArray.push(stepIDs[i].id.toString())
                             }
 
-                            console.log('View Count ', planInfo[0].view_count)
 
                             knex('plans')
                             .where({ id: req.params.id })
