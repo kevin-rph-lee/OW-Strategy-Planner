@@ -25,7 +25,7 @@ module.exports = (knex, moment) => {
           .innerJoin('steps', 'steps.id', 'polylines.step_id')
           .innerJoin('plans', 'plans.id', 'steps.plan_id')
           .then((polylines) => {
-            console.log('polylines1: ', polylines)
+
               knex
               .select('*')
               .from('marker_types')
@@ -96,7 +96,7 @@ module.exports = (knex, moment) => {
           .innerJoin('steps', 'steps.id', 'polylines.step_id')
           .innerJoin('plans', 'plans.id', 'steps.plan_id')
           .then((polylines) => {
-            console.log('polylines1: ', polylines)
+
               knex
               .select('*')
               .from('marker_types')
@@ -113,7 +113,7 @@ module.exports = (knex, moment) => {
                       }
 
                       knex
-                        .select("id")
+                        .select("id", 'description')
                         .from("steps")
                         .where({plan_id: req.params.id})
                         .then((stepIDs) => {
@@ -121,11 +121,14 @@ module.exports = (knex, moment) => {
                             if(planInfo[0].owner_id === req.session.userID){
                               isOwner = true;
                             }
+                            console.log('Step ids ', stepIDs)
                             const stepIDsArray = [];
+
                             for(let i = 0; i < stepIDs.length; i ++){
                               stepIDsArray.push(stepIDs[i].id.toString())
                             }
 
+                            console.log('Step Ids Array ', stepIDsArray)
 
                             knex('plans')
                             .where({ id: req.params.id })
@@ -142,7 +145,7 @@ module.exports = (knex, moment) => {
                                 username: req.session.username,
                                 planID: planInfo[0].id,
                                 mapURL: planInfo[0],
-                                stepIDs: stepIDsArray,
+                                stepIDs: stepIDs,
                                 planInfo: planInfo[0]
                               })
                             });

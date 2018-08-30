@@ -8,12 +8,12 @@ $(() => {
   var markerClick;
   var infoWindow;
   let currentStep = {
-    id: Number(stepIDs[0]),
+    id: Number(stepIDs[0].id),
     number: 1
   }
 
 
-
+  console.log('Current Step ', currentStep.id)
 
 
   addMarkersAndLines = (stepID) => {
