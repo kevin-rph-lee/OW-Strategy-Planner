@@ -36,8 +36,9 @@ $(() => {
 
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
-      if(currentStep.id === Number(stepIDs[i])){
-        if(isNaN(stepIDs[i+1])){
+      if(currentStep.id === Number(stepIDs[i].id)){
+
+        if(stepIDs[i +1] === undefined){
           // alert('END')
           return;
         } else {
@@ -51,9 +52,9 @@ $(() => {
 
 
 
-          addMarkersAndLines(Number(stepIDs[i+1]))
+          addMarkersAndLines(Number(stepIDs[i].id + 1))
           currentStep.number++
-          currentStep.id = Number(stepIDs[i+1]);
+          currentStep.id = Number(stepIDs[i].id + 1);
 
           return;
         }
@@ -82,12 +83,11 @@ $(() => {
 
     for(let i = 0; i < stepIDs.length; i++){
 
-      if(currentStep.id === Number(stepIDs[i])){
-        if(isNaN(stepIDs[i-1])){
-          // alert('END')
+      if(currentStep.id === Number(stepIDs[i].id)){
+        console.log(stepIDs[i].id - 1)
+        if(stepIDs[i-1] === undefined){
           return;
         } else {
-
 
           //moving the pagination active marker
           $('.active').prev().addClass('active');
@@ -95,13 +95,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-
-
-
-
-          addMarkersAndLines(Number(stepIDs[i-1]))
+          addMarkersAndLines(Number(stepIDs[i].id - 1))
           currentStep.number--
-          currentStep.id = Number(stepIDs[i-1]);
+          currentStep.id = Number(stepIDs[i].id - 1);
 
           return;
         }
