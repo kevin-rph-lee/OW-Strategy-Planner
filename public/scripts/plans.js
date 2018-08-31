@@ -47,10 +47,7 @@ $(() => {
           $('.active').next().addClass('active');
           $( '.active' ).first().removeClass( 'active' );
 
-
           clearMarkersAndPolylines();
-
-
 
           addMarkersAndLines(Number(stepIDs[i].id + 1))
           currentStep.number++
@@ -66,10 +63,12 @@ $(() => {
 
   //Clicking on a pagination button to skip to a step
   $('.step-to').click(function () {
+
     //Removeing the active class and swapping it with the active
     $('.active').removeClass('active')
     $(this).addClass('active');
-
+    console.log('Step Number ',$(this).data('step-number'))
+    console.log('Step Number ',$(this).data('step-id'))
     //Updating the current step and step id
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
