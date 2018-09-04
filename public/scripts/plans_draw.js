@@ -32,12 +32,68 @@ $(() => {
     }
   }
 
+
+  $('#step-forward').click(function (e) {
+    for(let i = 0; i < stepIDs.length; i++){
+      if(currentStep.id === Number(stepIDs[i].id)){
+
+        if(stepIDs[i +1] === undefined){
+          // alert('END')
+          return;
+        } else {
+
+          //moving the pagination active marker
+          $('.active').next().addClass('active');
+          $( '.active' ).first().removeClass( 'active' );
+
+          clearMarkersAndPolylines();
+
+          addMarkersAndLines(Number(stepIDs[i].id + 1))
+          currentStep.number++
+          currentStep.id = Number(stepIDs[i].id + 1);
+
+          return;
+        }
+
+      }
+    }
+  })
+
+  $('#step-backwards').click(function (e) {
+
+    for(let i = 0; i < stepIDs.length; i++){
+
+      if(currentStep.id === Number(stepIDs[i].id)){
+        console.log(stepIDs[i].id - 1)
+        if(stepIDs[i-1] === undefined){
+          return;
+        } else {
+
+          //moving the pagination active marker
+          $('.active').prev().addClass('active');
+          $( '.active' ).last().removeClass('active');
+
+          clearMarkersAndPolylines();
+
+          addMarkersAndLines(Number(stepIDs[i].id - 1))
+          currentStep.number--
+          currentStep.id = Number(stepIDs[i].id - 1);
+
+          return;
+        }
+
+      }
+    }
+  })
+
   //Clicking on a pagination button to skip to a step
   $('.step-to').click(function () {
+
     //Removeing the active class and swapping it with the active
     $('.active').removeClass('active')
     $(this).addClass('active');
-
+    console.log('Step Number ',$(this).data('step-number'))
+    console.log('Step Number ',$(this).data('step-id'))
     //Updating the current step and step id
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
@@ -47,67 +103,6 @@ $(() => {
     addMarkersAndLines(Number($(this).data('step-id')))
   })
 
-
-  $('#step-forward').click(function (e) {
-    for(let i = 0; i < stepIDs.length; i++){
-      if(currentStep.id === Number(stepIDs[i])){
-        if(isNaN(stepIDs[i+1])){
-          // alert('END')
-          return;
-        } else {
-
-          //moving the pagination active marker
-          $('.active').next().addClass('active');
-          $( '.active' ).first().removeClass( 'active' );
-
-
-          clearMarkersAndPolylines();
-
-
-          console.log(currentStep.id)
-          addMarkersAndLines(Number(stepIDs[i+1]))
-          currentStep.number++
-          currentStep.id = Number(stepIDs[i+1]);
-          console.log('NEW CURRENT STEP ', currentStep)
-          return;
-        }
-
-      }
-    }
-  })
-  $('#step-backwards').click(function (e) {
-    console.log('Backwards')
-    for(let i = 0; i < stepIDs.length; i++){
-    console.log('stepsIDs[i] ',stepIDs[i])
-    console.log('stepsIDs[0] ',stepIDs[0])
-    console.log('Backwards ', stepIDs[i-1])
-      if(currentStep.id === Number(stepIDs[i])){
-        if(isNaN(stepIDs[i-1])){
-          // alert('END')
-          return;
-        } else {
-
-
-          //moving the pagination active marker
-          $('.active').prev().addClass('active');
-          $( '.active' ).last().removeClass( 'active' );
-
-          clearMarkersAndPolylines();
-
-
-
-
-          console.log(currentStep.id)
-          addMarkersAndLines(Number(stepIDs[i-1]))
-          currentStep.number--
-          currentStep.id = Number(stepIDs[i-1]);
-          console.log('NEW CURRENT STEP ', currentStep)
-          return;
-        }
-
-      }
-    }
-  })
 
   /**
    * Initializes the plan

@@ -52,6 +52,11 @@
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
+      <div class="plan-description-container">
+        <h5>Description</h5>
+        <div class="plan-description">
+        </div>
+      </div>
       <% if (isOwner === true) { %>
         <div>
           <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
@@ -80,7 +85,6 @@
           </div>
         </div>
 
-
         <div id='delete-step-alert'>
 
         </div>
@@ -93,6 +97,24 @@
 
   </div>
 
+    <!-- The Modal -->
+    <div id="new-step-modal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <h1>New Step</h1>
+        <form id="new-step-form">
+          <div class="form-group">
+            <label for="step-description">Step Description</label>
+            <input type="text" class="form-control" id="step-description">
+          <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
+          <button type="button" class="btn btn-default close-new-step-button" id="close-button">Cancel</button>
+          </div>
+        </form>
+        <div id='alert'></div>
+      </div>
+
+    </div>
 
 
     <!-- The Modal -->

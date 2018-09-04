@@ -31,6 +31,16 @@ $(() => {
         addMarker(markers[i]);
       }
     }
+
+
+    //Adding description
+    for(var x = 0; x < stepIDs.length; x ++){
+      if(Number(stepID) === Number(stepIDs[x].id)){
+        $('.plan-description').html(stepIDs[x].description);
+      }
+
+    }
+
   }
 
 
@@ -60,24 +70,6 @@ $(() => {
     }
   })
 
-
-  //Clicking on a pagination button to skip to a step
-  $('.step-to').click(function () {
-
-    //Removeing the active class and swapping it with the active
-    $('.active').removeClass('active')
-    $(this).addClass('active');
-    console.log('Step Number ',$(this).data('step-number'))
-    console.log('Step Number ',$(this).data('step-id'))
-    //Updating the current step and step id
-    currentStep.number = $(this).data('step-number');
-    currentStep.id = $(this).data('step-id');
-
-    //Clearing polylines and markers along with re-adding the new ones
-    clearMarkersAndPolylines();
-    addMarkersAndLines(Number($(this).data('step-id')))
-  })
-
   $('#step-backwards').click(function (e) {
 
     for(let i = 0; i < stepIDs.length; i++){
@@ -104,6 +96,25 @@ $(() => {
       }
     }
   })
+
+  //Clicking on a pagination button to skip to a step
+  $('.step-to').click(function () {
+
+    //Removeing the active class and swapping it with the active
+    $('.active').removeClass('active')
+    $(this).addClass('active');
+    console.log('Step Number ',$(this).data('step-number'))
+    console.log('Step Number ',$(this).data('step-id'))
+    //Updating the current step and step id
+    currentStep.number = $(this).data('step-number');
+    currentStep.id = $(this).data('step-id');
+
+    //Clearing polylines and markers along with re-adding the new ones
+    clearMarkersAndPolylines();
+    addMarkersAndLines(Number($(this).data('step-id')))
+  })
+
+
 
   /**
    * Initializes the plan
@@ -593,25 +604,38 @@ $(() => {
 
   }
 
+
   $( '#new-marker-button' ).click(function() {
-      newMarkerModal.style.display = 'block';
+    console.log('click')
+      $('#new-marker-modal').css('display', 'block');
   });
 
-  $( '.close-new-marker-button' ).click(function() {
-      newMarkerModal.style.display = 'none';
-  });
 
 
   $( '#new-step-button' ).click(function() {
-    $.ajax({
-      url: '/steps/plan/' + planID + '/new/',
-      method: 'POST'
-    }).done(() => {
-      location.reload();
-    }).catch((err) => {
-      alert('Some kind of error happened!');
-    });
+      $('#new-step-modal').css('display', 'block');
   });
+
+  $( '.close-new-step-button' ).click(function() {
+      $('#new-step-modal').css('display', 'none');
+  });
+
+
+  $( '.close-new-marker-button' ).click(function() {
+      $('#new-marker-modal').css('display', 'none');
+  });
+
+
+  // $( '#new-step-button' ).click(function() {
+  //   $.ajax({
+  //     url: '/steps/plan/' + planID + '/new/',
+  //     method: 'POST'
+  //   }).done(() => {
+  //     location.reload();
+  //   }).catch((err) => {
+  //     alert('Some kind of error happened!');
+  //   });
+  // });
 
   $('[data-tooltip="tooltip"]').tooltip();
 
@@ -643,14 +667,8 @@ $(() => {
     }
   });
 
-  // Get the modal
-  const newMarkerModal = document.getElementById('new-marker-modal');
 
-  // Get the button that opens the modal
-  const newMarkerButton = document.getElementById('new-marker-button');
 
-  // Get the <span> element that closes the modal
-  const closeButton = document.getElementsByClassName('close-button');
 
 
 
