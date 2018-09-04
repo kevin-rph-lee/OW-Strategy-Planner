@@ -626,6 +626,42 @@ $(() => {
   });
 
 
+
+  $('#new-step-form').submit(function (e) {
+    e.preventDefault();
+    // console.log($('#step-description').val())
+
+    //Checking to see if all form inputs have been filed out (except image)
+    if( $('#step-description').val().length === 0){
+      $('#alert').append(`
+      <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+      <strong>OOPS!</strong> Missing step description!
+      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'>&times;</span>
+      </button>
+      </div>
+      `)
+      $('.alert').delay(3000).fadeOut('slow');
+      return;
+
+    }
+
+
+    $.ajax({
+      url: '/steps/plan/' + planID + '/new/',
+      method: 'POST',
+      data: {
+        description: $('#step-description').val()
+      }
+    }).done(() => {
+      location.reload();
+    }).catch((err) => {
+      alert('Some kind of error happened!');
+    });
+
+  });
+
+
   // $( '#new-step-button' ).click(function() {
   //   $.ajax({
   //     url: '/steps/plan/' + planID + '/new/',
