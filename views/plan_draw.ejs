@@ -57,12 +57,11 @@
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
-      <% if (isOwner === true) { %>
-        <div>
-          <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
-          <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
+      <div class="plan-description-container">
+        <h5>Description</h5>
+        <div class="plan-description">
         </div>
-      <% } %>
+      </div>
     </div>
 
     <div class="plan-button-container">
@@ -83,9 +82,3 @@
 
 </html>
 
-<!--
-          <form id="uploadForm">
-            <input id='avatar-upload' type="file" name="userFile" />
-            <button type="submit">Send</button>
-          </form>
- -->

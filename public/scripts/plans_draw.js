@@ -10,7 +10,7 @@ $(() => {
   var markerClick;
   var infoWindow;
   let currentStep = {
-    id: Number(stepIDs[0]),
+    id: Number(stepIDs[0].id),
     number: 1
   }
 
@@ -30,7 +30,17 @@ $(() => {
         addMarker(markers[i]);
       }
     }
+
+
+        //Adding description
+    for(var x = 0; x < stepIDs.length; x ++){
+      if(Number(stepID) === Number(stepIDs[x].id)){
+        $('.plan-description').html(stepIDs[x].description);
+      }
+
+    }
   }
+
 
 
   $('#step-forward').click(function (e) {

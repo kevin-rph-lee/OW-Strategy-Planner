@@ -55,7 +55,7 @@ module.exports = (knex, moment) => {
                             .where({ id: req.params.id })
                             .update({ view_count: planInfo[0].view_count + 1 })
                             .then(()=>{
-                              res.render('plan_view', {
+                              res.render('plan_draw', {
                               // res.json({
                                 markers:markers,
                                 polylines:polylines,
