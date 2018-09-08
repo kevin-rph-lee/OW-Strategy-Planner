@@ -1,10 +1,9 @@
 $(() => {
 
-  console.log(plans[0].username)
-  //TODO FIgure this shit out
-  $('.delete-plan').on('click', function(event) {
-    console.log($(this).data('id'));
 
+  //Click to delete the plan
+  $('.delete-plan').on('click', function(event) {
+    //TODO: Figure out why ES6 doesn't work here properly...
     $.ajax({
       url: '/plans/delete/' + $(this).data('id'),
       method: 'POST'
@@ -13,20 +12,19 @@ $(() => {
     })
   })
 
+  //Filters out the different plans depending on what filter button is clicked
   $('.map-filter-button').on('click', function(event) {
     const mapID = $(this).data('id');
+    //Empty out all of the cards
     $('.cards-container').empty();
 
-
-    if( $(this).data('id') === 'Hybrid' || $(this).data('id') === 'Assault' || $(this).data('id') === 'Control' || $(this).data('id') === 'Escort'){
-      for(let i = 0; i < plans.length; i ++){
-
-        if(plans[i].type === mapID ){
-
-          if( typeof userID.id === null|| plans[i].owner_id !== userID.id){
-
+    //Filter by map category
+    if ( $(this).data('id') === 'Hybrid' || $(this).data('id') === 'Assault' || $(this).data('id') === 'Control' || $(this).data('id') === 'Escort'){
+      for (let i = 0; i < plans.length; i ++) {
+        if (plans[i].type === mapID ) {
+          //If owner, show delete plan button
+          if (typeof userID.id === null|| plans[i].owner_id !== userID.id){
             $('.cards-container').append(`
-
               <div class="col-sm-4 col-xs-12">
                 <div class="card">
                   <div class="card-header">
@@ -53,11 +51,8 @@ $(() => {
                 </div>
               </div>
               `)
-
           } else {
-
             $('.cards-container').append(`
-
               <div class="col-sm-4 col-xs-12">
                 <div class="card">
                   <div class="card-header">
@@ -86,21 +81,17 @@ $(() => {
               </div>
               `)
           }
-
         }
-
       }
     }
 
-    if(isNaN( $(this).data('id') ) === false){
-      for(let i = 0; i < plans.length; i ++){
-
-        if(Number(plans[i].map_id) === mapID ){
-
-          if( typeof userID.id === null|| plans[i].owner_id !== userID.id){
-
+    //Filter by specific map
+    if (isNaN( $(this).data('id') ) === false) {
+      for (let i = 0; i < plans.length; i ++) {
+        if (Number(plans[i].map_id) === mapID ) {
+          //If owner, show delete plan button
+          if ( typeof userID.id === null|| plans[i].owner_id !== userID.id) {
             $('.cards-container').append(`
-
               <div class="col-sm-4 col-xs-12">
                 <div class="card">
                   <div class="card-header">
@@ -127,11 +118,8 @@ $(() => {
                 </div>
               </div>
               `)
-
           } else {
-
             $('.cards-container').append(`
-
               <div class="col-sm-4 col-xs-12">
                 <div class="card">
                   <div class="card-header">
@@ -160,20 +148,16 @@ $(() => {
               </div>
               `)
           }
-
         }
-
       }
     }
 
-    if($(this).data('id') === 'All'){
-      for(let i = 0; i < plans.length; i ++){
-        if( typeof userID.id === null|| plans[i].owner_id !== userID.id){
-
-
-
+    //Remove filters
+    if ($(this).data('id') === 'All') {
+      for (let i = 0; i < plans.length; i ++) {
+        //If owner, show delete plan button
+        if ( typeof userID.id === null|| plans[i].owner_id !== userID.id) {
           $('.cards-container').append(`
-
             <div class="col-sm-4 col-xs-12">
               <div class="card">
                 <div class="card-header">
@@ -200,11 +184,8 @@ $(() => {
               </div>
             </div>
             `)
-
         } else {
-
           $('.cards-container').append(`
-
             <div class="col-sm-4 col-xs-12">
               <div class="card">
                 <div class="card-header">
@@ -233,13 +214,8 @@ $(() => {
             </div>
             `)
         }
-
       }
     }
-
-
-
-
   })
 
 });
