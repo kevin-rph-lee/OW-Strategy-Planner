@@ -81,3 +81,7 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.plan-description-container {
+    padding-bottom: 10px;
+}
