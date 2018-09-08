@@ -24,7 +24,7 @@ module.exports = (knex, moment) => {
     .then((results) => {
       if(req.session.userID === results[0].owner_id){
         knex
-        .insert({plan_id:req.params.id})
+        .insert({plan_id:req.params.id, description: req.body.description})
         .into('steps')
         .then(()=> {
           updateDateTime(req.params.id);

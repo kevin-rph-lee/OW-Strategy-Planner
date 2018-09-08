@@ -25,13 +25,13 @@ module.exports = (knex, moment) => {
           .innerJoin('steps', 'steps.id', 'polylines.step_id')
           .innerJoin('plans', 'plans.id', 'steps.plan_id')
           .then((polylines) => {
-            console.log('polylines1: ', polylines)
+
               knex
               .select('*')
               .from('marker_types')
               .then((markerTypes) => {
                 knex
-                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type')
+                  .select("maps.url", 'plans.id', 'plans.owner_id', 'maps.type', 'plans.view_count')
                   .from("plans")
                   .where({"plans.id": req.params.id})
                   .innerJoin('maps', 'plans.map_id', 'maps.id')
@@ -42,7 +42,7 @@ module.exports = (knex, moment) => {
                       }
 
                       knex
-                        .select("id")
+                        .select("id", 'description')
                         .from("steps")
                         .where({plan_id: req.params.id})
                         .then((stepIDs) => {
@@ -50,24 +50,25 @@ module.exports = (knex, moment) => {
                             if(planInfo[0].owner_id === req.session.userID){
                               isOwner = true;
                             }
-                            const stepIDsArray = [];
-                            for(let i = 0; i < stepIDs.length; i ++){
-                              stepIDsArray.push(stepIDs[i].id.toString())
-                            }
-                            stepIDsArray.sort();
-                            res.render('plan_draw', {
-                            // res.json({
-                              markers:markers,
-                              polylines:polylines,
-                              markerTypes:markerTypes,
-                              isOwner: isOwner,
-                              planID: planInfo[0].id,
-                              username: req.session.username,
-                              planID: planInfo[0].id,
-                              mapURL: planInfo[0],
-                              stepIDs: stepIDsArray,
-                              planInfo: planInfo[0]
-                            })
+
+                            knex('plans')
+                            .where({ id: req.params.id })
+                            .update({ view_count: planInfo[0].view_count + 1 })
+                            .then(()=>{
+                              res.render('plan_draw', {
+                              // res.json({
+                                markers:markers,
+                                polylines:polylines,
+                                markerTypes:markerTypes,
+                                isOwner: isOwner,
+                                planID: planInfo[0].id,
+                                username: req.session.username,
+                                planID: planInfo[0].id,
+                                mapURL: planInfo[0],
+                                stepIDs: stepIDs,
+                                planInfo: planInfo[0]
+                              })
+                            });
                         });
 
                   });
@@ -77,6 +78,7 @@ module.exports = (knex, moment) => {
 
       })
   });
+
 
 
 
@@ -96,7 +98,7 @@ module.exports = (knex, moment) => {
           .innerJoin('steps', 'steps.id', 'polylines.step_id')
           .innerJoin('plans', 'plans.id', 'steps.plan_id')
           .then((polylines) => {
-            console.log('polylines1: ', polylines)
+
               knex
               .select('*')
               .from('marker_types')
@@ -113,7 +115,7 @@ module.exports = (knex, moment) => {
                       }
 
                       knex
-                        .select("id")
+                        .select("id", 'description')
                         .from("steps")
                         .where({plan_id: req.params.id})
                         .then((stepIDs) => {
@@ -121,17 +123,11 @@ module.exports = (knex, moment) => {
                             if(planInfo[0].owner_id === req.session.userID){
                               isOwner = true;
                             }
-                            const stepIDsArray = [];
-                            for(let i = 0; i < stepIDs.length; i ++){
-                              stepIDsArray.push(stepIDs[i].id.toString())
-                            }
-
 
                             knex('plans')
                             .where({ id: req.params.id })
                             .update({ view_count: planInfo[0].view_count + 1 })
                             .then(()=>{
-                              stepIDsArray.sort();
                               res.render('plan_view', {
                               // res.json({
                                 markers:markers,
@@ -142,7 +138,7 @@ module.exports = (knex, moment) => {
                                 username: req.session.username,
                                 planID: planInfo[0].id,
                                 mapURL: planInfo[0],
-                                stepIDs: stepIDsArray,
+                                stepIDs: stepIDs,
                                 planInfo: planInfo[0]
                               })
                             });

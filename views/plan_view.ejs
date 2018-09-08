@@ -11,7 +11,6 @@
     <script type="text/javascript" src="/scripts/plans.js"></script>
 
     <script>window.markers = <%- JSON.stringify(markers); %></script>
-
     <script>window.markerTypes = <%- JSON.stringify(markerTypes); %></script>
     <script>window.polylines = <%- JSON.stringify(polylines); %></script>
     <script>window.planID = <%= planID %></script>
@@ -42,17 +41,22 @@
         <ul class="pagination">
           <li class="page-item" id="step-backwards"><a class="page-link" href="#">Previous</a></li>
 
-          <li class="page-item active step-to" data-step-id= '<%= stepIDs[0] %>' data-step-number = '1' ><a class="page-link" href="#" >1</a></li>
+          <li class="page-item active step-to" data-step-id= '<%= stepIDs[0].id %>' data-step-number = '1' ><a class="page-link" href="#" >1</a></li>
 
           <% if(stepIDs.length > 1) { %>
             <% for(let i = 1; i < stepIDs.length; i++) { %>
-                <li class="page-item step-to" data-step-id= '<%= stepIDs[i] %>' data-step-number = '<%= i + 1 %>' ><a class="page-link" href="#"><%= i + 1 %></a></li>
+                <li class="page-item step-to" data-step-id= '<%= stepIDs[i].id %>' data-step-number = '<%= i + 1 %>' ><a class="page-link" href="#"><%= i + 1 %></a></li>
             <% } %>
           <% } %>
 
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
+      <div class="plan-description-container">
+        <h5>Description</h5>
+        <div class="plan-description">
+        </div>
+      </div>
       <% if (isOwner === true) { %>
         <div>
           <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
@@ -81,7 +85,6 @@
           </div>
         </div>
 
-
         <div id='delete-step-alert'>
 
         </div>
@@ -94,6 +97,25 @@
 
   </div>
 
+    <!-- The Modal -->
+    <div id="new-step-modal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <h1>New Step</h1>
+        <form id="new-step-form">
+          <div class="form-group">
+            <label for="step-description">Step Description</label>
+            <input type="text" class="form-control" id="step-description">
+
+          </div>
+          <input type="submit" class="btn btn-success submit-button" id="submit-button"></input>
+          <button type="button" class="btn btn-default close-new-step-button" id="close-button">Cancel</button>
+        </form>
+        <div id='alert'></div>
+      </div>
+
+    </div>
 
 
     <!-- The Modal -->

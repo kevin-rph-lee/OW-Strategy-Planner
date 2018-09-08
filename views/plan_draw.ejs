@@ -46,23 +46,22 @@
         <ul class="pagination">
           <li class="page-item" id="step-backwards"><a class="page-link" href="#">Previous</a></li>
 
-          <li class="page-item active step-to" data-step-id= '<%= stepIDs[0] %>' data-step-number = '1' ><a class="page-link" href="#">1</a></li>
+          <li class="page-item active step-to" data-step-id= '<%= stepIDs[0].id %>' data-step-number = '1' ><a class="page-link" href="#">1</a></li>
 
           <% if(stepIDs.length > 1) { %>
             <% for(let i = 1; i < stepIDs.length; i++) { %>
-                <li class="page-item step-to" data-step-id= '<%= stepIDs[i] %>' data-step-number = '<%= i + 1 %>' ><a class="page-link" href="#"><%= i + 1 %></a></li>
+                <li class="page-item step-to" data-step-id= '<%= stepIDs[i].id %>' data-step-number = '<%= i + 1 %>' ><a class="page-link" href="#"><%= i + 1 %></a></li>
             <% } %>
           <% } %>
 
           <li class="page-item" id="step-forward"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
-      <% if (isOwner === true) { %>
-        <div>
-          <button type="button" class="btn btn-success" id="new-step-button">New Step</button>
-          <button type="button" class="btn btn-warning" id="delete-step-button">Delete Step</button>
+      <div class="plan-description-container">
+        <h5>Description</h5>
+        <div class="plan-description">
         </div>
-      <% } %>
+      </div>
     </div>
 
     <div class="plan-button-container">
@@ -83,9 +82,3 @@
 
 </html>
 
-<!--
-          <form id="uploadForm">
-            <input id='avatar-upload' type="file" name="userFile" />
-            <button type="submit">Send</button>
-          </form>
- -->
