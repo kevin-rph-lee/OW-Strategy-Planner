@@ -1,55 +1,47 @@
 $(() => {
 
-
   const markersArray = [];
   const infoWindowArray = [];
   const polylinesArray = [];
-  var clickListener;
-  var markerClick;
-  var infoWindow;
+  let clickListener;
+  let markerClick;
+  let infoWindow;
+  //Setting the current step number & ID
   let currentStep = {
     id: Number(stepIDs[0].id),
     number: 1
   }
 
-
-  console.log('Current Step ', currentStep.id)
-
-
-  addMarkersAndLines = (stepID) => {
-
-
-    for(let y = 0; y < polylines.length; y ++){
-      if(polylines[y].step_id === stepID){
+  //Adds markers, lines, and step descriptions to the page
+  addMarkersLinesAndDescriptions = (stepID) => {
+    //Adding polylines
+    for (let y = 0; y < polylines.length; y ++) {
+      if (polylines[y].step_id === stepID) {
         addPolyline(polylines[y]);
       }
     }
 
     //Adding Markers & event listeners
-    for(var i = 0; i < markers.length; i ++){
-      if(markers[i].step_id === stepID){
+    for (var i = 0; i < markers.length; i ++) {
+      if (markers[i].step_id === stepID) {
         addMarker(markers[i]);
       }
     }
 
-
-    //Adding description
-    for(var x = 0; x < stepIDs.length; x ++){
-      if(Number(stepID) === Number(stepIDs[x].id)){
+    //Adding step descriptions
+    for (var x = 0; x < stepIDs.length; x ++) {
+      if (Number(stepID) === Number(stepIDs[x].id)) {
         $('.plan-description').html(stepIDs[x].description);
       }
-
     }
-
   }
 
-
+  //Moving to next step within pagination
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
       if(currentStep.id === Number(stepIDs[i].id)){
-
+        //Checking to see if you've hit the end of the list of steps
         if(stepIDs[i +1] === undefined){
-          // alert('END')
           return;
         } else {
 
@@ -59,10 +51,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
           currentStep.number++
           currentStep.id = Number(stepIDs[i].id + 1);
-
           return;
         }
 
@@ -70,13 +61,13 @@ $(() => {
     }
   })
 
+  //Moving to previous step within pagination
   $('#step-backwards').click(function (e) {
+    for (let i = 0; i < stepIDs.length; i++) {
+      if (currentStep.id === Number(stepIDs[i].id)) {
 
-    for(let i = 0; i < stepIDs.length; i++){
-
-      if(currentStep.id === Number(stepIDs[i].id)){
-        console.log(stepIDs[i].id - 1)
-        if(stepIDs[i-1] === undefined){
+        //Checking to see if you've hit the end of the list of steps
+        if (stepIDs[i-1] === undefined) {
           return;
         } else {
 
@@ -86,13 +77,12 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
           currentStep.number--
           currentStep.id = Number(stepIDs[i].id - 1);
 
           return;
         }
-
       }
     }
   })
@@ -103,28 +93,23 @@ $(() => {
     //Removeing the active class and swapping it with the active
     $('.active').removeClass('active')
     $(this).addClass('active');
-    console.log('Step Number ',$(this).data('step-number'))
-    console.log('Step Number ',$(this).data('step-id'))
+
     //Updating the current step and step id
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
 
     //Clearing polylines and markers along with re-adding the new ones
     clearMarkersAndPolylines();
-    addMarkersAndLines(Number($(this).data('step-id')))
+    addMarkersLinesAndDescriptions(Number($(this).data('step-id')))
   })
-
-
 
   /**
    * Initializes the plan
    * @param  {array} locations An array of locations to have markers added to the plan
    */
   initPlan = (markers, polylines, stepID, mapType) => {
-    // var bounds = new google.maps.LatLngBounds();
 
-
-
+    //Initializing the map
     plan = new google.maps.Map(document.getElementById('plan'), {
       center: {lat: -55.60427598849055, lng: -64.92253974426148},
       zoom: 5,
@@ -133,7 +118,9 @@ $(() => {
         mapTypeIds: ['OW']
       }
     });
-    var OWMapType = new google.maps.ImageMapType({
+
+    //Overlaying the tiles of the OW map
+    let OWMapType = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
           var normalizedCoord = getNormalizedCoord(coord, zoom);
           if (!normalizedCoord) {
@@ -147,20 +134,21 @@ $(() => {
       maxZoom: 6,
       minZoom: 4
     });
+
     let allowedBounds;
-    if(mapType !== 'Control'){
-      //Defining out far out a user is able to pan  SW corner first, NE corner second
+    //Control maps have different bounds
+    if (mapType !== 'Control') {
+      //Defining out far out a user is able to pan - SW corner first, NE corner second
       allowedBounds = new google.maps.LatLngBounds(
            new google.maps.LatLng(-76.53872912052131, -122.52994923110276),
            new google.maps.LatLng(-12.670418295569519, -12.480669814400471));
     } else {
-      //Defining out far out a user is able to pan
+      //Defining out far out a user is able to pan - SW corner first, NE corner second
       allowedBounds = new google.maps.LatLngBounds(
            new google.maps.LatLng(-76.64062074438048, -121.80094949737884),
            new google.maps.LatLng(-13.375349018704462, 97.22468850116775));
 
     }
-
 
     //Listnes to drag event, if it goes out of bounds, auto pan the user back within bounds
     google.maps.event.addListener(plan, 'dragend', function() {
@@ -184,7 +172,6 @@ $(() => {
        plan.setCenter(new google.maps.LatLng(y, x));
     })
 
-
     plan.mapTypes.set('OW', OWMapType);
     plan.setMapTypeId('OW');
 
@@ -192,10 +179,9 @@ $(() => {
     // for(var x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
-
     // plan.fitBounds(bounds);
-    addMarkersAndLines(currentStep.id);
 
+    addMarkersLinesAndDescriptions(currentStep.id);
   }
 
   /**
@@ -221,6 +207,7 @@ $(() => {
     return {x: x, y: y};
   }
 
+  //Adds the polylines of a step to the map
   addPolyline = (polylineToAdd) => {
     let polylineCoordinates = []
     for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
@@ -252,87 +239,64 @@ $(() => {
     });
 
     var infoWindow;
-
-    if(isOwner === true){
-
-      if(markerToAdd.image === true) {
-
-        if(infoWindow === undefined) {
-
-
-
+    //If owner, has the ability to delete the marker
+    if (isOwner === true) {
+      //Checking if marker has an image OR video OR nothing
+      if (markerToAdd.image === true) {
+        //Adding info window
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
-
       } else if (markerToAdd.video_URL) {
-
-
+        //Adding info window
         if(infoWindow === undefined) {
-
-
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
       } else {
-
+        //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
       }
-
     } else {
-
-      if(markerToAdd.image === true){
-        if(infoWindow === undefined) {
+      //None owners do not see delete options
+      if (markerToAdd.image === true) {
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
-
         } else {
-
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
       } else if (markerToAdd.video_URL) {
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p>`});
         }
-
       } else {
-
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
-
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
@@ -340,20 +304,19 @@ $(() => {
       }
     }
 
+    //Adding all of the info windows
     infoWindowArray.push(infoWindow);
+
+    //Adding click listener to the markers to open the info windows
     google.maps.event.addListener(marker, 'click', function() {
         closeInfoWindows();
         infoWindow.open(plan, marker);
     });
 
+    //Pushing the marker to the array
     markersArray.push(marker);
 
   }
-
-
-
-
-  initPlan(markers, polylines, currentStep.id, mapType);
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
   $('#teammates[type="radio"]').click(function(){
@@ -385,7 +348,6 @@ $(() => {
       }
     }
   });
-
 
 
   //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
@@ -694,6 +656,10 @@ $(() => {
 
 
 
+
+
+  //Actually initializing the plan
+  initPlan(markers, polylines, currentStep.id, mapType);
 
 
 
