@@ -374,7 +374,7 @@ $(() => {
   });
 
 
-
+  //Submitting a new marker
   $('#new-marker-form').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
@@ -410,7 +410,7 @@ $(() => {
 
     let newMarkerData;
 
-
+    //Checking to see if new marker data has a video embedded or not
     if($('#marker-video-upload').length !== 0 && $('#marker-video-upload').val().length !== 0 ){
       newMarkerData = {
         markerName: $('#marker-name').val(),
@@ -430,6 +430,7 @@ $(() => {
       }
     }
 
+    //Uploading marker data
     $.ajax({
       url: '/markers/step/' + currentStep.id + '/new',
       data: newMarkerData,
@@ -440,6 +441,7 @@ $(() => {
       if($('#marker-image-upload').length === 0 || document.getElementById('marker-image-upload').files.length === 0){
         location.reload();
       } else {
+        //Uploading image
         $.ajax({
             type: 'POST',
             url: '/markers/' + id + '/image',
@@ -530,8 +532,8 @@ $(() => {
 
   }
 
-
-  var toggleAddMarker = (event) => {
+  //Places 'add marker' temp marker
+  let toggleAddMarker = (event) => {
     if(markerClick === undefined || markerClick.getMap() === null){
       markerClick = new google.maps.Marker({
         position: event.latLng,
@@ -546,7 +548,7 @@ $(() => {
 
 
   if(isOwner) {
-
+    //Enables the place temp marker listeniner
     $('#toggle-add-marker').click(function() {
       if($('#toggle-add-marker').hasClass('btn-primary')) {
         $('#toggle-add-marker').removeClass('btn-primary');
@@ -555,6 +557,7 @@ $(() => {
 
       }
      else{
+      //Wipes the temp marker
         $('#toggle-add-marker').removeClass('btn-info');
         $('#toggle-add-marker').addClass('btn-primary');
         google.maps.event.removeListener(clickListener);
@@ -566,32 +569,29 @@ $(() => {
 
   }
 
-
-  $( '#new-marker-button' ).click(function() {
-    console.log('click')
-      $('#new-marker-modal').css('display', 'block');
+  //Opens the modal for new marker
+  $('#new-marker-button').click(function() {
+    $('#new-marker-modal').css('display', 'block');
   });
 
-
-
-  $( '#new-step-button' ).click(function() {
+  //Opens the new step button modal
+  $('#new-step-button').click(function() {
       $('#new-step-modal').css('display', 'block');
   });
 
-  $( '.close-new-step-button' ).click(function() {
+  //Closes the new step modal
+  $('.close-new-step-button').click(function() {
       $('#new-step-modal').css('display', 'none');
   });
 
-
-  $( '.close-new-marker-button' ).click(function() {
-      $('#new-marker-modal').css('display', 'none');
+  //Closes the new marker modal
+  $('.close-new-marker-button').click(function() {
+    $('#new-marker-modal').css('display', 'none');
   });
 
-
-
+  //Submitting a new step
   $('#new-step-form').submit(function (e) {
     e.preventDefault();
-    // console.log($('#step-description').val())
 
     //Checking to see if all form inputs have been filed out (except image)
     if( $('#step-description').val().length === 0){
@@ -605,10 +605,9 @@ $(() => {
       `)
       $('.alert').delay(3000).fadeOut('slow');
       return;
-
     }
 
-
+    //Ajax call to create the new step
     $.ajax({
       url: '/steps/plan/' + planID + '/new/',
       method: 'POST',
@@ -623,11 +622,12 @@ $(() => {
 
   });
 
-
+  //Enables tooltip
   $('[data-tooltip="tooltip"]').tooltip();
 
-
+  //Deletes the current step
   $( '#delete-step-button' ).click(function() {
+    //A plan must have at least 1 step
     if(stepIDs.length === 1){
       $('#delete-step-alert').append(`
       <div class='alert alert-warning alert-dismissible fade show' role='alert'>
@@ -640,7 +640,9 @@ $(() => {
       $('.alert').delay(3000).fadeOut('slow');
       return;
     }
+
     let confirmBox = confirm('Are you sure?');
+    //Having them confirm the delete and sending AJAX request
     if(confirmBox){
       $.ajax({
         url: '/steps/delete/' + currentStep.id,
@@ -654,18 +656,8 @@ $(() => {
     }
   });
 
-
-
-
-
   //Actually initializing the plan
   initPlan(markers, polylines, currentStep.id, mapType);
 
-
-
-  document.getElementById('close-button').addEventListener('click', () => {
-
-    newMarkerModal.style.display = 'none';
-  });
 
 });
