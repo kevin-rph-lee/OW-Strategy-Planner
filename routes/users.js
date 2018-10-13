@@ -10,7 +10,7 @@ module.exports = (knex, bcrypt, cookieSession) => {
    * @param  {string} string string to be checked
    * @return {boolean}        returns true if invalid characters found
    */
-  function checkInvalidCharacters(string) {
+  let checkInvalidCharacters = (string) => {
     return !(/^[a-zA-Z0-9-#]*$/.test(string));
   }
 

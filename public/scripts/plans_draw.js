@@ -1,54 +1,47 @@
 $(() => {
 
-  console.log('Markers ', markers);
-
   const markersArray = [];
   const infoWindowArray = [];
   const polylinesArray = [];
   const newPolylines = [];
-  var clickListener;
-  var markerClick;
-  var infoWindow;
+  let clickListener;
+  let markerClick;
+  let infoWindow;
   let currentStep = {
     id: Number(stepIDs[0].id),
     number: 1
   }
 
-
-
-
-  addMarkersAndLines = (stepID) => {
-    for(let y = 0; y < polylines.length; y ++){
-      if(polylines[y].step_id === stepID){
+  //Adds markers, lines, and step descriptions to the page
+  addMarkersLinesAndDescriptions = (stepID) => {
+    //Adding polylines
+    for (let y = 0; y < polylines.length; y ++) {
+      if (polylines[y].step_id === stepID) {
         addPolyline(polylines[y]);
       }
     }
 
     //Adding Markers & event listeners
-    for(var i = 0; i < markers.length; i ++){
-      if(markers[i].step_id === stepID){
+    for (let i = 0; i < markers.length; i ++) {
+      if (markers[i].step_id === stepID) {
         addMarker(markers[i]);
       }
     }
 
-
-        //Adding description
-    for(var x = 0; x < stepIDs.length; x ++){
-      if(Number(stepID) === Number(stepIDs[x].id)){
+    //Adding step descriptions
+    for (let x = 0; x < stepIDs.length; x ++) {
+      if (Number(stepID) === Number(stepIDs[x].id)) {
         $('.plan-description').html(stepIDs[x].description);
       }
-
     }
   }
 
-
-
+  //Moving to next step within pagination
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
       if(currentStep.id === Number(stepIDs[i].id)){
-
+        //Checking to see if you've hit the end of the list of steps
         if(stepIDs[i +1] === undefined){
-          // alert('END')
           return;
         } else {
 
@@ -58,10 +51,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
           currentStep.number++
           currentStep.id = Number(stepIDs[i].id + 1);
-
           return;
         }
 
@@ -69,13 +61,13 @@ $(() => {
     }
   })
 
+  //Moving to previous step within pagination
   $('#step-backwards').click(function (e) {
+    for (let i = 0; i < stepIDs.length; i++) {
+      if (currentStep.id === Number(stepIDs[i].id)) {
 
-    for(let i = 0; i < stepIDs.length; i++){
-
-      if(currentStep.id === Number(stepIDs[i].id)){
-        console.log(stepIDs[i].id - 1)
-        if(stepIDs[i-1] === undefined){
+        //Checking to see if you've hit the end of the list of steps
+        if (stepIDs[i-1] === undefined) {
           return;
         } else {
 
@@ -85,13 +77,12 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
           currentStep.number--
           currentStep.id = Number(stepIDs[i].id - 1);
 
           return;
         }
-
       }
     }
   })
@@ -102,15 +93,14 @@ $(() => {
     //Removeing the active class and swapping it with the active
     $('.active').removeClass('active')
     $(this).addClass('active');
-    console.log('Step Number ',$(this).data('step-number'))
-    console.log('Step Number ',$(this).data('step-id'))
+
     //Updating the current step and step id
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
 
     //Clearing polylines and markers along with re-adding the new ones
     clearMarkersAndPolylines();
-    addMarkersAndLines(Number($(this).data('step-id')))
+    addMarkersLinesAndDescriptions(Number($(this).data('step-id')))
   })
 
 
@@ -119,9 +109,7 @@ $(() => {
    * @param  {array} locations An array of locations to have markers added to the plan
    */
   initPlan = (markers, polylines, stepID) => {
-    // var bounds = new google.maps.LatLngBounds();
-
-
+    // let bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
       center: {lat: -55.60427598849055, lng: -64.92253974426148},
@@ -131,13 +119,13 @@ $(() => {
         mapTypeIds: ['OW']
       }
     });
-    var OWMapType = new google.maps.ImageMapType({
+    let OWMapType = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
-          var normalizedCoord = getNormalizedCoord(coord, zoom);
+          let normalizedCoord = getNormalizedCoord(coord, zoom);
           if (!normalizedCoord) {
             return null;
           }
-          var bound = Math.pow(2, zoom);
+          let bound = Math.pow(2, zoom);
           return mapURL.url + zoom + '/' + normalizedCoord.x + '/' +
               (bound - normalizedCoord.y - 1) + '.png';
       },
@@ -167,7 +155,7 @@ $(() => {
 
        // Out of bounds - Move the map back within the bounds
 
-       var c = plan.getCenter(),
+       let c = plan.getCenter(),
            x = c.lng(),
            y = c.lat(),
            maxX = allowedBounds.getNorthEast().lng(),
@@ -188,14 +176,16 @@ $(() => {
     plan.setMapTypeId('OW');
 
     //NOTE: How to auto zoom around all markers
-    // for(var x = 0; x < markersArray.length; x ++){
+    // for(let x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
 
     // plan.fitBounds(bounds);
-    addMarkersAndLines(currentStep.id);
+    addMarkersLinesAndDescriptions(currentStep.id);
 
-    var drawingManager = new google.maps.drawing.DrawingManager({
+
+    //Creating the draw manager to draw polylines on the map
+    let drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: null,
       drawingControl: true,
       drawingControlOptions: {
@@ -212,30 +202,30 @@ $(() => {
       }
     });
     drawingManager.setMap(plan);
+
+    //pushes newly drawn polyline to the newPolylines array
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
             // console.log(polyline.getPath().b[0].lat());
             newPolylines.push(polyline)
-            console.log(polyline.getPath().b)
-            var arr = polyline.getPath().b
-            for(var i in arr){
-              console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
-            }
-
+            // Used for troubleshooting:
+            // console.log(polyline.getPath().b)
+            // let arr = polyline.getPath().b
+            // for(let i in arr){
+            //   console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
+            // }
     });
-
-
   }
 
   /**
    * Gets normalized coordinates for the map. Used only when the map is initialized
    */
   getNormalizedCoord = (coord, zoom) => {
-    var y = coord.y;
-    var x = coord.x;
+    let y = coord.y;
+    let x = coord.x;
 
     // tile range in one direction range is dependent on zoom level
     // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
-    var tileRange = 1 << zoom;
+    let tileRange = 1 << zoom;
 
     // don't repeat across y-axis (vertically)
     if (y < 0 || y >= tileRange) {
@@ -249,11 +239,12 @@ $(() => {
     return {x: x, y: y};
   }
 
+  //Add's a single polyline to the map
   addPolyline = (polylineToAdd) => {
     let polylineCoordinates = []
     // console.log(polylines[i].coordinates.coordinatesArray);
     for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
-      var newPolyline = new google.maps.Polyline({
+      let newPolyline = new google.maps.Polyline({
         path: polylineToAdd.coordinates.coordinatesArray,
         geodesic: true,
         strokeColor: '#FF0000',
@@ -272,90 +263,73 @@ $(() => {
    */
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
-    console.log('adding marker ', markerToAdd)
-    var marker = new google.maps.Marker({
+
+    let marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
       title: markerToAdd.title,
       icon: markerToAdd.icon_file_location
     });
 
-    var infoWindow;
-
-    if(isOwner === true){
-
-      if(markerToAdd.image === true) {
-
-        if(infoWindow === undefined) {
-
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+    let infoWindow;
+    //If owner, has the ability to delete the marker
+    if (isOwner === true) {
+      //Checking if marker has an image OR video OR nothing
+      if (markerToAdd.image === true) {
+        //Adding info window
+        if (infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
-
       } else if (markerToAdd.video_URL) {
-
-        console.log('VIdeo found! ', markerToAdd.video_URL)
+        //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
       } else {
-
+        //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
       }
-
     } else {
-
-      if(markerToAdd.image === true){
-        if(infoWindow === undefined) {
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
-
+      //None owners do not see delete options
+      if (markerToAdd.image === true) {
+        if (infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
         } else {
-
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
       } else if (markerToAdd.video_URL) {
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p>`});
         }
-
       } else {
-
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
-
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
@@ -363,24 +337,26 @@ $(() => {
       }
     }
 
+    //Adding all of the info windows
     infoWindowArray.push(infoWindow);
+
+    //Adding click listener to the markers to open the info windows
     google.maps.event.addListener(marker, 'click', function() {
         closeInfoWindows();
         infoWindow.open(plan, marker);
     });
 
+    //Pushing the marker to the array
     markersArray.push(marker);
 
   }
 
-
-
-
-
+  //Saving polylines to the DB
   $('#save-button').click(function(){
     //The total number of polylines that are pushed to the server
     const polyLinesToPush = []
 
+    //Checking if there actually polylines drawn to the map
     if(newPolylines.length === 0){
       $('#polyline-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -397,7 +373,7 @@ $(() => {
     //Converting the polylines into a format the AJAX request can take
     for(let i = 0; i < newPolylines.length; i ++){
       let newPolyLineLatLngArray = []
-      for(var y in newPolylines[i].getPath().b){
+      for(let y in newPolylines[i].getPath().b){
         let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
         console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
@@ -405,7 +381,7 @@ $(() => {
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
 
-
+    //Pushing the polylines
     $.ajax({
       url: '/polylines/step/' + currentStep.id,
       data: {planID: planID, polylines: polyLinesToPush},
@@ -423,7 +399,6 @@ $(() => {
 
   initPlan(markers, polylines, currentStep.id, mapType);
 
-
   //Clears the polylines from the plan and wipes the array
   $('#clear-button').click(function(){
     console.log('click clear')
@@ -440,12 +415,10 @@ $(() => {
    * Closes the info windows
    */
   closeInfoWindows = () => {
-      for (var x = 0; x < infoWindowArray.length; x++) {
+      for (let x = 0; x < infoWindowArray.length; x++) {
           infoWindowArray[x].close();
       }
   }
-
-
 
   //Delete all polylines associated with that plan
   $('#delete-polylines').click(function(){
@@ -461,18 +434,19 @@ $(() => {
     });
   })
 
-
   /**
    * Clears all polylines and markers currently active on the plan
    */
   clearMarkersAndPolylines = () =>{
     console.log('Markers Array1: ', markersArray)
     console.log('Polylines Array1: ', polylinesArray)
+    //Removing Markers
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
       // markersArray[i].removeEventListener("click");
       markersArray[i].setMap(null);
     }
+    //Removing Polylines
     for (let y = 0; y < polylinesArray.length; y ++) {
       // markersArray[i].removeListener();
       // markersArray[i].removeEventListener("click");
@@ -481,22 +455,6 @@ $(() => {
     markersArray.length = 0;
     infoWindowArray.length = 0;
     polylinesArray.length = 0;
-    console.log('Markers Array2: ', markersArray)
-    console.log('Polylines Array2: ', polylinesArray)
   }
-
-
-  var toggleAddMarker = (event) => {
-    if(markerClick === undefined || markerClick.getMap() === null){
-      markerClick = new google.maps.Marker({
-        position: event.latLng,
-        map: plan,
-        icon:  'https://www.google.com/mapfiles/arrow.png'
-      });
-    } else {
-      markerClick.setPosition(event.latLng);
-    }
-  }
-
 
 });

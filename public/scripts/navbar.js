@@ -1,14 +1,14 @@
 $(() => {
 
-
-
+  //Submitting a new user registration
   $('.register-submit').click(function(e){
     e.preventDefault()
     const username = $('#register-username').val();
     const password = $('#password1').val();
     const passwordConfirm = $('#password2').val();
 
-    if(password !== passwordConfirm){
+    //Checking if the passwords match
+    if (password !== passwordConfirm) {
       $('.register-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>OOPS!</strong> Your passwords don't match, please try again.
@@ -18,8 +18,21 @@ $(() => {
       </div>
       `)
       $(".alert").delay(3000).fadeOut("slow");
+      return;
     }
-
+    //CHecking for min password length
+    if (password.length <= 4 ) {
+      $('.register-alert').append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>OOPS!</strong> Your password must have at least 4 characters!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      `)
+      $(".alert").delay(3000).fadeOut("slow");
+      return;
+    }
 
     $.ajax({
       url: '/users/new',
@@ -37,10 +50,9 @@ $(() => {
       </div>
       `)
     });
-
   });
 
-
+  //Submit a new login request
   $('.login-submit').click(function(e){
     e.preventDefault();
     const username = $('#login-username').val();
@@ -66,6 +78,7 @@ $(() => {
 
   });
 
+  //Logging out button
   $("#logout-button").on('click', function (event) {
     event.preventDefault();
     console.log('attempting post');
@@ -78,85 +91,76 @@ $(() => {
     })
   })
 
-
-
-  //Depending on what radio button is selected within the new marker modal, the marker type dropdown is populated.
+  //Used within new plan modal. Populates map type drop down
   $('#control[type="radio"]').click(function(){
-
     $.ajax({
       url: '/maps/control',
       method: 'GET'
     }).done((mapTypes) => {
       console.log(mapTypes);
       $("#map-type-select").children().remove();
-      for(var i = 0; i < mapTypes.length; i ++){
+      for (var i = 0; i < mapTypes.length; i ++) {
         $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
       }
     }).catch((err) => {
       console.log('error!')
     });
-
   });
 
-
+  //Used within new plan modal. Populates map type drop down
   $('#escort[type="radio"]').click(function(){
-
     $.ajax({
       url: '/maps/escort',
       method: 'GET'
     }).done((mapTypes) => {
       console.log(mapTypes);
       $("#map-type-select").children().remove();
-      for(var i = 0; i < mapTypes.length; i ++){
+      for (var i = 0; i < mapTypes.length; i ++) {
         $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
       }
     }).catch((err) => {
       console.log('error!')
     });
-
   });
 
+  //Used within new plan modal. Populates map type drop down
   $('#hybrid[type="radio"]').click(function(){
-
     $.ajax({
       url: '/maps/hybrid',
       method: 'GET'
     }).done((mapTypes) => {
       console.log(mapTypes);
       $("#map-type-select").children().remove();
-      for(var i = 0; i < mapTypes.length; i ++){
+      for (var i = 0; i < mapTypes.length; i ++) {
         $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
       }
     }).catch((err) => {
       console.log('error!')
     });
-
   });
 
+  //Used within new plan modal. Populates map type drop down
   $('#assault[type="radio"]').click(function(){
-
     $.ajax({
       url: '/maps/assault',
       method: 'GET'
     }).done((mapTypes) => {
       console.log(mapTypes);
       $("#map-type-select").children().remove();
-      for(var i = 0; i < mapTypes.length; i ++){
+      for (var i = 0; i < mapTypes.length; i ++) {
         $('#map-type-select').append(`<option data-id= ${mapTypes[i].id}>${mapTypes[i].name}</option>`)
       }
     }).catch((err) => {
       console.log('error!')
     });
-
   });
 
-
+  //Submitting a new plan
   $('#new-plan-form').submit(function (e) {
     e.preventDefault();
 
     //Checking to see if all form inputs have been filed out (except image)
-    if( $('#plan-name').val().length === 0 || $('#plan-description').val().length === 0 || $('#map-type-select').find(':selected').data('id') === undefined){
-      console.log('alert')
+    if ( $('#plan-name').val().length === 0 || $('#plan-description').val().length === 0 || $('#map-type-select').find(':selected').data('id') === undefined) {
       $('#new-plan-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>OOPS!</strong> Missing plan name or map
@@ -179,91 +183,56 @@ $(() => {
       method: 'POST'
     }).done((id) => {
       location.reload()
-
     }).catch((err) => {
       alert('Some kind of error happened!');
     });
-
   });
-
-
-
-  // Get the modal
-  const newPlanModal = document.getElementById('new-plan-modal');
-
-  // Get the button that opens the modal
-  const newPlanButton = document.getElementById("new-plan-button");
-
-
-
-  // Get the modal
-  const registerModal = document.getElementById('register-modal');
-
-  // Get the button that opens the modal
-  const registerButton = document.getElementById("register-button");
-
-  // Get the modal
-  const loginModal = document.getElementById('login-modal');
-
-  // Get the button that opens the modal
-  const loginButton = document.getElementById("login-button");
 
   const newMarkerModal = document.getElementById('new-marker-modal');
 
 
   if($('#register-button').length !== 0){
     // When the user clicks on the button, open the modal
-    registerButton.onclick = function() {
-        registerModal.style.display = "block";
-    }
+    $('#register-button').click(function() {
+        $('#register-modal').css('display', 'block');
+    });
   }
 
   if($('#new-plan-button').length !== 0){
     // When the user clicks on the button, open the modal
-    newPlanButton.onclick = function() {
-        newPlanModal.style.display = "block";
-    }
+    $('#new-plan-button').click(function() {
+        $('#new-plan-modal').css('display', 'block');
+    });
   }
-
-
-
 
   if($('#login-button').length !== 0){
     // When the user clicks on the button, open the modal
-    loginButton.onclick = function() {
-        loginModal.style.display = "block";
-    }
+    $('#login-button').click(function() {
+        $('#login-modal').css('display', 'block');
+    });
   }
 
   // When the user clicks on <span> (x), close the modal
   $('.close-button').click(function() {
-      console.log('Close')
-      registerModal.style.display = "none";
-      loginModal.style.display = "none";
-      newPlanModal.style.display = "none";
+    $('#login-modal').css('display', 'none');
+    $('#new-plan-modal').css('display', 'none');
+    $('#register-modal').css('display', 'none');
   });
-
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
-      if (event.target == registerModal) {
-          registerModal.style.display = "none";
-      }
-      if (event.target == loginModal) {
-          loginModal.style.display = "none";
-      }
-      if (event.target == newMarkerModal) {
-          newMarkerModal.style.display = "none";
-      }
-      if (event.target == newPlanModal) {
-          newPlanModal.style.display = "none";
-      }
+    if (event.target.id === 'register-modal') {
+      $('#register-modal').css('display', 'none');
+    }
+    if (event.target.id === 'login-modal') {
+      $('#login-modal').css('display', 'none');
+    }
+    if (event.target.id === 'new-marker-modal') {
+      $('#new-marker-modal').css('display', 'none');
+    }
+    if (event.target.id === 'new-plan-modal') {
+      $('#new-plan-modal').css('display', 'none');
+    }
   }
-
-
-
-
-
-
 
 });
