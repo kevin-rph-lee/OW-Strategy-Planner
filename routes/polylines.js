@@ -16,8 +16,8 @@ module.exports = (knex, moment) => {
       .then(()=>{});
   }
 
+  //Grabs polylines of a particular plan
   router.get("/:id", (req, res) => {
-
     knex
       .select('*')
       .from('polylines')
@@ -25,10 +25,9 @@ module.exports = (knex, moment) => {
       .then((polylines) => {
         res.json(polylines);
       });
-
   });
 
-
+  //Deleting polylines from a plan
   router.post("/:id/delete", (req, res) => {
 
     knex
@@ -36,6 +35,7 @@ module.exports = (knex, moment) => {
       .from('plans')
       .where({id:req.body.planID})
       .then((id) => {
+        //Errors if user is not owner
         if(req.session.userID !== id[0].owner_id){
           res.sendStatus(403);
           return;
@@ -45,8 +45,7 @@ module.exports = (knex, moment) => {
           .from('polylines')
           .where({step_id:req.params.id})
           .then((results) => {
-
-
+            //Deleting polylines
             for(let i = 1; i <= results.length; i++){
                knex('polylines')
                 .where({ step_id: req.params.id })
@@ -60,7 +59,7 @@ module.exports = (knex, moment) => {
       });
   });
 
-
+  //Adding polylines to a step
   router.post("/step/:id", (req, res) => {
 
     knex
@@ -71,11 +70,11 @@ module.exports = (knex, moment) => {
         if(req.session.userID !== results[0].owner_id){
           res.sendStatus(403);
         } else{
+          //Adding the polylines to the step
           const promiseArray = []
           for(let i = 0; i < req.body.polylines.length; i ++){
             const newCoordinatesArray = [];
             for(let y = 0; y < req.body.polylines[i].length; y ++){
-              // console.log('Huh? ',req.body.polylines[i][y])
               newCoordinatesArray.push({lat: Number(req.body.polylines[i][y].lat), lng: Number(req.body.polylines[i][y].lng)})
             }
             promiseArray.push(
