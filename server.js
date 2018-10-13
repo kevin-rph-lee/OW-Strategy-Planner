@@ -25,7 +25,7 @@ const polylinesRoutes = require("./routes/polylines");
 const stepsRoutes = require("./routes/steps");
 const _ = require('lodash');
 const multer = require('multer');
-var path = require('path')
+const path = require('path')
 const moment = require('moment');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -64,12 +64,14 @@ app.use("/steps", stepsRoutes(knex, moment));
 
 // Home page
 app.get("/", (req, res) => {
+  //Grabbing all plans
   knex
     .select('plans.id', 'plans.map_id', 'plans.description', 'maps.icon', 'plans.owner_id', 'plans.name', 'users.username', 'maps.type', 'maps.name as map_name', 'plans.created_datetime', 'plans.updated_datetime', 'plans.view_count')
     .from("plans")
     .innerJoin('users', 'users.id', 'plans.owner_id')
     .innerJoin('maps', 'maps.id', 'plans.map_id')
     .then((plans) => {
+      //Grabbing all maps
       knex
         .select('*')
         .from("maps")
@@ -80,9 +82,6 @@ app.get("/", (req, res) => {
           } else {
             userID = {id: req.session.userID}
           }
-
-          console.log('PLans ', plans)
-
           res.render('index', {
             username: req.session.username,
             userID: userID,
@@ -92,10 +91,6 @@ app.get("/", (req, res) => {
         });
     });
 });
-
-
-
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
