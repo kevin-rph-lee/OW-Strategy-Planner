@@ -22,14 +22,14 @@ $(() => {
     }
 
     //Adding Markers & event listeners
-    for (var i = 0; i < markers.length; i ++) {
+    for (let i = 0; i < markers.length; i ++) {
       if (markers[i].step_id === stepID) {
         addMarker(markers[i]);
       }
     }
 
     //Adding step descriptions
-    for (var x = 0; x < stepIDs.length; x ++) {
+    for (let x = 0; x < stepIDs.length; x ++) {
       if (Number(stepID) === Number(stepIDs[x].id)) {
         $('.plan-description').html(stepIDs[x].description);
       }
@@ -122,11 +122,11 @@ $(() => {
     //Overlaying the tiles of the OW map
     let OWMapType = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
-          var normalizedCoord = getNormalizedCoord(coord, zoom);
+          let normalizedCoord = getNormalizedCoord(coord, zoom);
           if (!normalizedCoord) {
             return null;
           }
-          var bound = Math.pow(2, zoom);
+          let bound = Math.pow(2, zoom);
           return mapURL.url + zoom + '/' + normalizedCoord.x + '/' +
               (bound - normalizedCoord.y - 1) + '.png';
       },
@@ -156,7 +156,7 @@ $(() => {
 
        // Out of bounds - Move the map back within the bounds
 
-       var c = plan.getCenter(),
+       let c = plan.getCenter(),
            x = c.lng(),
            y = c.lat(),
            maxX = allowedBounds.getNorthEast().lng(),
@@ -176,7 +176,7 @@ $(() => {
     plan.setMapTypeId('OW');
 
     //NOTE: How to auto zoom around all markers
-    // for(var x = 0; x < markersArray.length; x ++){
+    // for(let x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
     // plan.fitBounds(bounds);
@@ -188,12 +188,12 @@ $(() => {
    * Gets normalized coordinates for the map. Used only when the map is initialized
    */
   getNormalizedCoord = (coord, zoom) => {
-    var y = coord.y;
-    var x = coord.x;
+    let y = coord.y;
+    let x = coord.x;
 
     // tile range in one direction range is dependent on zoom level
     // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
-    var tileRange = 1 << zoom;
+    let tileRange = 1 << zoom;
 
     // don't repeat across y-axis (vertically)
     if (y < 0 || y >= tileRange) {
@@ -211,7 +211,7 @@ $(() => {
   addPolyline = (polylineToAdd) => {
     let polylineCoordinates = []
     for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
-      var newPolyline = new google.maps.Polyline({
+      let newPolyline = new google.maps.Polyline({
         path: polylineToAdd.coordinates.coordinatesArray,
         geodesic: true,
         strokeColor: '#FF0000',
@@ -231,14 +231,14 @@ $(() => {
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
 
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
       title: markerToAdd.title,
       icon: markerToAdd.icon_file_location
     });
 
-    var infoWindow;
+    let infoWindow;
     //If owner, has the ability to delete the marker
     if (isOwner === true) {
       //Checking if marker has an image OR video OR nothing
@@ -322,7 +322,7 @@ $(() => {
   $('#teammates[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
     $('#marker-type-select').children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
+    for(let i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon === true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
       }
@@ -332,7 +332,7 @@ $(() => {
   $('#enemy[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
     $('#marker-type-select').children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
+    for(let i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon !== true && markerTypes[i].teammate_icon !== true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
       }
@@ -342,7 +342,7 @@ $(() => {
   $('#other[type="radio"]').click(function(){
     //Clearing the modal of it's current contents
     $('#marker-type-select').children().remove();
-    for(var i = 0; i < markerTypes.length; i ++){
+    for(let i = 0; i < markerTypes.length; i ++){
       if(markerTypes[i].misc_icon === true){
         $('#marker-type-select').append(`<option data-id= ${markerTypes[i].id}>${markerTypes[i].title}</option>`)
       }
@@ -377,7 +377,7 @@ $(() => {
   //Submitting a new marker
   $('#new-marker-form').submit(function (e) {
     e.preventDefault();
-    var formData = new FormData(this);
+    let formData = new FormData(this);
 
     //Checking if a new marker has been placed on the map
     if(markerClick === null || markerClick === undefined || markerClick.getMap() === null){
@@ -480,7 +480,7 @@ $(() => {
    * Closes the info windows
    */
   closeInfoWindows = () => {
-      for (var x = 0; x < infoWindowArray.length; x++) {
+      for (let x = 0; x < infoWindowArray.length; x++) {
           infoWindowArray[x].close();
       }
   }
@@ -493,7 +493,7 @@ $(() => {
     //Preventing from deleting all markers off a map
 
 
-    var confirmBox = confirm('Are you sure?!');
+    let confirmBox = confirm('Are you sure?!');
     if (confirmBox == true) {
       $.ajax({
         url: '/markers/delete/' + id,

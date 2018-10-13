@@ -12,36 +12,36 @@ $(() => {
     number: 1
   }
 
-
+  //Adds markers, lines, and step descriptions to the page
   addMarkersLinesAndDescriptions = (stepID) => {
-    for(let y = 0; y < polylines.length; y ++){
-      if(polylines[y].step_id === stepID){
+    //Adding polylines
+    for (let y = 0; y < polylines.length; y ++) {
+      if (polylines[y].step_id === stepID) {
         addPolyline(polylines[y]);
       }
     }
 
     //Adding Markers & event listeners
-    for(var i = 0; i < markers.length; i ++){
-      if(markers[i].step_id === stepID){
+    for (let i = 0; i < markers.length; i ++) {
+      if (markers[i].step_id === stepID) {
         addMarker(markers[i]);
       }
     }
 
-    //Adding description
-    for(var x = 0; x < stepIDs.length; x ++){
-      if(Number(stepID) === Number(stepIDs[x].id)){
+    //Adding step descriptions
+    for (let x = 0; x < stepIDs.length; x ++) {
+      if (Number(stepID) === Number(stepIDs[x].id)) {
         $('.plan-description').html(stepIDs[x].description);
       }
-
     }
   }
 
+  //Moving to next step within pagination
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
       if(currentStep.id === Number(stepIDs[i].id)){
-
+        //Checking to see if you've hit the end of the list of steps
         if(stepIDs[i +1] === undefined){
-          // alert('END')
           return;
         } else {
 
@@ -54,7 +54,6 @@ $(() => {
           addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
           currentStep.number++
           currentStep.id = Number(stepIDs[i].id + 1);
-
           return;
         }
 
@@ -62,13 +61,13 @@ $(() => {
     }
   })
 
+  //Moving to previous step within pagination
   $('#step-backwards').click(function (e) {
+    for (let i = 0; i < stepIDs.length; i++) {
+      if (currentStep.id === Number(stepIDs[i].id)) {
 
-    for(let i = 0; i < stepIDs.length; i++){
-
-      if(currentStep.id === Number(stepIDs[i].id)){
-        console.log(stepIDs[i].id - 1)
-        if(stepIDs[i-1] === undefined){
+        //Checking to see if you've hit the end of the list of steps
+        if (stepIDs[i-1] === undefined) {
           return;
         } else {
 
@@ -84,7 +83,6 @@ $(() => {
 
           return;
         }
-
       }
     }
   })
@@ -95,8 +93,7 @@ $(() => {
     //Removeing the active class and swapping it with the active
     $('.active').removeClass('active')
     $(this).addClass('active');
-    console.log('Step Number ',$(this).data('step-number'))
-    console.log('Step Number ',$(this).data('step-id'))
+
     //Updating the current step and step id
     currentStep.number = $(this).data('step-number');
     currentStep.id = $(this).data('step-id');
@@ -112,9 +109,7 @@ $(() => {
    * @param  {array} locations An array of locations to have markers added to the plan
    */
   initPlan = (markers, polylines, stepID) => {
-    // var bounds = new google.maps.LatLngBounds();
-
-
+    // let bounds = new google.maps.LatLngBounds();
 
     plan = new google.maps.Map(document.getElementById('plan'), {
       center: {lat: -55.60427598849055, lng: -64.92253974426148},
@@ -124,13 +119,13 @@ $(() => {
         mapTypeIds: ['OW']
       }
     });
-    var OWMapType = new google.maps.ImageMapType({
+    let OWMapType = new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
-          var normalizedCoord = getNormalizedCoord(coord, zoom);
+          let normalizedCoord = getNormalizedCoord(coord, zoom);
           if (!normalizedCoord) {
             return null;
           }
-          var bound = Math.pow(2, zoom);
+          let bound = Math.pow(2, zoom);
           return mapURL.url + zoom + '/' + normalizedCoord.x + '/' +
               (bound - normalizedCoord.y - 1) + '.png';
       },
@@ -160,7 +155,7 @@ $(() => {
 
        // Out of bounds - Move the map back within the bounds
 
-       var c = plan.getCenter(),
+       let c = plan.getCenter(),
            x = c.lng(),
            y = c.lat(),
            maxX = allowedBounds.getNorthEast().lng(),
@@ -181,14 +176,14 @@ $(() => {
     plan.setMapTypeId('OW');
 
     //NOTE: How to auto zoom around all markers
-    // for(var x = 0; x < markersArray.length; x ++){
+    // for(let x = 0; x < markersArray.length; x ++){
     //   bounds.extend(markersArray[x].getPosition())
     // }
 
     // plan.fitBounds(bounds);
     addMarkersLinesAndDescriptions(currentStep.id);
 
-    var drawingManager = new google.maps.drawing.DrawingManager({
+    let drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: null,
       drawingControl: true,
       drawingControlOptions: {
@@ -209,26 +204,23 @@ $(() => {
             // console.log(polyline.getPath().b[0].lat());
             newPolylines.push(polyline)
             console.log(polyline.getPath().b)
-            var arr = polyline.getPath().b
-            for(var i in arr){
+            let arr = polyline.getPath().b
+            for(let i in arr){
               console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
             }
-
     });
-
-
   }
 
   /**
    * Gets normalized coordinates for the map. Used only when the map is initialized
    */
   getNormalizedCoord = (coord, zoom) => {
-    var y = coord.y;
-    var x = coord.x;
+    let y = coord.y;
+    let x = coord.x;
 
     // tile range in one direction range is dependent on zoom level
     // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
-    var tileRange = 1 << zoom;
+    let tileRange = 1 << zoom;
 
     // don't repeat across y-axis (vertically)
     if (y < 0 || y >= tileRange) {
@@ -246,7 +238,7 @@ $(() => {
     let polylineCoordinates = []
     // console.log(polylines[i].coordinates.coordinatesArray);
     for(let y = 0; y < polylineToAdd.coordinates.coordinatesArray.length; y ++){
-      var newPolyline = new google.maps.Polyline({
+      let newPolyline = new google.maps.Polyline({
         path: polylineToAdd.coordinates.coordinatesArray,
         geodesic: true,
         strokeColor: '#FF0000',
@@ -266,14 +258,14 @@ $(() => {
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
     console.log('adding marker ', markerToAdd)
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
       title: markerToAdd.title,
       icon: markerToAdd.icon_file_location
     });
 
-    var infoWindow;
+    let infoWindow;
 
     if(isOwner === true){
 
@@ -390,7 +382,7 @@ $(() => {
     //Converting the polylines into a format the AJAX request can take
     for(let i = 0; i < newPolylines.length; i ++){
       let newPolyLineLatLngArray = []
-      for(var y in newPolylines[i].getPath().b){
+      for(let y in newPolylines[i].getPath().b){
         let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
         console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
@@ -433,7 +425,7 @@ $(() => {
    * Closes the info windows
    */
   closeInfoWindows = () => {
-      for (var x = 0; x < infoWindowArray.length; x++) {
+      for (let x = 0; x < infoWindowArray.length; x++) {
           infoWindowArray[x].close();
       }
   }
@@ -479,7 +471,7 @@ $(() => {
   }
 
 
-  var toggleAddMarker = (event) => {
+  let toggleAddMarker = (event) => {
     if(markerClick === undefined || markerClick.getMap() === null){
       markerClick = new google.maps.Marker({
         position: event.latLng,
