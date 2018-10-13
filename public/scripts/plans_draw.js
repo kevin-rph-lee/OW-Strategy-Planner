@@ -183,6 +183,8 @@ $(() => {
     // plan.fitBounds(bounds);
     addMarkersLinesAndDescriptions(currentStep.id);
 
+
+    //Creating the draw manager to draw polylines on the map
     let drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: null,
       drawingControl: true,
@@ -200,14 +202,17 @@ $(() => {
       }
     });
     drawingManager.setMap(plan);
+
+    //pushes newly drawn polyline to the newPolylines array
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
             // console.log(polyline.getPath().b[0].lat());
             newPolylines.push(polyline)
-            console.log(polyline.getPath().b)
-            let arr = polyline.getPath().b
-            for(let i in arr){
-              console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
-            }
+            // Used for troubleshooting:
+            // console.log(polyline.getPath().b)
+            // let arr = polyline.getPath().b
+            // for(let i in arr){
+            //   console.log('Point: ' + polyline.getPath().b[i].lat() + ' ' + polyline.getPath().b[i].lng());
+            // }
     });
   }
 
@@ -234,6 +239,7 @@ $(() => {
     return {x: x, y: y};
   }
 
+  //Add's a single polyline to the map
   addPolyline = (polylineToAdd) => {
     let polylineCoordinates = []
     // console.log(polylines[i].coordinates.coordinatesArray);
@@ -257,7 +263,7 @@ $(() => {
    */
   // addMarker = (position, title, icon_file_location, description, id, email, image) => {
   addMarker = (markerToAdd) => {
-    console.log('adding marker ', markerToAdd)
+
     let marker = new google.maps.Marker({
       position: markerToAdd.position,
       map: plan,
@@ -266,81 +272,64 @@ $(() => {
     });
 
     let infoWindow;
-
-    if(isOwner === true){
-
-      if(markerToAdd.image === true) {
-
-        if(infoWindow === undefined) {
-
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+    //If owner, has the ability to delete the marker
+    if (isOwner === true) {
+      //Checking if marker has an image OR video OR nothing
+      if (markerToAdd.image === true) {
+        //Adding info window
+        if (infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
-
       } else if (markerToAdd.video_URL) {
-
-        console.log('VIdeo found! ', markerToAdd.video_URL)
+        //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
-
       } else {
-
+        //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         } else {
-
+          //If another info window is already opened, closing
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
-
         }
       }
-
     } else {
-
-      if(markerToAdd.image === true){
-        if(infoWindow === undefined) {
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
-
+      //None owners do not see delete options
+      if (markerToAdd.image === true) {
+        if (infoWindow === undefined) {
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
         } else {
-
           infoWindow.close();
-          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
+          infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
       } else if (markerToAdd.video_URL) {
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
 
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p>`});
         }
-
       } else {
-
-        if(infoWindow === undefined){
+        if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><p>' + markerToAdd.description + `</p>`});
-
         } else {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><p>` + markerToAdd.description + `</p>`});
@@ -348,24 +337,26 @@ $(() => {
       }
     }
 
+    //Adding all of the info windows
     infoWindowArray.push(infoWindow);
+
+    //Adding click listener to the markers to open the info windows
     google.maps.event.addListener(marker, 'click', function() {
         closeInfoWindows();
         infoWindow.open(plan, marker);
     });
 
+    //Pushing the marker to the array
     markersArray.push(marker);
 
   }
 
-
-
-
-
+  //Saving polylines to the DB
   $('#save-button').click(function(){
     //The total number of polylines that are pushed to the server
     const polyLinesToPush = []
 
+    //Checking if there actually polylines drawn to the map
     if(newPolylines.length === 0){
       $('#polyline-alert').append(`
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -390,7 +381,7 @@ $(() => {
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
 
-
+    //Pushing the polylines
     $.ajax({
       url: '/polylines/step/' + currentStep.id,
       data: {planID: planID, polylines: polyLinesToPush},
@@ -407,7 +398,6 @@ $(() => {
   });
 
   initPlan(markers, polylines, currentStep.id, mapType);
-
 
   //Clears the polylines from the plan and wipes the array
   $('#clear-button').click(function(){
@@ -430,8 +420,6 @@ $(() => {
       }
   }
 
-
-
   //Delete all polylines associated with that plan
   $('#delete-polylines').click(function(){
     $.ajax({
@@ -446,18 +434,19 @@ $(() => {
     });
   })
 
-
   /**
    * Clears all polylines and markers currently active on the plan
    */
   clearMarkersAndPolylines = () =>{
     console.log('Markers Array1: ', markersArray)
     console.log('Polylines Array1: ', polylinesArray)
+    //Removing Markers
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
       // markersArray[i].removeEventListener("click");
       markersArray[i].setMap(null);
     }
+    //Removing Polylines
     for (let y = 0; y < polylinesArray.length; y ++) {
       // markersArray[i].removeListener();
       // markersArray[i].removeEventListener("click");
@@ -466,22 +455,6 @@ $(() => {
     markersArray.length = 0;
     infoWindowArray.length = 0;
     polylinesArray.length = 0;
-    console.log('Markers Array2: ', markersArray)
-    console.log('Polylines Array2: ', polylinesArray)
   }
-
-
-  let toggleAddMarker = (event) => {
-    if(markerClick === undefined || markerClick.getMap() === null){
-      markerClick = new google.maps.Marker({
-        position: event.latLng,
-        map: plan,
-        icon:  'https://www.google.com/mapfiles/arrow.png'
-      });
-    } else {
-      markerClick.setPosition(event.latLng);
-    }
-  }
-
 
 });
