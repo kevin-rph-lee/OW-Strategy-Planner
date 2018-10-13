@@ -1,23 +1,19 @@
 $(() => {
 
-  console.log('Markers ', markers);
-
   const markersArray = [];
   const infoWindowArray = [];
   const polylinesArray = [];
   const newPolylines = [];
-  var clickListener;
-  var markerClick;
-  var infoWindow;
+  let clickListener;
+  let markerClick;
+  let infoWindow;
   let currentStep = {
     id: Number(stepIDs[0].id),
     number: 1
   }
 
 
-
-
-  addMarkersAndLines = (stepID) => {
+  addMarkersLinesAndDescriptions = (stepID) => {
     for(let y = 0; y < polylines.length; y ++){
       if(polylines[y].step_id === stepID){
         addPolyline(polylines[y]);
@@ -31,8 +27,7 @@ $(() => {
       }
     }
 
-
-        //Adding description
+    //Adding description
     for(var x = 0; x < stepIDs.length; x ++){
       if(Number(stepID) === Number(stepIDs[x].id)){
         $('.plan-description').html(stepIDs[x].description);
@@ -40,8 +35,6 @@ $(() => {
 
     }
   }
-
-
 
   $('#step-forward').click(function (e) {
     for(let i = 0; i < stepIDs.length; i++){
@@ -58,7 +51,7 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
           currentStep.number++
           currentStep.id = Number(stepIDs[i].id + 1);
 
@@ -85,7 +78,7 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersAndLines(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
           currentStep.number--
           currentStep.id = Number(stepIDs[i].id - 1);
 
@@ -110,7 +103,7 @@ $(() => {
 
     //Clearing polylines and markers along with re-adding the new ones
     clearMarkersAndPolylines();
-    addMarkersAndLines(Number($(this).data('step-id')))
+    addMarkersLinesAndDescriptions(Number($(this).data('step-id')))
   })
 
 
@@ -193,7 +186,7 @@ $(() => {
     // }
 
     // plan.fitBounds(bounds);
-    addMarkersAndLines(currentStep.id);
+    addMarkersLinesAndDescriptions(currentStep.id);
 
     var drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: null,
