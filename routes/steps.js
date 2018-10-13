@@ -16,6 +16,7 @@ module.exports = (knex, moment) => {
       .then(()=>{});
   }
 
+  //New step
   router.post("/plan/:id/new", (req, res) => {
     knex
     .select('owner_id')
@@ -35,7 +36,7 @@ module.exports = (knex, moment) => {
 
   });
 
-
+  //Deleting step
   router.post("/delete/:id", (req, res) => {
     knex
     .select('owner_id')
