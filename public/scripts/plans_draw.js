@@ -51,9 +51,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i + 1].id))
           currentStep.number++
-          currentStep.id = Number(stepIDs[i].id + 1);
+          currentStep.id = Number(stepIDs[i + 1].id);
           return;
         }
 
@@ -77,9 +77,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i - 1].id))
           currentStep.number--
-          currentStep.id = Number(stepIDs[i].id - 1);
+          currentStep.id = Number(stepIDs[i - 1].id );
 
           return;
         }
