@@ -1,11 +1,8 @@
 # The Noodle Box
 
-A menu ordering and management system built for the fictional noodle restaurant *The Noodle Box.* This system is used by customers within the restaurant to make their orders and allows for kitchen staff to track these orders and inform customers of their order status real-time. Businesss owners also have the ability to manage menu items (editing, adding, etc.) and are also provided with with revenue/purchase reports.
-
-The backend server is built with Node/Express, ReactJS for the frontend, websockets to allow real-time updates, and PostgreSQL for the database.
 
 <p align="center">
-<img src="https://i.imgur.com/tsqd9mO.jpg" width="75%" height="75%" align="middle" />
+<img src="https://i.imgur.com/vjrau8W.jpg" width="75%" height="75%" align="middle" />
 </p>
 
 
@@ -13,31 +10,26 @@ The backend server is built with Node/Express, ReactJS for the frontend, websock
 
 Create env file based off of .env.example for postgresql DB configuration.
 
-Install dependencies within the server, frontend, and websocket server.
+Install dependencies within the server, run knex migration, and seed DB
 
 ```
 npm install
-cd frontend
-npm install
-cd ../wsserver
-npm install
-```
-
-Setup/seed the DB
-
-```
 npm run knex migrate:latest
-npm run knex migrate:rollback
+npm run knex seed:run
 ```
 
 Finally, start the websocket server within the wss folder with npm start, and in a *seperate* terminal window run npm start within the application root folder.
 
+## Background
+
+
+
 
 ## Features
 
-### Customer Ordering Management
+### Multi-ste plans
 
-As a customer, you can make your order directly from the system and the order will be automatically pushed to the kitchen staff.
+Plans contain 
 
 <img src="https://i.imgur.com/VXbRu6t.gif" width="40%" height="40%" align="middle" />
 

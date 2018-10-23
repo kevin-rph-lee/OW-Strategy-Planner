@@ -14,6 +14,7 @@ $(() => {
 
   //Adds markers, lines, and step descriptions to the page
   addMarkersLinesAndDescriptions = (stepID) => {
+    console.log('step id ', stepID)
     //Adding polylines
     for (let y = 0; y < polylines.length; y ++) {
       if (polylines[y].step_id === stepID) {
@@ -51,9 +52,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i + 1].id))
           currentStep.number++
-          currentStep.id = Number(stepIDs[i].id + 1);
+          currentStep.id = Number(stepIDs[i + 1].id);
           return;
         }
 
@@ -77,9 +78,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i - 1].id))
           currentStep.number--
-          currentStep.id = Number(stepIDs[i].id - 1);
+          currentStep.id = Number(stepIDs[i - 1].id);
 
           return;
         }
@@ -253,7 +254,9 @@ $(() => {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
 <div id='info-window-alert'></div>`});
         }
-      } else if (markerToAdd.video_URL) {
+      } else if (markerToAdd.video_URL !== null) {
+        console.log('Marker ', markerToAdd)
+        console.log('URL ', markerToAdd.video_URL)
         //Adding info window
         if(infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>` + markerToAdd.description + `</p><button type='button' class='btn btn-warning' id='delete-marker-button' onClick='deleteMarker(${markerToAdd.id})'>Delete</button>
@@ -279,6 +282,10 @@ $(() => {
     } else {
       //None owners do not see delete options
       if (markerToAdd.image === true) {
+                console.log('Marker ', markerToAdd)
+
+                console.log('URL ', markerToAdd.video_URL)
+
         if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
         } else {
@@ -286,7 +293,7 @@ $(() => {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + `</h3><img class='tool-tip-image' src='/./../images/${markerToAdd.id}.jpg'><p>` + markerToAdd.description + `</p>`});
 
         }
-      } else if (markerToAdd.video_URL) {
+      } else if (markerToAdd.video_URL !== null) {
         if (infoWindow === undefined) {
           infoWindow = new google.maps.InfoWindow({content: '<h3>'+ markerToAdd.title + '</h3><iframe width="420" height="315" src="https://www.youtube.com/embed/${markerToAdd.video_URL}"></iframe><p>' + markerToAdd.description + `</p>`});
 
@@ -657,6 +664,11 @@ $(() => {
   });
 
   //Actually initializing the plan
+  console.log('=================')
+  console.log('Markers ', markers)
+  console.log('Current Step ', currentStep)
+  console.log('StepIds ', stepIDs)
+  console.log('Step number ', currentStep.number)
   initPlan(markers, polylines, currentStep.id, mapType);
 
 
