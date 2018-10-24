@@ -369,18 +369,22 @@ $(() => {
       $(".alert").delay(3000).fadeOut("slow");
       return;
     }
-
+    console.log('New polylines ', newPolylines)
     //Converting the polylines into a format the AJAX request can take
     for(let i = 0; i < newPolylines.length; i ++){
+
       let newPolyLineLatLngArray = []
       for(let y in newPolylines[i].getPath().b){
+
         let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
         console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
       }
+      console.log('New polyline ', newPolyLineLatLngArray)
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
 
+    console.log('polyLinesToPush ', polyLinesToPush)
     //Pushing the polylines
     $.ajax({
       url: '/polylines/step/' + currentStep.id,
