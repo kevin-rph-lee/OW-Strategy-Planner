@@ -205,10 +205,11 @@ $(() => {
 
     //pushes newly drawn polyline to the newPolylines array
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
-            // console.log(polyline.getPath().b[0].lat());
-            console.log(polyline.getPath().j)
+
             newPolylines.push(polyline)
             // Used for troubleshooting:
+            // console.log(polyline.getPath().j)
+
             // console.log(polyline.getPath().b)
             // let arr = polyline.getPath().b
             // for(let i in arr){
@@ -370,7 +371,7 @@ $(() => {
       $(".alert").delay(3000).fadeOut("slow");
       return;
     }
-    console.log('New polylines ', newPolylines)
+
     //Converting the polylines into a format the AJAX request can take
     for(let i = 0; i < newPolylines.length; i ++){
 
@@ -379,20 +380,20 @@ $(() => {
 
         let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().j[y].lat()), lng: Number(newPolylines[i].getPath().j[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
-        console.log('Point: ' + newPolylines[i].getPath().j[y].lat() + ' ' + newPolylines[i].getPath().j[y].lng());
+
       }
-      console.log('New polyline ', newPolyLineLatLngArray)
+
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
 
-    console.log('polyLinesToPush ', polyLinesToPush)
+
     //Pushing the polylines
     $.ajax({
       url: '/polylines/step/' + currentStep.id,
       data: {planID: planID, polylines: polyLinesToPush},
       method: 'POST'
     }).done(() => {
-      console.log('Reload?')
+
       location.reload();
 
     }).catch((err) => {
@@ -406,7 +407,7 @@ $(() => {
 
   //Clears the polylines from the plan and wipes the array
   $('#clear-button').click(function(){
-    console.log('click clear')
+
     //Clearing the modal of it's current contents
     for(let i = 0; i < newPolylines.length; i ++){
       newPolylines[i].setMap(null);
@@ -443,8 +444,7 @@ $(() => {
    * Clears all polylines and markers currently active on the plan
    */
   clearMarkersAndPolylines = () =>{
-    console.log('Markers Array1: ', markersArray)
-    console.log('Polylines Array1: ', polylinesArray)
+
     //Removing Markers
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
