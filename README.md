@@ -1,8 +1,14 @@
-# The Noodle Box
+# Overwatch Strategy Planner
 
 
 <p align="center">
-<img src="https://i.imgur.com/vjrau8W.jpg" width="75%" height="75%" align="middle" />
+<img src="https://i.imgur.com/HKVrNMb.jpg" width="75%" height="75%" align="middle" />
+</p>
+
+Inspired by coaching boards that sports team coaches use to demonstrate game strategies to their team, this web app built using node/express helps players share and create strategies for the team-based multiplayer game <a href="https://playoverwatch.com/en-us/">Overwatch</a>.
+
+<p align="center">
+<img src="https://i.imgur.com/4RP9YWB.jpg" width="75%" height="75%" align="middle" />
 </p>
 
 
@@ -18,25 +24,13 @@ npm run knex migrate:latest
 npm run knex seed:run
 ```
 
-Finally, start the websocket server within the wss folder with npm start, and in a *seperate* terminal window run npm start within the application root folder.
-
-## Background
-
-
-
-
 ## Features
 
-### Multi-ste plans
+### Multi-step plans
 
-Plans contain 
+Plans contain multiple steps that can a user can flip through. Each step contains a small description that can be added along with it's own polylines and markers.
 
 <img src="https://i.imgur.com/VXbRu6t.gif" width="40%" height="40%" align="middle" />
-
-
-After submitting your order, your order information is presented to you including cost, order status, and estimated order finish time.
-
-<img src="https://imgur.com/DREwCWm.jpg" width="40%" height="40%" align="middle" />
 
 ### Kitchen Tracking
 
