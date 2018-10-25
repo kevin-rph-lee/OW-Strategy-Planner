@@ -206,6 +206,7 @@ $(() => {
     //pushes newly drawn polyline to the newPolylines array
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
             // console.log(polyline.getPath().b[0].lat());
+            console.log(polyline.getPath().j)
             newPolylines.push(polyline)
             // Used for troubleshooting:
             // console.log(polyline.getPath().b)
@@ -374,11 +375,11 @@ $(() => {
     for(let i = 0; i < newPolylines.length; i ++){
 
       let newPolyLineLatLngArray = []
-      for(let y in newPolylines[i].getPath().b){
+      for(let y in newPolylines[i].getPath().j){
 
-        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
+        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().j[y].lat()), lng: Number(newPolylines[i].getPath().j[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
-        console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
+        console.log('Point: ' + newPolylines[i].getPath().j[y].lat() + ' ' + newPolylines[i].getPath().j[y].lng());
       }
       console.log('New polyline ', newPolyLineLatLngArray)
       polyLinesToPush.push(newPolyLineLatLngArray);
