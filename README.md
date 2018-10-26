@@ -14,7 +14,7 @@ Inspired by coaching boards that sports team coaches use to demonstrate game str
 
 ## Getting Started
 
-Create env file based off of .env.example for postgresql DB configuration.
+Clone the repo, create env file based off of .env.example for postgresql DB configuration.
 
 Install dependencies within the server, run knex migration, and seed DB
 
@@ -26,41 +26,38 @@ npm run knex seed:run
 
 ## Features
 
+### Create and share different game plans
+
+Create and share different plans to users. 
+
+Each plan tracks:
+* Owner
+* Created/Update date/times
+* View Count
+
+<img src="https://i.imgur.com/ZwUmsOA.gifv" width="75%" height="75%" align="middle" />
+
+### Adding Markers with Image and youtube video embedding
+
+Markers can be added to the map to convey information like player placement, danger zones, and other game related elements. Each marker is held as a Google Maps geotag marker. 
+
+Each geotag marker contains additional information provided by the plan creator within a Google Maps Infowindow.
+
+The plan creator can also upload images which will appear within the info window.
+
+<img src="https://i.imgur.com/vjrau8W.jpg" width="75%" height="75%" align="middle" />
+
+Along with images, a user creating a plan can also embed a youtube video within the info window.
+
+<img src="https://i.imgur.com/jxH9bkA.gifv" width="75%" height="75%" align="middle" />
+
+
 ### Multi-step plans
 
 Plans contain multiple steps that can a user can flip through. Each step contains a small description that can be added along with it's own polylines and markers.
 
 <img src="https://i.imgur.com/VXbRu6t.gif" width="40%" height="40%" align="middle" />
 
-### Kitchen Tracking
-
-Kitchen staff will have new orders directly pushed to their screen real-time using the websocket server. They can track orders from here and mark orders as complete.
-
-When an order is marked complete by the kitchen staff, the customer is notified via their order information screen.
-
-### Showing estimated time until order if finished
-
-Both customers and kitchen staff see how long left until their order is ready (or expected to be ready). As the time gets closer to the expected finish time, it changes colour to yellow, and finally red if the order is late (it is expected by the kitchen staff that no orders go red). Once an order is marked finished by kitchen staff, the colour coding turns green.
-
-<img src="https://i.imgur.com/zs07F2e.jpg" width="40%" height="40%" align="middle" />
-
-<img src="https://i.imgur.com/5R1TOQf.jpg" width="40%" height="40%" align="middle" />
-
-<img src="https://i.imgur.com/u7yy6vQ.jpg" width="40%" height="40%" align="middle" />
-
-
-
-### Menu Managment
-
-The system has the ability to edit/add menu items if logged in as the owner. The restaurant owner has the ability to mark items "sold out" which is updated real-time on the restaurant menu for customers.
-
-<img src="https://i.imgur.com/0tgCGKD.jpg" width="40%" height="40%" align="middle" />
-
-### Business Intelligence
-
-Revenue and sales tracking broken down by menu item type (Mains, Sides, Drink)
-
-<img src="https://imgur.com/hvvh6aZ.jpg" width="40%" height="40%" align="middle" />
 
 ## Contributors
 
