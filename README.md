@@ -43,6 +43,9 @@ Markers can be added to the map to convey information like player placement, dan
 
 Each geotag marker contains additional information provided by the plan creator within a Google Maps Infowindow.
 
+<img src="https://i.imgur.com/OORqr03.jpg" width="75%" height="75%" align="middle" />
+
+
 The plan creator can also upload images which will appear within the info window.
 
 <img src="https://i.imgur.com/vjrau8W.jpg" width="75%" height="75%" align="middle" />
@@ -56,8 +59,13 @@ Along with images, a user creating a plan can also embed a youtube video within 
 
 Plans contain multiple steps that can a user can flip through. Each step contains a small description that can be added along with it's own polylines and markers.
 
-<img src="https://i.imgur.com/x5YZYwi.gif" width="40%" height="40%" align="middle" />
+<img src="https://i.imgur.com/x5YZYwi.gif" width="75%" height="75%" align="middle" />
 
+### Drawing
+
+The owner of a plan can draw on the map using Google Maps drawing manager and save their drawings for other users to see. 
+
+<img src="https://imgur.com/UFLo8VQ.gif" width="75%" height="75%" align="middle" />
 
 ## Contributors
 
