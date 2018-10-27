@@ -48,7 +48,7 @@ Each geotag marker contains additional information provided by the plan creator 
 
 The plan creator can also upload images which will appear within the info window.
 
-<img src="https://i.imgur.com/vjrau8W.jpg" width="75%" height="75%" align="middle" />
+<img src="https://imgur.com/HxwWquM.jpg" width="75%" height="75%" align="middle" />
 
 Along with images, a user creating a plan can also embed a youtube video within the info window.
 
