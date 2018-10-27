@@ -28,14 +28,14 @@ npm run knex seed:run
 
 ### Create and share different game plans
 
-Create and share different plans to users. 
+Create and share different plans to users. Users can view plans while the owner can also delete the plans that they own. 
 
 Each plan tracks:
 * Owner
 * Created/Update date/times
 * View Count
 
-<img src="https://i.imgur.com/ZwUmsOA.gif" width="75%" height="75%" align="middle" />
+<img src="https://imgur.com/hrCwjJ3.jpg" width="75%" height="75%" align="middle" />
 
 ### Adding Markers with Image and youtube video embedding
 
@@ -70,3 +70,4 @@ The owner of a plan can draw on the map using Google Maps drawing manager and sa
 ## Contributors
 
 * <a href="https://github.com/kevin-rph-lee">Kevin Lee</a>
+* <a href="https://statbanana.com/images">Map images from Statbanana</a>
