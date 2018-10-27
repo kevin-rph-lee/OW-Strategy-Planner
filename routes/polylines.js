@@ -61,7 +61,7 @@ module.exports = (knex, moment) => {
 
   //Adding polylines to a step
   router.post("/step/:id", (req, res) => {
-
+    console.log(req.body)
     knex
       .select('owner_id')
       .from('plans')

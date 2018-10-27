@@ -51,9 +51,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id + 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i + 1].id))
           currentStep.number++
-          currentStep.id = Number(stepIDs[i].id + 1);
+          currentStep.id = Number(stepIDs[i + 1].id);
           return;
         }
 
@@ -77,9 +77,9 @@ $(() => {
 
           clearMarkersAndPolylines();
 
-          addMarkersLinesAndDescriptions(Number(stepIDs[i].id - 1))
+          addMarkersLinesAndDescriptions(Number(stepIDs[i - 1].id))
           currentStep.number--
-          currentStep.id = Number(stepIDs[i].id - 1);
+          currentStep.id = Number(stepIDs[i - 1].id );
 
           return;
         }
@@ -205,9 +205,11 @@ $(() => {
 
     //pushes newly drawn polyline to the newPolylines array
     google.maps.event.addDomListener(drawingManager, 'polylinecomplete', function (polyline) {
-            // console.log(polyline.getPath().b[0].lat());
+
             newPolylines.push(polyline)
             // Used for troubleshooting:
+            // console.log(polyline.getPath().j)
+
             // console.log(polyline.getPath().b)
             // let arr = polyline.getPath().b
             // for(let i in arr){
@@ -372,14 +374,18 @@ $(() => {
 
     //Converting the polylines into a format the AJAX request can take
     for(let i = 0; i < newPolylines.length; i ++){
+
       let newPolyLineLatLngArray = []
-      for(let y in newPolylines[i].getPath().b){
-        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().b[y].lat()), lng: Number(newPolylines[i].getPath().b[y].lng())}
+      for(let y in newPolylines[i].getPath().j){
+
+        let newPolyLineLatLng = {lat: Number(newPolylines[i].getPath().j[y].lat()), lng: Number(newPolylines[i].getPath().j[y].lng())}
         newPolyLineLatLngArray.push(newPolyLineLatLng)
-        console.log('Point: ' + newPolylines[i].getPath().b[y].lat() + ' ' + newPolylines[i].getPath().b[y].lng());
+
       }
+
       polyLinesToPush.push(newPolyLineLatLngArray);
     }
+
 
     //Pushing the polylines
     $.ajax({
@@ -387,7 +393,7 @@ $(() => {
       data: {planID: planID, polylines: polyLinesToPush},
       method: 'POST'
     }).done(() => {
-      console.log('Reload?')
+
       location.reload();
 
     }).catch((err) => {
@@ -401,7 +407,7 @@ $(() => {
 
   //Clears the polylines from the plan and wipes the array
   $('#clear-button').click(function(){
-    console.log('click clear')
+
     //Clearing the modal of it's current contents
     for(let i = 0; i < newPolylines.length; i ++){
       newPolylines[i].setMap(null);
@@ -438,8 +444,7 @@ $(() => {
    * Clears all polylines and markers currently active on the plan
    */
   clearMarkersAndPolylines = () =>{
-    console.log('Markers Array1: ', markersArray)
-    console.log('Polylines Array1: ', polylinesArray)
+
     //Removing Markers
     for (let i = 0; i < markersArray.length; i ++) {
       // markersArray[i].removeListener();
