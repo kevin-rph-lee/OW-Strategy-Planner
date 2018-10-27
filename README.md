@@ -56,7 +56,7 @@ Along with images, a user creating a plan can also embed a youtube video within 
 
 Plans contain multiple steps that can a user can flip through. Each step contains a small description that can be added along with it's own polylines and markers.
 
-<img src="https://i.imgur.com/VXbRu6t.gif" width="40%" height="40%" align="middle" />
+<img src="https://i.imgur.com/x5YZYwi.gif" width="40%" height="40%" align="middle" />
 
 
 ## Contributors
