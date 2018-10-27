@@ -49,7 +49,7 @@ The plan creator can also upload images which will appear within the info window
 
 Along with images, a user creating a plan can also embed a youtube video within the info window.
 
-<img src="https://i.imgur.com/jxH9bkA.gif" width="75%" height="75%" align="middle" />
+<img src="https://i.imgur.com/9PiQFX2.gif" width="75%" height="75%" align="middle" />
 
 
 ### Multi-step plans
