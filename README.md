@@ -14,7 +14,7 @@ Inspired by coaching boards that sports team coaches use to demonstrate game str
 
 ## Getting Started
 
-To view heroku hosted version <a href="https://owplanner.herokuapp.com/">**Click Here**/a>
+To view heroku hosted version <a href="https://owplanner.herokuapp.com/">**Click Here** /a>
 
 To run locally, clone the repo and create env file based off of .env.example for postgresql DB configuration.
 
